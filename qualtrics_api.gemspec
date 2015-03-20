@@ -5,7 +5,7 @@ require 'qualtrics_api/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "Qualtrics API"
-  spec.version       = QualtricsApi::VERSION
+  spec.version       = QualtricsAPI::VERSION
   spec.authors       = ["Yurui Zhang"]
   spec.email         = ["yuruiology@gmail.com"]
   spec.summary       = %q{A Ruby wrapper for Qualtrics REST API v3.0}

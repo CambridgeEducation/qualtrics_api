@@ -1,3 +1,3 @@
-module QualtricsApi
+module QualtricsAPI
   VERSION = "0.0.1"
 end
