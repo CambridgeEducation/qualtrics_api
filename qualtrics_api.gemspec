@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'qualtrics_api/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "Qualtrics API"
+  spec.name          = "qualtrics_api"
   spec.version       = QualtricsAPI::VERSION
   spec.authors       = ["Yurui Zhang"]
   spec.email         = ["yuruiology@gmail.com"]
