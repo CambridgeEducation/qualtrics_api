@@ -1,6 +1,6 @@
-# QualtricsApi
+# QualtricsAPI
 
-TODO: Write a gem description
+Ruby wrapper for Qualtrics REST ControlPanel API version 3.0.
 
 ## Installation
 

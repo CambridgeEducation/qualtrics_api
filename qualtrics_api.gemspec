@@ -4,12 +4,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'qualtrics_api/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "qualtrics_api"
+  spec.name          = "Qualtrics API"
   spec.version       = QualtricsApi::VERSION
   spec.authors       = ["Yurui Zhang"]
-  spec.email         = ["eraclaymore@hotmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.email         = ["yuruiology@gmail.com"]
+  spec.summary       = %q{A Ruby wrapper for Qualtrics REST API v3.0}
+  spec.description   = %q{A Ruby wrapper for Qualtrics REST API version 3.0.
+                          See https://co1.qualtrics.com/APIDocs/ for API documents.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
