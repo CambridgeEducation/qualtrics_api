@@ -8,6 +8,10 @@ module QualtricsAPI
         raise NotFoundError, "Not Found"
       when 400
         raise BadRequestError, error_message(JSON.parse(env[:body]))
+      when 401
+        raise UnauthorizedError, error_message(JSON.parse(env[:body]))
+      when 500
+        raise InternalServerError, error_message(JSON.parse(env[:body]))
       end
     end
 
@@ -27,5 +31,7 @@ module QualtricsAPI
 
   class NotFoundError < StandardError; end
   class BadRequestError < StandardError; end
+  class UnauthorizedError < StandardError; end
+  class InternalServerError < StandardError; end
 
 end
