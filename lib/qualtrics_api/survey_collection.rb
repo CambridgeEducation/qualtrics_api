@@ -33,6 +33,13 @@ module QualtricsAPI
       @scope_id = new_attributes[:scope_id] if new_attributes.has_key? :scope_id
     end
 
+    def [](survey_id); find(survey_id); end
+    def find(survey_id)
+      @all.select do |survey|
+        survey.id == survey_id
+      end.first || QualtricsAPI::Survey.new({"id" => survey_id }, connection: @conn)
+    end
+
     private
 
     def attributes_mapping

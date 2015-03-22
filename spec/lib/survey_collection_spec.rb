@@ -29,6 +29,24 @@ describe QualtricsAPI::SurveyCollection do
     end
   end
 
+  describe "#find, #[]" do
+    let(:survey_1) { QualtricsAPI::Survey.new "id" => "s1" }
+    let(:survey_2) { QualtricsAPI::Survey.new "id" => "s2" }
+
+    it "finds the survey by id" do
+      subject.instance_variable_set :@all, [survey_1, survey_2]
+      expect(subject.find("s1")).to eq survey_1
+      expect(subject["s2"]).to eq survey_2
+    end
+
+    it "returns a new survey with the id" do
+      sut = subject["s3"]
+      expect(sut).to be_a QualtricsAPI::Survey
+      expect(sut.id).to eq "s3"
+      expect(sut.instance_variable_get(:@conn)).to eq connection
+    end
+  end
+
   describe "integration" do
     let(:client) { QualtricsAPI.new TEST_API_TOKEN }
 
