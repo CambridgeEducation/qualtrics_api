@@ -18,10 +18,10 @@ describe QualtricsAPI::SurveyCollection do
     expect(subject.instance_variable_get(:@conn)).to eq connection
   end
 
-  describe "#attributes" do
+  describe "#query_attributes" do
     it "returns only scope_id" do
-      expect(subject.attributes.size).to eq 1
-      expect(subject.attributes[:scope_id]).to eq "fake_scopeId"
+      expect(subject.query_attributes.size).to eq 1
+      expect(subject.query_attributes[:scope_id]).to eq "fake_scopeId"
     end
   end
 
