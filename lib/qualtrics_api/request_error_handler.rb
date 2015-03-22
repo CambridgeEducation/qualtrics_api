@@ -14,7 +14,7 @@ module QualtricsAPI
     def error_message(response)
       meta = response["meta"]
       [ "[",
-        meta[status], " - ",
+        meta["status"], " - ",
         meta["qualtricsErrorCode"],
         "] ",
         meta["errorMessage"]
