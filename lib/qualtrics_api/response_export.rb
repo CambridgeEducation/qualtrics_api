@@ -1,6 +1,6 @@
 module QualtricsAPI
-  class ResponseExport
 
+  class ResponseExport
     attr_reader :survey_id,
                 :response_set_id,
                 :file_type,
@@ -36,7 +36,7 @@ module QualtricsAPI
     end
 
     def start
-      @conn.get("surveys/#{@survey_id}/responseExports", export_params)
+      parse_export_response(@conn.get("surveys/#{@survey_id}/responseExports", export_params))
       self
     end
 
@@ -59,6 +59,11 @@ module QualtricsAPI
     end
 
     private
+
+    def parse_export_response(response)
+      status_url = response.body["result"]["exportStatus"]
+
+    end
 
     def param_mappings
       {

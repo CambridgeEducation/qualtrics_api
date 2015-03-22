@@ -21,7 +21,7 @@ module QualtricsAPI
       meta = response["meta"]
       [ "[",
         meta["status"], " - ",
-        meta["qualtricsErrorCode"],
+        meta["qualtricsErrorCode"] || meta["internalErrorCode"],
         "] ",
         meta["errorMessage"]
       ].join
