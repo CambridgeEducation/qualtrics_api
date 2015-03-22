@@ -26,7 +26,7 @@ describe QualtricsAPI::ResponseExport do
     subject { described_class.new params.merge(connection: connection)}
 
     before do
-      allow_any_instance_of(described_class).to receive(:start_export)
+      allow_any_instance_of(described_class).to receive(:start)
     end
 
     it "assigns passed options" do

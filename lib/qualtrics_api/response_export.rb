@@ -32,11 +32,12 @@ module QualtricsAPI
       @seen_unanswered_recode = options[:seen_unanswered_recode]
       @use_local_time = options.has_key?(:use_local_time) ? options[:use_local_time] : false
       @spss_string_length = options[:spss_string_length]
-      start_export
+      start
     end
 
-    def start_export
+    def start
       @conn.get("surveys/#{@survey_id}/responseExports", export_params)
+      self
     end
 
     def export_configurations

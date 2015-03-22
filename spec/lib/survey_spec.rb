@@ -12,7 +12,7 @@ describe QualtricsAPI::Survey do
     }
   end
 
-  let(:connection) { double('connection') }
+  let(:connection) { double('connection', {get: {}}) }
 
   subject { described_class.new qualtrics_response.merge(connection: connection)}
 
@@ -40,4 +40,21 @@ describe QualtricsAPI::Survey do
     expect(subject.instance_variable_get(:@conn)).to eq connection
   end
 
+  describe "export_responses" do
+    let(:options) do
+      {
+        start_date: "01/01/2015 10:11:22"
+      }
+    end
+
+    it "inits a ResponseExport with options" do
+      expect(QualtricsAPI::ResponseExport).to receive(:new).with({
+        start_date: options[:start_date],
+        survey_id: subject.id,
+        connection: subject.instance_variable_get(:@conn)
+      })
+
+      subject.export_responses(options)
+    end
+  end
 end
