@@ -11,4 +11,5 @@ describe QualtricsAPI::Client do
   it "does not allow changing the token once initialized" do
     expect(subject).to_not respond_to(:api_token=)
   end
+
 end
