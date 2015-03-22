@@ -12,7 +12,9 @@ describe QualtricsAPI::Survey do
     }
   end
 
-  subject { described_class.new qualtrics_response }
+  let(:connection) { double('connection') }
+
+  subject { described_class.new qualtrics_response, connection: connection }
 
   it "has an id" do
     expect(subject.id).to eq qualtrics_response["id"]
@@ -32,6 +34,10 @@ describe QualtricsAPI::Survey do
 
   it "has status" do
     expect(subject.status).to eq qualtrics_response["status"]
+  end
+
+  it "has a connection" do
+    expect(subject.instance_variable_get(:@conn)).to eq connection
   end
 
 end
