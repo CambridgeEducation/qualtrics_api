@@ -3,6 +3,9 @@ require "faraday_middleware"
 
 require "qualtrics_api/version"
 require "qualtrics_api/url"
+
+require "qualtrics_api/request_error_handler"
+
 require "qualtrics_api/client"
 require "qualtrics_api/survey_collection"
 

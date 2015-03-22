@@ -12,6 +12,9 @@ module QualtricsAPI
                             params: { apiToken: @api_token }) do |faraday|
         faraday.request :json
         faraday.response :json, :content_type => /\bjson$/
+
+        faraday.use QualtricsAPI::RequestErrorHandler
+
         faraday.adapter Faraday.default_adapter
       end
     end
