@@ -24,4 +24,5 @@ describe QualtricsAPI::SurveyCollection do
       expect(subject.attributes[:scope_id]).to eq "fake_scopeId"
     end
   end
+
 end

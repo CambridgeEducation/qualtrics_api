@@ -26,10 +26,6 @@ module QualtricsAPI
       }
     end
 
-    def path
-      '/surveys'
-    end
-
     def query_params(options)
       params = attributes.merge(options)
       params.map do |k, v|
