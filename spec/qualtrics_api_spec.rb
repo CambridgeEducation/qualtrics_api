@@ -11,5 +11,4 @@ describe QualtricsAPI do
       expect(subject.api_token).to eq "someToken"
     end
   end
-
 end
