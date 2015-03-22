@@ -4,7 +4,7 @@ module QualtricsAPI
 
     def on_complete(env)
       case env[:status]
-      when /404|400|500/
+      when 404
         raise StandardError, error_message(env.body)
       end
     end
