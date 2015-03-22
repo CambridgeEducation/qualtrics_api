@@ -37,7 +37,7 @@ module QualtricsAPI
     def find(survey_id)
       @all.select do |survey|
         survey.id == survey_id
-      end.first || QualtricsAPI::Survey.new({"id" => survey_id }, connection: @conn)
+      end.first || QualtricsAPI::Survey.new("id" => survey_id , connection: @conn)
     end
 
     private
@@ -56,7 +56,7 @@ module QualtricsAPI
 
     def parse_fetch_response(response)
       @all = response.body["result"].map do |result|
-        QualtricsAPI::Survey.new result, connection: @conn
+        QualtricsAPI::Survey.new result.merge(connection: @conn)
       end
     end
   end

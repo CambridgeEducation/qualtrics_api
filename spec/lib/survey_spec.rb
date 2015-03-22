@@ -14,7 +14,7 @@ describe QualtricsAPI::Survey do
 
   let(:connection) { double('connection') }
 
-  subject { described_class.new qualtrics_response, connection: connection }
+  subject { described_class.new qualtrics_response.merge(connection: connection)}
 
   it "has an id" do
     expect(subject.id).to eq qualtrics_response["id"]
