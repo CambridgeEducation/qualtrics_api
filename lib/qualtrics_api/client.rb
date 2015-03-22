@@ -8,7 +8,7 @@ module QualtricsAPI
     end
 
     def surveys(options = {})
-      QualtricsAPI::SurveyCollection.new options.merge({ connection: connection })
+      @surveys ||= QualtricsAPI::SurveyCollection.new options.merge({ connection: connection })
     end
 
     def connection
