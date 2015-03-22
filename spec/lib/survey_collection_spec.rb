@@ -52,6 +52,10 @@ describe QualtricsAPI::SurveyCollection do
           expect(subject.first).to be_a QualtricsAPI::Survey
         end
 
+        it "passes down the connection" do
+          expect(subject.all.first.instance_variable_get(:@conn)).to eq client.connection
+        end
+
         it "returns itself" do
           expect(result).to eq subject
         end

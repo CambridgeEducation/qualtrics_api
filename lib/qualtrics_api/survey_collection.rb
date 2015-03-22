@@ -49,7 +49,7 @@ module QualtricsAPI
 
     def parse_fetch_response(response)
       @all = response.body["result"].map do |result|
-        QualtricsAPI::Survey.new result
+        QualtricsAPI::Survey.new result, connection: @conn
       end
     end
   end
