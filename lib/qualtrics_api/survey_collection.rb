@@ -33,8 +33,8 @@ module QualtricsAPI
     def query_params(options)
       params = attributes.merge(options)
       params.map do |k, v|
-        [attributes_mapping[k], v]
-      end.to_h
+        [attributes_mapping[k], v] if v.present?
+      end.compact.to_h
     end
   end
 
