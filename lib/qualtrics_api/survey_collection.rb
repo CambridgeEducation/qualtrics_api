@@ -1,7 +1,13 @@
 module QualtricsAPI
 
   class SurveyCollection
+    extend Forwardable
+    include Enumerable
+
     attr_accessor :scope_id, :surveys
+
+    def_delegator :surveys, :each
+    def_delegator :surveys, :size
 
     def initialize(options = {})
       @conn = options[:connection]
@@ -10,6 +16,7 @@ module QualtricsAPI
     end
 
     def fetch(options = {})
+      @surveys = []
       update_query_attributes options
       parse_fetch_response(@conn.get('surveys', query_params))
       self
@@ -35,7 +42,7 @@ module QualtricsAPI
 
     def query_params
       query_attributes.map do |k, v|
-        [attributes_mapping[k], v] unless v.nil? || v.empty?
+        [attributes_mapping[k], v] unless v.nil? || v.to_s.empty?
       end.compact.to_h
     end
 
