@@ -7,6 +7,10 @@ module QualtricsAPI
       @api_token = options[:api_token]
     end
 
+    def surveys(options = {})
+      QualtricsAPI::SurveyCollection.new options.merge({ connection: connection })
+    end
+
     def connection
       @conn ||= Faraday.new(url: QualtricsAPI::URL,
                             params: { apiToken: @api_token }) do |faraday|
