@@ -5,9 +5,9 @@ module QualtricsAPI
     def on_complete(env)
       case env[:status]
       when 404
-        raise StandardError, "Not Found"
+        raise NotFoundError, "Not Found"
       when 400
-        raise StandardError, error_message(response)
+        raise BadRequestError, error_message(response)
       end
     end
 
@@ -24,5 +24,8 @@ module QualtricsAPI
     end
 
   end
+
+  class NotFoundError < StandardError; end
+  class BadRequestError < StandardError; end
 
 end
