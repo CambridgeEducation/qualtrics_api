@@ -4,7 +4,8 @@ module QualtricsAPI
     extend Forwardable
     include Enumerable
 
-    attr_accessor :scope_id, :surveys
+    attr_accessor :scope_id
+    attr_reader :surveys
 
     def_delegator :surveys, :each
     def_delegator :surveys, :size
@@ -17,7 +18,7 @@ module QualtricsAPI
 
     def fetch(options = {})
       @surveys = []
-      update_query_attributes options
+      update_query_attributes(options)
       parse_fetch_response(@conn.get('surveys', query_params))
       self
     end

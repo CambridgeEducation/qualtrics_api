@@ -1,0 +1,33 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://co1.qualtrics.com/API/v1/surveys?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ&scopeId=UR_3fnAz35QCGlr725
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.9
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      server:
+      - Apache-Coyote/1.1
+      content-type:
+      - application/json
+      content-length:
+      - '223'
+      date:
+      - Sun, 22 Mar 2015 21:05:58 GMT
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"result":[{"id":"SV_djzgZ6eJXqnIUyF","name":"test_survey","ownerId":"UR_3fnAz35QCGlr725","lastModified":"2015-03-20
+        12:56:33","status":"Inactive"}],"meta":{"status":"Success","qualtricsErrorCode":null,"errorMessage":null}}'
+    http_version: 
+  recorded_at: Sun, 22 Mar 2015 21:05:58 GMT
+recorded_with: VCR 2.9.3
