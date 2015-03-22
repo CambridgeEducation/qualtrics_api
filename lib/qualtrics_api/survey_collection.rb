@@ -5,19 +5,19 @@ module QualtricsAPI
     include Enumerable
 
     attr_accessor :scope_id
-    attr_reader :surveys
+    attr_reader :all
 
-    def_delegator :surveys, :each
-    def_delegator :surveys, :size
+    def_delegator :all, :each
+    def_delegator :all, :size
 
     def initialize(options = {})
       @conn = options[:connection]
       @scope_id = options[:scope_id]
-      @surveys = []
+      @all = []
     end
 
     def fetch(options = {})
-      @surveys = []
+      @all = []
       update_query_attributes(options)
       parse_fetch_response(@conn.get('surveys', query_params))
       self
@@ -48,7 +48,7 @@ module QualtricsAPI
     end
 
     def parse_fetch_response(response)
-      @surveys = response.body["result"].map do |result|
+      @all = response.body["result"].map do |result|
         QualtricsAPI::Survey.new result
       end
     end

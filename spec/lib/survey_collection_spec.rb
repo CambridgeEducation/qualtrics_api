@@ -10,8 +10,8 @@ describe QualtricsAPI::SurveyCollection do
     expect(subject.scope_id).to eq "fake_scopeId"
   end
 
-  it "has no surveys when initialized" do
-    expect(subject.surveys).to eq []
+  it "has no @all when initialized" do
+    expect(subject.all).to eq []
   end
 
   it "can assign scope_id" do
@@ -59,12 +59,12 @@ describe QualtricsAPI::SurveyCollection do
 
       describe "when failed" do
         it "resets surveys" do
-          subject.instance_variable_set :@surveys, [QualtricsAPI::Survey.new({})]
+          subject.instance_variable_set :@all, [QualtricsAPI::Survey.new({})]
           expect {
             VCR.use_cassette("survey_collection_fetch_fail") do
               subject.fetch(scope_id: "fake") rescue nil
             end
-          }.to change { subject.surveys }.to([])
+          }.to change { subject.all }.to([])
         end
       end
 
