@@ -7,7 +7,7 @@ module QualtricsAPI
       when 404
         raise NotFoundError, "Not Found"
       when 400
-        raise BadRequestError, error_message(response)
+        raise BadRequestError, error_message(env.body)
       end
     end
 
