@@ -1,6 +1,7 @@
 # QualtricsAPI
 
 Ruby wrapper for Qualtrics REST ControlPanel API version 3.0.
+[API Documents/Play Ground](https://co1.qualtrics.com/APIDocs/)
 
 ## Installation
 
@@ -24,7 +25,7 @@ TODO: Write usage instructions here
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/qualtrics_api/fork )
+1. Fork it ( https://github.com/pallymore/qualtrics_api/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
