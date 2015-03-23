@@ -32,7 +32,7 @@ module QualtricsAPI
       @seen_unanswered_recode = options[:seen_unanswered_recode]
       @use_local_time = options.has_key?(:use_local_time) ? options[:use_local_time] : false
       @spss_string_length = options[:spss_string_length]
-      start
+      @id = options[:id]
     end
 
     def start

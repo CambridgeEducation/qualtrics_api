@@ -78,7 +78,7 @@ describe QualtricsAPI::ResponseExport do
           "useLocalTime" => true,
           "spssStringLength" => "15"
         }).and_return(double('resBody', body: {"result" => { "exportStatus" => "some/url" }}))
-        subject
+        subject.start
       end
     end
   end
@@ -88,7 +88,7 @@ describe QualtricsAPI::ResponseExport do
 
     subject do
       VCR.use_cassette("response_export_start_success") do
-        client.surveys["SV_djzgZ6eJXqnIUyF"].export_responses
+        client.surveys["SV_djzgZ6eJXqnIUyF"].export_responses.start
       end
     end
 
