@@ -47,8 +47,8 @@ describe QualtricsAPI::Survey do
       }
     end
 
-    it "inits a ResponseExport with options" do
-      expect(QualtricsAPI::ResponseExport).to receive(:new).with({
+    it "inits a ResponseExportService with options" do
+      expect(QualtricsAPI::ResponseExportService).to receive(:new).with({
         start_date: options[:start_date],
         survey_id: subject.id,
         connection: subject.instance_variable_get(:@conn)
