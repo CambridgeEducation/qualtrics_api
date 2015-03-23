@@ -11,7 +11,7 @@ module QualtricsAPI
     end
 
     def export_responses(export_options = {})
-      QualtricsAPI::ResponseExportService.new(export_options.merge(survey_id: id, connection: @conn))
+      QualtricsAPI::Services::ResponseExportService.new(export_options.merge(survey_id: id, connection: @conn))
     end
 
     private

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe QualtricsAPI::ResponseExportService do
+describe QualtricsAPI::Services::ResponseExportService do
 
   describe "initialize" do
     let(:params) do
