@@ -12,6 +12,20 @@ describe QualtricsAPI::Client do
     expect(subject).to_not respond_to(:api_token=)
   end
 
+  describe "#response_exports" do
+    it "returns a ResponseExportCollection" do
+      expect(subject.response_exports).to be_a QualtricsAPI::ResponseExportCollection
+    end
+
+    it "sets connection" do
+      expect(subject.surveys.instance_variable_get(:@conn)).to eq subject.connection
+    end
+
+    it "caches the collection" do
+      expect(subject.response_exports.object_id).to eq subject.response_exports.object_id
+    end
+  end
+
   describe "#surveys" do
     it "returns a SurveyCollection" do
       expect(subject.surveys).to be_a QualtricsAPI::SurveyCollection

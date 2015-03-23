@@ -1,5 +1,4 @@
 module QualtricsAPI
-
   class ResponseExportCollection
     extend Forwardable
     include Enumerable
@@ -22,5 +21,4 @@ module QualtricsAPI
     end
 
   end
-
 end

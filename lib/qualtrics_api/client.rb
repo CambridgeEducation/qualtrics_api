@@ -11,6 +11,10 @@ module QualtricsAPI
       @surveys ||= QualtricsAPI::SurveyCollection.new options.merge({ connection: connection })
     end
 
+    def response_exports(options = {})
+      @response_exports ||= QualtricsAPI::ResponseExportCollection.new options.merge({ connection: connection })
+    end
+
     def connection
       @conn ||= Faraday.new(url: QualtricsAPI::URL,
                             params: { apiToken: @api_token }) do |faraday|
