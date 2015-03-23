@@ -63,31 +63,73 @@ survey = client.surveys["surveyIdHere"]
 Once you have a `survey` object (`QualtricsAPI::Survey`], you can start
 an export like so:
 
-```ruby
-export = survey.export_responses({ })
-# => #<QualtricsAPI::ResponseExport:0x007fcb742e4e50 ....>
-```
-
-You can pass any supported options in ruby style! eg:
+(You can pass any supported options in ruby style!)
 
 ```ruby
-export = survey.export_responses({ start_date: "2015-03-03 11:11:10" })
-# => #<QualtricsAPI::ResponseExport:0x007fcb742e4e50 ....>
+export_service = survey.export_responses({ start_date: "2015-03-03 11:11:10" })
+# => #<QualtricsAPI::Services::ResponseExportService:0x007fcb742e4e50 ....>
 ```
 
-See Qualtrics API doc for a full list of options
+or you can configure it laster...
+
+```ruby
+export_service = survey.export_responses
+# => #<QualtricsAPI::Services::ResponseExport:0x007fcb742e4e50 ....>
+export_service.start_date = "2015-03-03 11:11:10"
+```
+(See Qualtrics API doc for a full list of options)
+
+Then start the export:
+
+```ruby
+export = export_service.start
+# => #<QualtricsAPI::ResponseExport:0x007fcb742e4e50 ....>
+```
 
 Then to check the progress
 
-```
+```ruby
 export.status
 # => "20.333333%"
+
+export.completed?
+# => fasle
+
+# call again to refresh
+export.status
+# => "100%"
+
+export.completed?
+# => true
 ```
 
 Once it's finished, you can get the response file URL:
-```
+```ruby
 export.file_url
 # => "https://some.amazon.s3.com/file/path?withTimeStamps=AndOtherStuff"
+```
+
+#### Checking status on a previous response export
+
+Each response export yeilds an `id`
+
+```ruby
+export = survey.export_responses({ }).start
+# => #<QualtricsAPI::ResponseExport:0x007fcb742e4e50 ....>
+
+export.id
+# => "someExportID"
+```
+
+You can save it somewhere in your app and check back later (if you know
+it's gonna take a while!)
+
+```ruby
+client = QualtricsAPI.new "YOUR QUALTRICS API TOKEN"
+export = client.response_exports["someExportID"]
+# => #<QualtricsAPI::ResponseExport:0x007fcb742e4e50 ....>
+export.status
+=> "99.99999%"
 ```
 
 ## Contributing
