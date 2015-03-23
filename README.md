@@ -21,7 +21,74 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Initialize
+
+```ruby
+client = QualtricsAPI.new "YOUR_QUALTRICS_API_KEY"
+# => #<QualtricsAPI::Client:0x007fcb74496528 @api_token="YOUR_QUALTRICS_API_KEY">
+```
+
+### Surveys
+
+To get all your surveys:
+
+```ruby
+client.surveys.fetch
+# => #<QualtricsAPI::SurveyCollection:0x007fcb72cce350 ....>
+```
+
+You can also add a scopeId:
+
+```ruby
+client.surveys.fetch(scope_id: "someOwnerIdMaybe")
+# => #<QualtricsAPI::SurveyCollection:0x007fcb72adaf21 ....>
+```
+
+After you have received results, you can search for a survey by id:
+
+```ruby
+survey = client.surveys.find("surveyIdHere")
+# => #<QualtricsAPI::Survey:0x007fcb724f9468 @id="surveyIdHere" ...>
+```
+
+or just:
+
+```ruby
+survey = client.surveys["surveyIdHere"]
+# =>  #<QualtricsAPI::Survey:0x007fcb724f9468 @id="surveyIdHere" ...>
+```
+
+#### Export Responses From a Survey
+
+Once you have a `survey` object (`QualtricsAPI::Survey`], you can start
+an export like so:
+
+```ruby
+export = survey.export_responses({ })
+# => #<QualtricsAPI::ResponseExport:0x007fcb742e4e50 ....>
+```
+
+You can pass any supported options in ruby style! eg:
+
+```ruby
+export = survey.export_responses({ start_date: "2015-03-03 11:11:10" })
+# => #<QualtricsAPI::ResponseExport:0x007fcb742e4e50 ....>
+```
+
+See Qualtrics API doc for a full list of options
+
+Then to check the progress
+
+```
+export.status
+# => "20.333333%"
+```
+
+Once it's finished, you can get the response file URL:
+```
+export.file_url
+# => "https://some.amazon.s3.com/file/path?withTimeStamps=AndOtherStuff"
+```
 
 ## Contributing
 
