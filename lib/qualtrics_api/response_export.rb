@@ -14,7 +14,9 @@ module QualtricsAPI
                 :decimal_format,
                 :seen_unanswered_recode,
                 :use_local_time,
-                :spss_string_length
+                :spss_string_length,
+                :status_url,
+                :file_url
 
     def initialize(options)
       @conn = options[:connection]
@@ -61,8 +63,9 @@ module QualtricsAPI
     private
 
     def parse_export_response(response)
-      status_url = response.body["result"]["exportStatus"]
-
+      @status_url = response.body["result"]["exportStatus"]
+      @file_url = nil
+      @export_status = :in_progress
     end
 
     def param_mappings

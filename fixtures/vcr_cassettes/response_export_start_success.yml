@@ -1,0 +1,32 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://co1.qualtrics.com/API/v1/surveys/SV_djzgZ6eJXqnIUyF/responseExports?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ&fileType=CSV&useLabels=false&decimalFormat=.&useLocalTime=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.9
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      server:
+      - Apache-Coyote/1.1
+      content-type:
+      - application/json
+      content-length:
+      - '178'
+      date:
+      - Mon, 23 Mar 2015 00:05:00 GMT
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"result":{"exportStatus":"http://co1.qualtrics.com/API/v1/surveys/responseExports/ES_cwLvnQHobKfV9t3"},"meta":{"status":"Success","qualtricsErrorCode":null,"errorMessage":null}}'
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 00:05:01 GMT
+recorded_with: VCR 2.9.3

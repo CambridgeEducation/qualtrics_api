@@ -60,4 +60,26 @@ describe QualtricsAPI::ResponseExport do
     end
   end
 
+  describe "#start" do
+    let(:client) { QualtricsAPI.new TEST_API_TOKEN }
+
+    subject do
+      VCR.use_cassette("response_export_start_success") do
+        client.surveys["SV_djzgZ6eJXqnIUyF"].export_responses
+      end
+    end
+
+    it "assigns @status_url" do
+      expect(subject.status_url).to_not be_empty
+    end
+
+    it "resets file_url" do
+      expect(subject.file_url).to be_nil
+    end
+
+    it "sets export_status" do
+      expect(subject.instance_variable_get(:@export_status)).to eq :in_progress
+    end
+
+  end
 end
