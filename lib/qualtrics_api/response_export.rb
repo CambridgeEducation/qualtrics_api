@@ -14,9 +14,7 @@ module QualtricsAPI
                 :decimal_format,
                 :seen_unanswered_recode,
                 :use_local_time,
-                :spss_string_length,
-                :status_url,
-                :file_url
+                :spss_string_length
 
     def initialize(options)
       @conn = options[:connection]
@@ -60,12 +58,39 @@ module QualtricsAPI
       }
     end
 
+    def update
+      res = @conn.get(@status_url).body["result"]
+      @export_progress = res["percentComplete"]
+      @file_url = res["fileUrl"]
+      @completed = true if @export_progress == 100.0
+      self
+    end
+
+    def status
+      update unless completed?
+      "#{@export_progress}%"
+    end
+
+    def percent_completed
+      update unless completed?
+      @export_progress
+    end
+
+    def completed?
+      @completed == true
+    end
+
+    def file_url
+      update unless completed?
+      @file_url
+    end
+
     private
 
     def parse_export_response(response)
       @status_url = response.body["result"]["exportStatus"]
       @file_url = nil
-      @export_status = :in_progress
+      @export_progress = 0
     end
 
     def param_mappings

@@ -17,6 +17,7 @@ module QualtricsAPI
         faraday.request :json
         faraday.response :json, :content_type => /\bjson$/
 
+        faraday.use FaradayMiddleware::FollowRedirects
         faraday.use QualtricsAPI::RequestErrorHandler
 
         faraday.adapter Faraday.default_adapter
