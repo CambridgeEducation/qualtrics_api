@@ -91,5 +91,4 @@ describe QualtricsAPI::ResponseExport do
       end
     end
   end
-
 end
