@@ -19,7 +19,7 @@ describe QualtricsAPI::SurveyCollection do
   end
 
   it "takes a connection" do
-    expect(subject.instance_variable_get(:@conn)).to eq connection
+    expect(subject.connection).to eq connection
   end
 
   describe "#query_attributes" do

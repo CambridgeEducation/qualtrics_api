@@ -17,7 +17,7 @@ describe QualtricsAPI::Client do
     end
 
     it "sets connection" do
-      expect(subject.surveys.instance_variable_get(:@conn)).to eq subject.connection
+      expect(subject.surveys.connection).to eq subject.connection
     end
 
     it "caches the collection" do
@@ -31,7 +31,7 @@ describe QualtricsAPI::Client do
     end
 
     it "sets connection" do
-      expect(subject.surveys.instance_variable_get(:@conn)).to eq subject.connection
+      expect(subject.surveys.connection).to eq subject.connection
     end
 
     it "assigns scope_id if passed" do

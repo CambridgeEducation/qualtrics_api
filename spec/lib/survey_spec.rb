@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe QualtricsAPI::Survey do
-
   let(:qualtrics_response) do
     {
       "id" => "SV_djzgZ6eJXqnIUyF",
@@ -12,9 +11,9 @@ describe QualtricsAPI::Survey do
     }
   end
 
-  let(:connection) { double('connection', {get: {}}) }
+  let(:connection) { double('connection', get: {}) }
 
-  subject { described_class.new qualtrics_response.merge(connection: connection)}
+  subject { described_class.new qualtrics_response.merge(connection: connection) }
 
   it "has an id" do
     expect(subject.id).to eq qualtrics_response["id"]
@@ -37,7 +36,7 @@ describe QualtricsAPI::Survey do
   end
 
   it "has a connection" do
-    expect(subject.instance_variable_get(:@conn)).to eq connection
+    expect(subject.connection).to eq connection
   end
 
   describe "export_responses" do
@@ -48,11 +47,9 @@ describe QualtricsAPI::Survey do
     end
 
     it "inits a ResponseExportService with options" do
-      expect(QualtricsAPI::Services::ResponseExportService).to receive(:new).with({
-        start_date: options[:start_date],
-        survey_id: subject.id,
-        connection: subject.instance_variable_get(:@conn)
-      })
+      expect(QualtricsAPI::Services::ResponseExportService).to receive(:new).with(start_date: options[:start_date],
+                                                                                  survey_id: subject.id,
+                                                                                  connection: subject.connection)
 
       subject.export_responses(options)
     end
