@@ -33,7 +33,7 @@ TrailingBlankLines:
   Enabled: true
 
 HashSyntax:
-  Enabled: true
+  Enabled: false
 
 LeadingCommentSpace:
   Enabled: true
