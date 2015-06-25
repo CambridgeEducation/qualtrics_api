@@ -1,0 +1,6 @@
+guard 'rspec', cmd: 'rspec --color' do
+  watch(%r{^lib/(.+)\.rb$})                   { |m| "spec/#{m[1]}_spec.rb" }
+  watch(%r{^lib/qualtrics_api/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
+
+  watch(%r|^spec/(.*)_spec\.rb|)
+end
