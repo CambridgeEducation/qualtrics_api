@@ -2,16 +2,11 @@ module QualtricsAPI
   class ResponseExport
     include Virtus.value_object
 
-    attribute :conn
+    attribute :connection
     attribute :id, String
 
-    def initialize(options = {})
-      @conn = options[:connection]
-      @id = options[:id]
-    end
-
     def update_status
-      res = @conn.get('surveys/responseExports/' + @id).body["result"]
+      res = connection.get('surveys/responseExports/' + id).body["result"]
       @export_progress = res["percentComplete"]
       @file_url = res["fileUrl"]
       @completed = true if @export_progress == 100.0

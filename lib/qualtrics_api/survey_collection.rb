@@ -1,25 +1,22 @@
 module QualtricsAPI
-
   class SurveyCollection
     extend Forwardable
     include Enumerable
+    include Virtus.value_object
 
-    attr_accessor :scope_id
-    attr_reader :all
+    attribute :connection
+    attribute :scope_id, String
+    attribute :all, Array, :default => []
+
+    attr_writer :scope_id
 
     def_delegator :all, :each
     def_delegator :all, :size
 
-    def initialize(options = {})
-      @conn = options[:connection]
-      @scope_id = options[:scope_id]
-      @all = []
-    end
-
     def fetch(options = {})
       @all = []
       update_query_attributes(options)
-      parse_fetch_response(@conn.get('surveys', query_params))
+      parse_fetch_response(connection.get('surveys', query_params))
       self
     end
 
@@ -30,14 +27,17 @@ module QualtricsAPI
     end
 
     def update_query_attributes(new_attributes = {})
-      @scope_id = new_attributes[:scope_id] if new_attributes.has_key? :scope_id
+      @scope_id = new_attributes[:scope_id] if new_attributes.key?(:scope_id)
     end
 
-    def [](survey_id); find(survey_id); end
+    def [](survey_id)
+      find(survey_id)
+    end
+    
     def find(survey_id)
       @all.select do |survey|
         survey.id == survey_id
-      end.first || QualtricsAPI::Survey.new("id" => survey_id , connection: @conn)
+      end.first || QualtricsAPI::Survey.new("id" => survey_id, connection: connection)
     end
 
     private
@@ -56,9 +56,8 @@ module QualtricsAPI
 
     def parse_fetch_response(response)
       @all = response.body["result"].map do |result|
-        QualtricsAPI::Survey.new result.merge(connection: @conn)
+        QualtricsAPI::Survey.new result.merge(connection: connection)
       end
     end
   end
-
 end
