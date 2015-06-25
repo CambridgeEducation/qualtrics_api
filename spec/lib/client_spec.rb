@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe QualtricsAPI::Client do
-
   subject { QualtricsAPI::Client.new(:api_token => "someToken") }
 
   it "has an api token" do
@@ -43,5 +42,4 @@ describe QualtricsAPI::Client do
       expect(subject.surveys.object_id).to eq subject.surveys.object_id
     end
   end
-
 end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe QualtricsAPI::ResponseExport do
-
   let(:connection) { double('connection') }
   subject { described_class.new id: "someId", connection: connection }
 

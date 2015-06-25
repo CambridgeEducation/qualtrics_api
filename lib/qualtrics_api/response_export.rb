@@ -1,8 +1,9 @@
 module QualtricsAPI
-
   class ResponseExport
+    include Virtus.value_object
 
-    attr_reader :id
+    attribute :conn
+    attribute :id, String
 
     def initialize(options = {})
       @conn = options[:connection]
@@ -36,5 +37,4 @@ module QualtricsAPI
       @file_url
     end
   end
-
 end

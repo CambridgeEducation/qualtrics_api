@@ -1,11 +1,8 @@
 module QualtricsAPI
-
   class Client
-    attr_reader :api_token
+    include Virtus.value_object
 
-    def initialize(options = {})
-      @api_token = options[:api_token]
-    end
+    attribute :api_token, String
 
     def surveys(options = {})
       @surveys ||= QualtricsAPI::SurveyCollection.new options.merge({ connection: connection })
@@ -28,5 +25,4 @@ module QualtricsAPI
       end
     end
   end
-
 end
