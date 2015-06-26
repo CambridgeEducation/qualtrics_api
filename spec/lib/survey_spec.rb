@@ -7,7 +7,8 @@ describe QualtricsAPI::Survey do
       "name" => "test_survey",
       "ownerId" => "UR_3fnAz35QCGlr725",
       "lastModified" => "2015-03-20 12:56:33",
-      "status" => "Inactive"
+      "status" => "Inactive",
+      "SurveyCreationDate" => "2015-03-20 12:56:33"
     }
   end
 
@@ -29,6 +30,10 @@ describe QualtricsAPI::Survey do
 
   it "has last_modified" do
     expect(subject.last_modified).to eq qualtrics_response["lastModified"]
+  end
+
+  it "has created_at" do
+    expect(subject.created_at).to eq qualtrics_response["SurveyCreationDate"]
   end
 
   it "has status" do
