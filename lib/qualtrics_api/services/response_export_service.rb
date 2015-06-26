@@ -1,62 +1,48 @@
 module QualtricsAPI
   module Services
     class ResponseExportService
-      attr_reader :survey_id,
-                  :response_set_id,
-                  :file_type,
-                  :last_response_id,
-                  :start_date,
-                  :end_date,
-                  :limit,
-                  :included_question_ids,
-                  :max_rows,
-                  :use_labels,
-                  :decimal_format,
-                  :seen_unanswered_recode,
-                  :use_local_time,
-                  :spss_string_length,
-                  :result
+      include Virtus.value_object
 
-      def initialize(options = {})
-        @conn = options[:connection]
-        @survey_id = options[:survey_id]
-        @response_set_id = options[:response_set_id]
-        @file_type = options[:file_type] || 'CSV'
-        @last_response_id = options[:last_response_id]
-        @start_date = options[:start_date]
-        @end_date = options[:end_date]
-        @limit = options[:limit]
-        @included_question_ids = options[:included_question_ids]
-        @max_rows = options[:max_rows]
-        @use_labels = options.has_key?(:use_labels) ? options[:use_labels] : false
-        @decimal_format = options[:decimal_format] || '.'
-        @seen_unanswered_recode = options[:seen_unanswered_recode]
-        @use_local_time = options.has_key?(:use_local_time) ? options[:use_local_time] : false
-        @spss_string_length = options[:spss_string_length]
-        @id = options[:id]
-      end
+      attribute :connection
+      attribute :survey_id, String
+      attribute :response_set_id, String
+      attribute :file_type, String, :default => 'CSV'
+      attribute :last_response_id, String
+      attribute :start_date, String
+      attribute :end_date, String
+      attribute :limit, String
+      attribute :included_question_ids, String
+      attribute :max_rows, String
+      attribute :use_labels, Boolean, :default => false
+      attribute :decimal_format, String, :default => '.'
+      attribute :seen_unanswered_recode, String
+      attribute :use_local_time, Boolean, :default => false
+      attribute :spss_string_length, String
+      attribute :id, String
+      
+      attr_reader :result
 
       def start
-        response = @conn.get("surveys/#{@survey_id}/responseExports", export_params)
+        response = connection.get("surveys/#{survey_id}/responseExports", export_params)
         export_id = response.body["result"]["exportStatus"].split('/').last
-        @result = ResponseExport.new(id: export_id, connection: @conn)
+        @result = ResponseExport.new(id: export_id, connection: connection)
       end
 
       def export_configurations
         {
-          response_set_id: @response_set_id,
-          file_type: @file_type,
-          last_response_id: @last_response_id,
-          start_date: @start_date,
-          end_date: @end_date,
-          limit: @limit,
-          included_question_ids: @included_question_ids,
-          max_rows: @max_rows,
-          use_labels: @use_labels,
-          decimal_format: @decimal_format,
-          seen_unanswered_recode: @seen_unanswered_recode,
-          use_local_time: @use_local_time,
-          spss_string_length: @spss_string_length
+          response_set_id: response_set_id,
+          file_type: file_type,
+          last_response_id: last_response_id,
+          start_date: start_date,
+          end_date: end_date,
+          limit: limit,
+          included_question_ids: included_question_ids,
+          max_rows: max_rows,
+          use_labels: use_labels,
+          decimal_format: decimal_format,
+          seen_unanswered_recode: seen_unanswered_recode,
+          use_local_time: use_local_time,
+          spss_string_length: spss_string_length
         }
       end
 

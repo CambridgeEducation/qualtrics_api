@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe QualtricsAPI::Client do
-
   subject { QualtricsAPI::Client.new(:api_token => "someToken") }
 
   it "has an api token" do
@@ -18,7 +17,7 @@ describe QualtricsAPI::Client do
     end
 
     it "sets connection" do
-      expect(subject.surveys.instance_variable_get(:@conn)).to eq subject.connection
+      expect(subject.surveys.connection).to eq subject.connection
     end
 
     it "caches the collection" do
@@ -32,7 +31,7 @@ describe QualtricsAPI::Client do
     end
 
     it "sets connection" do
-      expect(subject.surveys.instance_variable_get(:@conn)).to eq subject.connection
+      expect(subject.surveys.connection).to eq subject.connection
     end
 
     it "assigns scope_id if passed" do
@@ -43,5 +42,4 @@ describe QualtricsAPI::Client do
       expect(subject.surveys.object_id).to eq subject.surveys.object_id
     end
   end
-
 end

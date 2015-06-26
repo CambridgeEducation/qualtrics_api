@@ -1,23 +1,20 @@
 module QualtricsAPI
-
   class Client
-    attr_reader :api_token
+    include Virtus.value_object
 
-    def initialize(options = {})
-      @api_token = options[:api_token]
-    end
+    attribute :api_token, String
 
     def surveys(options = {})
-      @surveys ||= QualtricsAPI::SurveyCollection.new options.merge({ connection: connection })
+      @surveys ||= QualtricsAPI::SurveyCollection.new options.merge(connection: connection)
     end
 
     def response_exports(options = {})
-      @response_exports ||= QualtricsAPI::ResponseExportCollection.new options.merge({ connection: connection })
+      @response_exports ||= QualtricsAPI::ResponseExportCollection.new options.merge(connection: connection)
     end
 
     def connection
       @conn ||= Faraday.new(url: QualtricsAPI::URL,
-                            params: { apiToken: @api_token }) do |faraday|
+                            params: { apiToken: api_token }) do |faraday|
         faraday.request :json
         faraday.response :json, :content_type => /\bjson$/
 
@@ -28,5 +25,4 @@ module QualtricsAPI
       end
     end
   end
-
 end

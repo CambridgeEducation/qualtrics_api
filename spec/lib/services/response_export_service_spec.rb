@@ -18,14 +18,14 @@ describe QualtricsAPI::Services::ResponseExportService do
         decimal_format: ",",
         seen_unanswered_recode: "something",
         use_local_time: true,
-        spss_string_length: "15",
+        spss_string_length: "15"
       }
     end
     let(:connection) { double("connection") }
 
-    subject { described_class.new params.merge(connection: connection)}
+    subject { described_class.new params.merge(connection: connection) }
 
-    describe "assgin options" do
+    describe "assign options" do
       before do
         allow_any_instance_of(described_class).to receive(:start)
       end
@@ -37,7 +37,7 @@ describe QualtricsAPI::Services::ResponseExportService do
       end
 
       it "assigns connection" do
-        expect(subject.instance_variable_get(:@conn)).to eq connection
+        expect(subject.connection).to eq connection
       end
 
       describe "defaults" do
@@ -106,5 +106,4 @@ describe QualtricsAPI::Services::ResponseExportService do
       expect(subject.id).to eq "ES_cwLvnQHobKfV9t3"
     end
   end
-
 end
