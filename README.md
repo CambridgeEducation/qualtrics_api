@@ -1,6 +1,6 @@
 [![Gem Version](https://badge.fury.io/rb/qualtrics_api.svg)](http://badge.fury.io/rb/qualtrics_api)
 [![Dependency Status](https://gemnasium.com/pallymore/qualtrics_api.svg)](https://gemnasium.com/pallymore/qualtrics_api)
-[![Build Status](https://travis-ci.org/pallymore/qualtrics_api.svg)](https://travis-ci.org/pallymore/qualtrics_api)
+[![Build Status](https://travis-ci.org/CambridgeEducation/qualtrics_api.svg)](https://travis-ci.org/CambridgeEducation/qualtrics_api)
 
 # QualtricsAPI
 
