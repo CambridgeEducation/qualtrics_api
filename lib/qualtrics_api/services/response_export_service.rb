@@ -35,14 +35,14 @@ module QualtricsAPI
           last_response_id: last_response_id,
           start_date: start_date,
           end_date: end_date,
-          limit: @limit,
-          included_question_ids: @included_question_ids,
-          max_rows: @max_rows,
-          use_labels: @use_labels,
-          decimal_format: @decimal_format,
-          seen_unanswered_recode: @seen_unanswered_recode,
-          use_local_time: @use_local_time,
-          spss_string_length: @spss_string_length
+          limit: limit,
+          included_question_ids: included_question_ids,
+          max_rows: max_rows,
+          use_labels: use_labels,
+          decimal_format: decimal_format,
+          seen_unanswered_recode: seen_unanswered_recode,
+          use_local_time: use_local_time,
+          spss_string_length: spss_string_length
         }
       end
 

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe QualtricsAPI::SurveyCollection do
-
   let(:connection) { double('connection') }
 
   subject { described_class.new connection: connection, scope_id: "fake_scopeId" }
@@ -43,7 +42,7 @@ describe QualtricsAPI::SurveyCollection do
       sut = subject["s3"]
       expect(sut).to be_a QualtricsAPI::Survey
       expect(sut.id).to eq "s3"
-      expect(sut.instance_variable_get(:@conn)).to eq connection
+      expect(sut.connection).to eq connection
     end
   end
 
@@ -71,7 +70,7 @@ describe QualtricsAPI::SurveyCollection do
         end
 
         it "passes down the connection" do
-          expect(subject.all.first.instance_variable_get(:@conn)).to eq client.connection
+          expect(subject.all.first.connection).to eq client.connection
         end
 
         it "returns itself" do
@@ -100,7 +99,5 @@ describe QualtricsAPI::SurveyCollection do
         end
       end
     end
-
   end
-
 end
