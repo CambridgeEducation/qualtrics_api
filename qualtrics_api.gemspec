@@ -7,12 +7,12 @@ require 'qualtrics_api/version'
 Gem::Specification.new do |spec|
   spec.name          = "qualtrics_api"
   spec.version       = QualtricsAPI::VERSION
-  spec.authors       = ["Yurui Zhang"]
-  spec.email         = ["yuruiology@gmail.com"]
+  spec.authors       = ["Yurui Zhang", "Marcin Naglik", "Mateusz Urbański"]
+  spec.email         = ["yuruiology@gmail.com", "marcin.naglik@razorbear.com", "mateuszurbanski@yahoo.pl"]
   spec.summary       = %q{A Ruby wrapper for Qualtrics REST API v3.0}
   spec.description   = %q{A Ruby wrapper for Qualtrics REST API version 3.0.
                           See https://co1.qualtrics.com/APIDocs/ for API documents.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/CambridgeEducation/qualtrics_api"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -24,11 +24,11 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "faraday", "~> 0.9.1"
   spec.add_dependency "faraday_middleware", "~> 0.9.1"
-  spec.add_dependency "virtus", "~> 1.0.5"
+  spec.add_dependency "virtus", "~> 1.0"
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.2.0"
-  spec.add_development_dependency "vcr", "~> 2.9.3"
-  spec.add_development_dependency "guard-rspec", "~> 4.5.2"
+  spec.add_development_dependency "rspec", "~> 3.2"
+  spec.add_development_dependency "vcr", "~> 2.9"
+  spec.add_development_dependency "guard-rspec", "~> 4.5"
 end
