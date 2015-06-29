@@ -1,5 +1,4 @@
 module QualtricsAPI
-
   class Panel
     include Virtus.value_object
 
@@ -16,14 +15,17 @@ module QualtricsAPI
       super
     end
 
+    def members(options = {})
+      @members ||= QualtricsAPI::PanelMemberCollection.new(options.merge(id: id, connection: connection))
+    end
+
     private
 
     def attributes_mappings
       {
         :id => "panelId",
         :library_id => "libraryId",
-        :name => "name",
-        :category => "category"
+        :name => "name"
       }
     end
   end

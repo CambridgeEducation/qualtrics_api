@@ -26,11 +26,29 @@ describe QualtricsAPI::Panel do
     expect(subject.library_id).to eq qualtrics_response["libraryId"]
   end
 
-  it "has category" do
+  it "has a category" do
     expect(subject.category).to eq qualtrics_response["category"]
   end
 
   it "has a connection" do
-    expect(subject.connection).to eq connection
+    expect(subject.connection).to eq(connection)
+  end
+
+  describe "#members" do
+    it "returns a PanelMemberCollection" do
+      expect(subject.members).to be_a QualtricsAPI::PanelMemberCollection
+    end
+
+    it "sets connection" do
+      expect(subject.members.connection).to eq subject.connection
+    end
+
+    it "assigns panel id" do
+      expect(subject.members.id).to eq subject.id
+    end
+
+    it "caches the members" do
+      expect(subject.members.object_id).to eq subject.members.object_id
+    end
   end
 end

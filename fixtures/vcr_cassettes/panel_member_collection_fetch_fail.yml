@@ -1,0 +1,33 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://co1.qualtrics.com/API/v1/panels/ABCD/members?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.9
+  response:
+    status:
+      code: 200
+      message:
+    headers:
+      server:
+      - Apache-Coyote/1.1
+      content-type:
+      - application/json
+      content-length:
+      - '223'
+      date:
+      - Sun, 28 Jun 2015 21:05:57 GMT
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+       string: '{"meta":{"status":"Error","errorMessage":"You do not have permission
+        to access this resource.","internalErrorCode":"GS_5","errorId":"3d6a9018-3b87-4265-b662-572ad96bbe6c"},"result":null}'
+    http_version:
+  recorded_at: Sun, 28 Jun 2015 21:05:57 GMT
+recorded_with: VCR 2.9.3

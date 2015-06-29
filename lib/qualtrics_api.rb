@@ -14,6 +14,8 @@ require "qualtrics_api/response_export"
 require "qualtrics_api/response_export_collection"
 require "qualtrics_api/panel"
 require "qualtrics_api/panel_collection"
+require "qualtrics_api/panel_member"
+require "qualtrics_api/panel_member_collection"
 
 require "qualtrics_api/services/response_export_service"
 
