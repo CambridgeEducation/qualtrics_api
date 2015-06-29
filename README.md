@@ -62,6 +62,29 @@ survey = client.surveys["surveyIdHere"]
 # =>  #<QualtricsAPI::Survey:0x007fcb724f9468 @id="surveyIdHere" ...>
 ```
 
+### Panels
+
+To get all the panels:
+
+```ruby
+client.panels.fetch
+# => #<QualtricsAPI::PanelCollection:0x007f8769aae2c0 ....>
+```
+
+After you have received results, you can search for a panel by id:
+
+```ruby
+panel = client.panels.find("panelIdHere")
+# => #<QualtricsAPI::Panel:0x007f876906f278 @id="panelIdHere" ...>
+```
+
+or just:
+
+```ruby
+panel = client.panels["panelIdHere"]
+# => #<QualtricsAPI::Panel:0x007f876906f278 @id="panelIdHere" ...>
+```
+
 #### Export Responses From a Survey
 
 Once you have a `survey` object (`QualtricsAPI::Survey`], you can start
