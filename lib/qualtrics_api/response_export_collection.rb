@@ -15,9 +15,9 @@ module QualtricsAPI
     end
     
     def find(export_id)
-      @all.select do |response_export|
+      @all.detect do |response_export|
         response_export.id == export_id
-      end.first || QualtricsAPI::ResponseExport.new(:id => export_id, connection: connection)
+      end || QualtricsAPI::ResponseExport.new(:id => export_id, connection: connection)
     end
   end
 end

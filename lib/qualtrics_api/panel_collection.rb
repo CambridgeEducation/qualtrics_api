@@ -1,5 +1,4 @@
 module QualtricsAPI
-
   class PanelCollection
     extend Forwardable
     include Enumerable
@@ -11,7 +10,7 @@ module QualtricsAPI
     def_delegator :all, :each
     def_delegator :all, :size
 
-    def fetch(options = {})
+    def fetch(_options = {})
       @all = []
       parse_fetch_response(connection.get('panels'))
       self
@@ -22,9 +21,9 @@ module QualtricsAPI
     end
 
     def find(panel_id)
-      @all.select do |panel|
+      @all.detect do |panel|
         panel.id == panel_id
-      end.first || QualtricsAPI::Panel.new("panelId" => panel_id, connection: connection)
+      end || QualtricsAPI::Panel.new("panelId" => panel_id, connection: connection)
     end
 
     private

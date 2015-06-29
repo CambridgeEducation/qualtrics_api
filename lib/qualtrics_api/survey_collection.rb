@@ -35,9 +35,9 @@ module QualtricsAPI
     end
     
     def find(survey_id)
-      @all.select do |survey|
+      @all.detect do |survey|
         survey.id == survey_id
-      end.first || QualtricsAPI::Survey.new("id" => survey_id, connection: connection)
+      end || QualtricsAPI::Survey.new("id" => survey_id, connection: connection)
     end
 
     private
