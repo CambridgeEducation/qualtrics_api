@@ -85,9 +85,12 @@ describe QualtricsAPI::PanelMemberCollection do
         let(:cassette) { "panel_member_collection_create_success" }
         let(:panel_members) { [QualtricsAPI::PanelMember.new(first_name: 'Marcin', last_name: 'Naglik', email: 'test@test.com')] }
 
-        it "returns results" do
-          expect(result).not_to be_nil
-          expect(result).to be_a Faraday::Response
+        it "returns PanelImport" do
+          expect(result).to be_a QualtricsAPI::PanelImport
+        end
+      
+        it "returns id within PanelImport" do
+          expect(result.id).to eq('PGRS_bEJLYLkqMBs8Bwx')
         end
       end
 

@@ -18,7 +18,11 @@ module QualtricsAPI
     end
 
     def create(panel_members)
-      connection.post("panels/#{id}/members", connection.params.merge(panelMembers: panel_members.to_json))
+      res = connection
+            .post("panels/#{id}/members", connection.params.merge(panelMembers: panel_members.to_json))
+            .body["result"]
+      import_id = res['importStatus'].split('/').last
+      QualtricsAPI::PanelImport.new(id: import_id)
     end
 
     def [](member_id)
