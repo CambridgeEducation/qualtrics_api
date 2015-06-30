@@ -1,3 +1,4 @@
+require 'json'
 require 'virtus'
 require "faraday"
 require "faraday_middleware"

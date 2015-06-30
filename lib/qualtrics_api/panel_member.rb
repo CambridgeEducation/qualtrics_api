@@ -19,7 +19,17 @@ module QualtricsAPI
       super
     end
 
+    def to_json(_options = {})
+      serialized_attributes.to_json
+    end
+
     private
+
+    def serialized_attributes
+      Hash[attributes.map { |k, v| [attributes_mappings[k] || k, v] }].tap do |h|
+        h.delete(:connection)
+      end
+    end
 
     def attributes_mappings
       {

@@ -48,4 +48,19 @@ describe QualtricsAPI::PanelMember do
   it "has embedded data" do
     expect(subject.embeded_data).to eq(panel_member["embeddedData"])
   end
+
+  context "#to_json" do
+    let(:members) { [subject].to_json }
+    it "serialize array of panel members" do
+      expect(JSON.parse(members)).to eq(
+        [{ "panelMemberId" => "ML_abcdefg", 
+           "firstName" => "Thom",
+           "lastName" => "Yorke",
+           "email" => "thom@radiohead.com",
+           "language" => "EN",
+           "unsubscribed" => 1,
+           "externalDataReference" => "1234",
+           "embeddedData" => { "a" => "b", "b" => "c" } }])
+    end
+  end
 end
