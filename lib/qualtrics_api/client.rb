@@ -19,7 +19,7 @@ module QualtricsAPI
     def connection
       @conn ||= Faraday.new(url: QualtricsAPI::URL,
                             params: { apiToken: api_token }) do |faraday|
-        faraday.request :json
+        faraday.request :url_encoded
         faraday.response :json, :content_type => /\bjson$/
 
         faraday.use FaradayMiddleware::FollowRedirects

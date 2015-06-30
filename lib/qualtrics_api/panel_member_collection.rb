@@ -17,6 +17,10 @@ module QualtricsAPI
       self
     end
 
+    def create(panel_members)
+      connection.post("panels/#{id}/members", connection.params.merge(panelMembers: panel_members.to_json))
+    end
+
     def [](member_id)
       find(member_id)
     end
