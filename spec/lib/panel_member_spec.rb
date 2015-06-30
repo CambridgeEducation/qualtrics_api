@@ -53,14 +53,14 @@ describe QualtricsAPI::PanelMember do
     let(:members) { [subject].to_json }
     it "serialize array of panel members" do
       expect(JSON.parse(members)).to eq(
-        [{ "panelMemberId" => "ML_abcdefg", 
-           "firstName" => "Thom",
-           "lastName" => "Yorke",
-           "email" => "thom@radiohead.com",
-           "language" => "EN",
-           "unsubscribed" => 1,
-           "externalDataReference" => "1234",
-           "embeddedData" => { "a" => "b", "b" => "c" } }])
+        [{ "PanelMemberId" => "ML_abcdefg", 
+           "FirstName" => "Thom",
+           "LastName" => "Yorke",
+           "Email" => "thom@radiohead.com",
+           "Language" => "EN",
+           "Unsubscribed" => 1,
+           "ExternalDataReference" => "1234",
+           "EmbeddedData" => { "a" => "b", "b" => "c" } }])
     end
   end
 end
