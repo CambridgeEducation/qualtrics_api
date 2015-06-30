@@ -10,8 +10,6 @@ module QualtricsAPI
     attribute :created_at, String
     attribute :status, String
 
-    attr_accessor :id, :name, :owner_id, :last_modified, :status, :created_at
-
     def initialize(options = {})
       attributes_mappings.each do |key, qualtrics_key|
         instance_variable_set "@#{key}", options[qualtrics_key]
