@@ -7,6 +7,8 @@ describe QualtricsAPI::PanelMember do
       "firstName" => "Thom",
       "lastName" => "Yorke",
       "email" => "thom@radiohead.com",
+      "language" => "EN",
+      "unsubscribed" => 1,
       "externalDataReference" => "1234",
       "embeddedData" => { "a" => "b", "b" => "c" }
     }
@@ -29,6 +31,14 @@ describe QualtricsAPI::PanelMember do
 
   it "has an email" do
     expect(subject.email).to eq(panel_member["email"])
+  end
+
+  it "has language" do
+    expect(subject.language).to eq(panel_member["language"])
+  end
+
+  it "has unsubscribed flag" do
+    expect(subject.unsubscribed).to eq(panel_member["unsubscribed"])
   end
 
   it "has external data reference" do

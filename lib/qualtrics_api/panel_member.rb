@@ -7,6 +7,8 @@ module QualtricsAPI
     attribute :first_name, String
     attribute :last_name, String
     attribute :email, String
+    attribute :language, String
+    attribute :unsubscribed, Integer
     attribute :external_data_reference, String
     attribute :embeded_data, Hash
 
