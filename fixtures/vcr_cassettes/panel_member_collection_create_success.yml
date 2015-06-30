@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://co1.qualtrics.com/API/v1/panels?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.9
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      server:
+      - Apache-Coyote/1.1
+      content-type:
+      - application/json
+      date:
+      - Tue, 30 Jun 2015 11:05:46 GMT
+      content-length:
+      - '1104'
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"result":[{"libraryId":"UR_a3IUfBgXyuCHefP","panelId":"ML_bC2c5xBz1DxyOYB","name":"Test
+        Panel","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_3DWuh7BTCbBDMrz","name":"1032
+        test","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_801qFFVH8bOdbdH","name":"Master2015","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_8CTTM1NuWINZUO1","name":"29.X-2","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_8FZn6SlO02EfpwV","name":"29.X","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_aYrBXdYJZ5SnYqx","name":"ML_b3GT2LOMImo2Rnf","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_bJj6bKQErauewzH","name":"GRPSteacherSpring2013fixed_seperate","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_bseUhQDwAJolD1j","name":"Master
+        Panel","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_eRKRb6a6Waiukap","name":"OhioSpring2015","category":"Unassigned"}],"meta":{"status":"Success","qualtricsErrorCode":null,"errorMessage":null}}'
+    http_version: 
+  recorded_at: Tue, 30 Jun 2015 11:05:47 GMT
+- request:
+    method: post
+    uri: https://co1.qualtrics.com/API/v1/panels/ML_bC2c5xBz1DxyOYB/members?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+    body:
+      encoding: US-ASCII
+      string: apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ&panelMembers=%5B%7B%22FirstName%22%3A%22Marcin%22%2C%22LastName%22%3A%22Naglik%22%2C%22Email%22%3A%22test%40test.com%22%7D%5D
+    headers:
+      User-Agent:
+      - Faraday v0.8.9
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      server:
+      - Apache-Coyote/1.1
+      content-type:
+      - application/json
+      date:
+      - Tue, 30 Jun 2015 11:05:47 GMT
+      content-length:
+      - '203'
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"result":{"importStatus":"http://co1.qualtrics.com/API/v1/panels/ML_bC2c5xBz1DxyOYB/members/panelImports/PGRS_bEJLYLkqMBs8Bwx"},"meta":{"status":"Success","qualtricsErrorCode":null,"errorMessage":null}}'
+    http_version: 
+  recorded_at: Tue, 30 Jun 2015 11:05:47 GMT
+recorded_with: VCR 2.9.3

@@ -73,5 +73,32 @@ describe QualtricsAPI::PanelMemberCollection do
         end
       end
     end
+
+    describe "#create" do
+      let(:result) do
+        VCR.use_cassette(cassette) do
+          QualtricsAPI.new(TEST_API_TOKEN).panels.fetch['ML_bC2c5xBz1DxyOYB'].members.create(panel_members)
+        end
+      end
+      
+      describe "when success" do
+        let(:cassette) { "panel_member_collection_create_success" }
+        let(:panel_members) { [QualtricsAPI::PanelMember.new(first_name: 'Marcin', last_name: 'Naglik', email: 'test@test.com')] }
+
+        it "returns results" do
+          expect(result).not_to be_nil
+          expect(result).to be_a Faraday::Response
+        end
+      end
+
+      describe "when failed" do
+        let(:cassette) { "panel_member_collection_create_fail" }
+        let(:panel_members) { [QualtricsAPI::PanelMember.new] }
+
+        it "returns results" do
+          expect { result }.to raise_error 
+        end
+      end
+    end
   end
 end
