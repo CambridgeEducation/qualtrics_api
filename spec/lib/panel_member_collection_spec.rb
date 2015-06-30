@@ -89,8 +89,16 @@ describe QualtricsAPI::PanelMemberCollection do
           expect(result).to be_a QualtricsAPI::PanelImport
         end
       
-        it "returns id within PanelImport" do
+        it "returns PanelImport with id" do
           expect(result.id).to eq('PGRS_bEJLYLkqMBs8Bwx')
+        end
+
+        it "returns PanelImport with panel id" do
+          expect(result.panel_id).to eq('ML_bC2c5xBz1DxyOYB')
+        end
+
+        it "returns PanelImport with connection" do
+          expect(result.connection).not_to be_nil
         end
       end
 
