@@ -62,29 +62,6 @@ survey = client.surveys["surveyIdHere"]
 # =>  #<QualtricsAPI::Survey:0x007fcb724f9468 @id="surveyIdHere" ...>
 ```
 
-### Panels
-
-To get all the panels:
-
-```ruby
-client.panels.fetch
-# => #<QualtricsAPI::PanelCollection:0x007f8769aae2c0 ....>
-```
-
-After you have received results, you can search for a panel by id:
-
-```ruby
-panel = client.panels.find("panelIdHere")
-# => #<QualtricsAPI::Panel:0x007f876906f278 @id="panelIdHere" ...>
-```
-
-or just:
-
-```ruby
-panel = client.panels["panelIdHere"]
-# => #<QualtricsAPI::Panel:0x007f876906f278 @id="panelIdHere" ...>
-```
-
 #### Export Responses From a Survey
 
 Once you have a `survey` object (`QualtricsAPI::Survey`], you can start
@@ -157,6 +134,52 @@ export = client.response_exports["someExportID"]
 # => #<QualtricsAPI::ResponseExport:0x007fcb742e4e50 ....>
 export.status
 => "99.99999%"
+```
+
+### Panels
+
+To get all the panels:
+
+```ruby
+client.panels.fetch
+# => #<QualtricsAPI::PanelCollection:0x007f8769aae2c0 ....>
+```
+
+After you have received results, you can search for a panel by id:
+
+```ruby
+panel = client.panels.find("panelIdHere")
+# => #<QualtricsAPI::Panel:0x007f876906f278 @id="panelIdHere" ...>
+```
+
+or just:
+
+```ruby
+panel = client.panels["panelIdHere"]
+# => #<QualtricsAPI::Panel:0x007f876906f278 @id="panelIdHere" ...>
+```
+
+#### Panel Members
+
+To add panel members to a panel:
+
+```ruby
+panel = client.panels.fetch["panelIdHere"]
+members = [QualtricsAPI::PanelMember.new(first_name: 'John', last_name: 'Doe', email: 'test@test.com')]
+panel.members.create(members)
+=> #<QualtricsAPI::PanelImport:0x007fb7db984668 ...>
+```
+
+and update athe status of panel import:
+```ruby
+members = [QualtricsAPI::PanelMember.new(first_name: 'John', last_name: 'Doe', email: 'test@test.com')]
+panel_import = panel.members.create(members)
+=> #<QualtricsAPI::PanelImport:0x007fb7db984668 ...>
+panel_import.status
+=> "99.99999%"
+panel_import.update_status
+panel_import.status
+=> "100.0%"
 ```
 
 ## Contributing
