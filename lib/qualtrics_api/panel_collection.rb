@@ -4,7 +4,6 @@ module QualtricsAPI
     include Enumerable
     include Virtus.value_object
 
-    attribute :connection
     attribute :all, Array, :default => []
 
     def_delegator :all, :each
@@ -12,7 +11,7 @@ module QualtricsAPI
 
     def fetch(_options = {})
       @all = []
-      parse_fetch_response(connection.get('panels'))
+      parse_fetch_response(QualtricsAPI.connection.get('panels'))
       self
     end
 
@@ -23,14 +22,14 @@ module QualtricsAPI
     def find(panel_id)
       @all.detect do |panel|
         panel.id == panel_id
-      end || QualtricsAPI::Panel.new("panelId" => panel_id, connection: connection)
+      end || QualtricsAPI::Panel.new("panelId" => panel_id)
     end
 
     private
 
     def parse_fetch_response(response)
       @all = response.body["result"].map do |result|
-        QualtricsAPI::Panel.new result.merge(connection: connection)
+        QualtricsAPI::Panel.new result
       end
     end
   end

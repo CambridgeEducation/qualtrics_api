@@ -2,7 +2,6 @@ module QualtricsAPI
   class Panel
     include Virtus.value_object
 
-    attribute :connection
     attribute :id, String
     attribute :library_id, String
     attribute :name, String
@@ -16,7 +15,7 @@ module QualtricsAPI
     end
 
     def members(options = {})
-      @members ||= QualtricsAPI::PanelMemberCollection.new(options.merge(id: id, connection: connection))
+      @members ||= QualtricsAPI::PanelMemberCollection.new(options.merge(id: id))
     end
 
     private

@@ -10,9 +10,7 @@ describe QualtricsAPI::Panel do
     }
   end
 
-  let(:connection) { double('connection', get: {}) }
-
-  subject { described_class.new qualtrics_response.merge(connection: connection) }
+  subject { described_class.new qualtrics_response }
 
   it "has an panelId" do
     expect(subject.id).to eq qualtrics_response["panelId"]
@@ -30,17 +28,9 @@ describe QualtricsAPI::Panel do
     expect(subject.category).to eq qualtrics_response["category"]
   end
 
-  it "has a connection" do
-    expect(subject.connection).to eq(connection)
-  end
-
   describe "#members" do
     it "returns a PanelMemberCollection" do
       expect(subject.members).to be_a QualtricsAPI::PanelMemberCollection
-    end
-
-    it "sets connection" do
-      expect(subject.members.connection).to eq subject.connection
     end
 
     it "assigns panel id" do

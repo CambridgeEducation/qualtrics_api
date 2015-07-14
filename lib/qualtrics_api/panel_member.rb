@@ -2,7 +2,6 @@ module QualtricsAPI
   class PanelMember
     include Virtus.value_object
 
-    attribute :connection
     attribute :id, String
     attribute :first_name, String
     attribute :last_name, String

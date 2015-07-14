@@ -1,16 +1,8 @@
 require 'spec_helper'
 
 describe QualtricsAPI::PanelCollection do
-  let(:connection) { double('connection') }
-
-  subject { described_class.new connection: connection }
-
   it "has no @all when initialized" do
     expect(subject.all).to eq []
-  end
-
-  it "takes a connection" do
-    expect(subject.connection).to eq connection
   end
 
   describe "#find, #[]" do
@@ -27,15 +19,10 @@ describe QualtricsAPI::PanelCollection do
       new_panel = subject["p3"]
       expect(new_panel).to be_a QualtricsAPI::Panel
       expect(new_panel.id).to eq "p3"
-      expect(new_panel.connection).to eq connection
     end
   end
 
   describe "integration" do
-    let(:client) { QualtricsAPI.new TEST_API_TOKEN }
-
-    subject { described_class.new connection: client.connection }
-
     describe "#fetch" do
       describe "when success" do
         before do
@@ -51,10 +38,6 @@ describe QualtricsAPI::PanelCollection do
         it "populates the collection" do
           expect(subject.size).to eq 1
           expect(subject.first).to be_a QualtricsAPI::Panel
-        end
-
-        it "passes down the connection" do
-          expect(subject.all.first.connection).to eq client.connection
         end
 
         it "returns itself" do
