@@ -2,8 +2,6 @@ module QualtricsAPI
   class Client
     include Virtus.value_object
 
-    attribute :api_token, String
-
     def surveys(options = {})
       @surveys ||= QualtricsAPI::SurveyCollection.new(options.merge(connection: connection))
     end
@@ -17,8 +15,8 @@ module QualtricsAPI
     end
 
     def connection
-      @conn ||= Faraday.new(url: QualtricsAPI::URL,
-                            params: { apiToken: api_token }) do |faraday|
+      api_token ||= QualtricsAPI.api_token || fail('Please set api token!')
+      @conn ||= Faraday.new(url: QualtricsAPI::URL, params: { apiToken: api_token }) do |faraday|
         faraday.request :url_encoded
         faraday.response :json, :content_type => /\bjson$/
 
