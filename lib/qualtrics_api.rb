@@ -27,7 +27,7 @@ module QualtricsAPI
     include QualtricsAPI::Configurable
   end
 
-  def self.new(token)
-    Client.new(api_token: token)
+  def self.new
+    Client.new
   end
 end

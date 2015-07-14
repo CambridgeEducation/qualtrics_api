@@ -32,7 +32,7 @@ describe QualtricsAPI::PanelMemberCollection do
   end
 
   describe "integration" do
-    let(:client) { QualtricsAPI.new TEST_API_TOKEN }
+    let(:client) { QualtricsAPI.new }
 
     subject { described_class.new(connection: client.connection, id: 'ABCD') }
 
@@ -77,7 +77,7 @@ describe QualtricsAPI::PanelMemberCollection do
     describe "#create" do
       let(:result) do
         VCR.use_cassette(cassette) do
-          QualtricsAPI.new(TEST_API_TOKEN).panels.fetch['ML_bC2c5xBz1DxyOYB'].members.create(panel_members)
+          QualtricsAPI.new.panels.fetch['ML_bC2c5xBz1DxyOYB'].members.create(panel_members)
         end
       end
       

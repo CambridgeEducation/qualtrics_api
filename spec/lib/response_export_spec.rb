@@ -74,7 +74,7 @@ describe QualtricsAPI::ResponseExport do
   end
 
   describe "#update_status" do
-    let(:client) { QualtricsAPI.new TEST_API_TOKEN }
+    let(:client) { QualtricsAPI.new }
 
     it "updates the status of the export then returns itself" do
       VCR.use_cassette("response_export_update_success") do

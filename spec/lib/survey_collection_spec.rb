@@ -47,13 +47,12 @@ describe QualtricsAPI::SurveyCollection do
   end
 
   describe "integration" do
-    let(:client) { QualtricsAPI.new TEST_API_TOKEN }
+    let(:client) { QualtricsAPI.new }
 
     subject { described_class.new connection: client.connection }
 
     describe "#fetch" do
       describe "when success" do
-
         before do
           expect(subject.size).to eq 0
         end

@@ -32,7 +32,7 @@ describe QualtricsAPI::PanelCollection do
   end
 
   describe "integration" do
-    let(:client) { QualtricsAPI.new TEST_API_TOKEN }
+    let(:client) { QualtricsAPI.new }
 
     subject { described_class.new connection: client.connection }
 

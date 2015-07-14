@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe QualtricsAPI::PanelImport do
   describe "integration" do
-    let(:connection) { QualtricsAPI.new(TEST_API_TOKEN).connection }
+    let(:connection) { QualtricsAPI.new.connection }
     subject { described_class.new(id: 'PGRS_bEJLYLkqMBs8Bwx', panel_id: 'ML_bC2c5xBz1DxyOYB', connection: connection) }
 
     describe "#update_status" do

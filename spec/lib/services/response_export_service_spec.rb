@@ -92,7 +92,7 @@ describe QualtricsAPI::Services::ResponseExportService do
   end
 
   describe "#integration" do
-    let(:client) { QualtricsAPI.new TEST_API_TOKEN }
+    let(:client) { QualtricsAPI.new }
 
     subject do
       VCR.use_cassette("response_export_start_success") do
