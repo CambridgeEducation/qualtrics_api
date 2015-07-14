@@ -1,16 +1,8 @@
 require 'spec_helper'
 
 describe QualtricsAPI::ResponseExportCollection do
-  let(:connection) { double('connection') }
-
-  subject { described_class.new(connection: connection) }
-
   it "has no @all when initialized" do
     expect(subject.all).to eq []
-  end
-
-  it "takes a connection" do
-    expect(subject.connection).to eq connection
   end
 
   describe "#find, #[]" do
@@ -27,7 +19,6 @@ describe QualtricsAPI::ResponseExportCollection do
       sut = subject["eee 3"]
       expect(sut).to be_a QualtricsAPI::ResponseExport
       expect(sut.id).to eq "eee 3"
-      expect(sut.connection).to eq connection
     end
   end
 end

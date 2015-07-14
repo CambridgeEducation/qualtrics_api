@@ -40,10 +40,6 @@ describe QualtricsAPI::Survey do
     expect(subject.status).to eq qualtrics_response["status"]
   end
 
-  it "has a connection" do
-    expect(subject.connection).to eq connection
-  end
-
   describe "export_responses" do
     let(:options) do
       {
@@ -53,8 +49,7 @@ describe QualtricsAPI::Survey do
 
     it "inits a ResponseExportService with options" do
       expect(QualtricsAPI::Services::ResponseExportService).to receive(:new).with(start_date: options[:start_date],
-                                                                                  survey_id: subject.id,
-                                                                                  connection: subject.connection)
+                                                                                  survey_id: subject.id)
 
       subject.export_responses(options)
     end

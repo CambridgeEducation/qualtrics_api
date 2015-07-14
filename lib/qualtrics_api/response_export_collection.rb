@@ -4,7 +4,6 @@ module QualtricsAPI
     include Enumerable
     include Virtus.value_object
 
-    attribute :connection
     attribute :all, Array, :default => []
 
     def_delegator :all, :each
@@ -17,7 +16,7 @@ module QualtricsAPI
     def find(export_id)
       @all.detect do |response_export|
         response_export.id == export_id
-      end || QualtricsAPI::ResponseExport.new(:id => export_id, connection: connection)
+      end || QualtricsAPI::ResponseExport.new(:id => export_id)
     end
   end
 end

@@ -3,7 +3,6 @@ module QualtricsAPI
     class ResponseExportService
       include Virtus.value_object
 
-      attribute :connection
       attribute :survey_id, String
       attribute :response_set_id, String
       attribute :file_type, String, :default => 'CSV'
@@ -23,9 +22,9 @@ module QualtricsAPI
       attr_reader :result
 
       def start
-        response = connection.get("surveys/#{survey_id}/responseExports", export_params)
+        response = QualtricsAPI.connection.get("surveys/#{survey_id}/responseExports", export_params)
         export_id = response.body["result"]["exportStatus"].split('/').last
-        @result = ResponseExport.new(id: export_id, connection: connection)
+        @result = ResponseExport.new(id: export_id)
       end
 
       def export_configurations

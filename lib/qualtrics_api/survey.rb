@@ -2,7 +2,6 @@ module QualtricsAPI
   class Survey
     include Virtus.value_object
 
-    attribute :connection
     attribute :id, String
     attribute :name, String
     attribute :owner_id, String
@@ -18,7 +17,7 @@ module QualtricsAPI
     end
 
     def export_responses(export_options = {})
-      QualtricsAPI::Services::ResponseExportService.new(export_options.merge(survey_id: id, connection: connection))
+      QualtricsAPI::Services::ResponseExportService.new(export_options.merge(survey_id: id))
     end
 
     private

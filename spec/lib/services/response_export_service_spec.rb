@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe QualtricsAPI::Services::ResponseExportService do
-
   describe "initialize" do
     let(:params) do
       {
@@ -21,9 +20,7 @@ describe QualtricsAPI::Services::ResponseExportService do
         spss_string_length: "15"
       }
     end
-    let(:connection) { double("connection") }
-
-    subject { described_class.new params.merge(connection: connection) }
+    subject { described_class.new params }
 
     describe "assign options" do
       before do
@@ -36,12 +33,8 @@ describe QualtricsAPI::Services::ResponseExportService do
         end
       end
 
-      it "assigns connection" do
-        expect(subject.connection).to eq connection
-      end
-
       describe "defaults" do
-        subject { described_class.new connection: connection }
+        subject { described_class.new }
 
         it "has default @use_labels - false" do
           expect(subject.use_labels).to eq false
@@ -63,7 +56,7 @@ describe QualtricsAPI::Services::ResponseExportService do
 
     describe "#start" do
       it "calls url with export params" do
-        expect(connection).to receive(:get).with("surveys/s_id/responseExports", {
+        expect(QualtricsAPI.connection).to receive(:get).with("surveys/s_id/responseExports", {
           "responseSetId" => "r_set_id",
           "fileType" => "file type",
           "lastResponseId" => "l_id",
@@ -82,7 +75,7 @@ describe QualtricsAPI::Services::ResponseExportService do
       end
 
       it "assigns and returns a ResponseExport with the id in the url" do
-        allow(connection).to receive(:get)
+        allow(QualtricsAPI.connection).to receive(:get)
           .and_return(double('resBody', body: {"result" => { "exportStatus" => "some/url/exportId" }}))
         sut = subject.start
         expect(sut).to be_a QualtricsAPI::ResponseExport
@@ -92,11 +85,9 @@ describe QualtricsAPI::Services::ResponseExportService do
   end
 
   describe "#integration" do
-    let(:client) { QualtricsAPI.new }
-
     subject do
       VCR.use_cassette("response_export_start_success") do
-        client.surveys["SV_djzgZ6eJXqnIUyF"].export_responses.start
+        QualtricsAPI.surveys["SV_djzgZ6eJXqnIUyF"].export_responses.start
       end
     end
 

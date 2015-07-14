@@ -4,7 +4,6 @@ module QualtricsAPI
     include Enumerable
     include Virtus.value_object
 
-    attribute :connection
     attribute :scope_id, String
     attribute :all, Array, :default => []
 
@@ -16,7 +15,7 @@ module QualtricsAPI
     def fetch(options = {})
       @all = []
       update_query_attributes(options)
-      parse_fetch_response(connection.get('surveys', query_params))
+      parse_fetch_response(QualtricsAPI.connection.get('surveys', query_params))
       self
     end
 
@@ -37,7 +36,7 @@ module QualtricsAPI
     def find(survey_id)
       @all.detect do |survey|
         survey.id == survey_id
-      end || QualtricsAPI::Survey.new("id" => survey_id, connection: connection)
+      end || QualtricsAPI::Survey.new("id" => survey_id)
     end
 
     private
@@ -56,7 +55,7 @@ module QualtricsAPI
 
     def parse_fetch_response(response)
       @all = response.body["result"].map do |result|
-        QualtricsAPI::Survey.new result.merge(connection: connection)
+        QualtricsAPI::Survey.new result
       end
     end
   end

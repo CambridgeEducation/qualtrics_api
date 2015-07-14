@@ -25,9 +25,6 @@ require "qualtrics_api/services/response_export_service"
 module QualtricsAPI
   class << self
     include QualtricsAPI::Configurable
-  end
-
-  def self.new
-    Client.new
+    include QualtricsAPI::Client
   end
 end
