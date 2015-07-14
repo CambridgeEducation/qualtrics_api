@@ -28,8 +28,9 @@ Or install it yourself as:
 ### Initialize
 
 ```ruby
-client = QualtricsAPI.new "YOUR_QUALTRICS_API_KEY"
-# => #<QualtricsAPI::Client:0x007fcb74496528 @api_token="YOUR_QUALTRICS_API_KEY">
+QualtricsAPI.configure do |config|
+  config.api_token = "YOUR_QUALTRICS_API_KEY"
+end
 ```
 
 ### Surveys
@@ -37,28 +38,28 @@ client = QualtricsAPI.new "YOUR_QUALTRICS_API_KEY"
 To get all your surveys:
 
 ```ruby
-client.surveys.fetch
+QualtricsAPI.surveys.fetch
 # => #<QualtricsAPI::SurveyCollection:0x007fcb72cce350 ....>
 ```
 
 You can also add a scopeId:
 
 ```ruby
-client.surveys.fetch(scope_id: "someOwnerIdMaybe")
+QualtricsAPI.surveys.fetch(scope_id: "someOwnerIdMaybe")
 # => #<QualtricsAPI::SurveyCollection:0x007fcb72adaf21 ....>
 ```
 
 After you have received results, you can search for a survey by id:
 
 ```ruby
-survey = client.surveys.find("surveyIdHere")
+survey = QualtricsAPI.surveys.find("surveyIdHere")
 # => #<QualtricsAPI::Survey:0x007fcb724f9468 @id="surveyIdHere" ...>
 ```
 
 or just:
 
 ```ruby
-survey = client.surveys["surveyIdHere"]
+survey = QualtricsAPI.surveys["surveyIdHere"]
 # =>  #<QualtricsAPI::Survey:0x007fcb724f9468 @id="surveyIdHere" ...>
 ```
 
@@ -129,8 +130,7 @@ You can save it somewhere in your app and check back later (if you know
 it's gonna take a while!)
 
 ```ruby
-client = QualtricsAPI.new "YOUR QUALTRICS API TOKEN"
-export = client.response_exports["someExportID"]
+export = QualtricsAPI.response_exports["someExportID"]
 # => #<QualtricsAPI::ResponseExport:0x007fcb742e4e50 ....>
 export.status
 => "99.99999%"
@@ -141,21 +141,21 @@ export.status
 To get all the panels:
 
 ```ruby
-client.panels.fetch
+QualtricsAPI.panels.fetch
 # => #<QualtricsAPI::PanelCollection:0x007f8769aae2c0 ....>
 ```
 
 After you have received results, you can search for a panel by id:
 
 ```ruby
-panel = client.panels.find("panelIdHere")
+panel = QualtricsAPI.panels.find("panelIdHere")
 # => #<QualtricsAPI::Panel:0x007f876906f278 @id="panelIdHere" ...>
 ```
 
 or just:
 
 ```ruby
-panel = client.panels["panelIdHere"]
+panel = QualtricsAPI.panels["panelIdHere"]
 # => #<QualtricsAPI::Panel:0x007f876906f278 @id="panelIdHere" ...>
 ```
 
@@ -164,7 +164,7 @@ panel = client.panels["panelIdHere"]
 To add panel members to a panel:
 
 ```ruby
-panel = client.panels.fetch["panelIdHere"]
+panel = QualtricsAPI.panels.fetch["panelIdHere"]
 members = [QualtricsAPI::PanelMember.new(first_name: 'John', last_name: 'Doe', email: 'test@test.com')]
 panel.members.create(members)
 => #<QualtricsAPI::PanelImport:0x007fb7db984668 ...>
