@@ -14,8 +14,7 @@ describe QualtricsAPI::PanelMember do
     }
   end
 
-  let(:connection) { double('connection', get: {}) }
-  subject { described_class.new panel_member.merge(connection: connection) }
+  subject { described_class.new panel_member }
 
   it "has a panel member id" do
     expect(subject.id).to eq(panel_member["panelMemberId"])
