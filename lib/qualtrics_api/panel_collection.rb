@@ -29,7 +29,7 @@ module QualtricsAPI
 
     def parse_fetch_response(response)
       @all = response.body["result"].map do |result|
-        QualtricsAPI::Panel.new result
+        QualtricsAPI::Panel.new(result)
       end
     end
   end

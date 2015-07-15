@@ -25,9 +25,7 @@ module QualtricsAPI
     private
 
     def serialized_attributes
-      Hash[attributes.map { |k, v| [mapped_and_uppercased_attribute(k), v] }].tap do |h|
-        h.delete("Connection")
-      end.delete_if { |_k, v| v.nil? }
+      Hash[attributes.map { |k, v| [mapped_and_uppercased_attribute(k), v] }].delete_if { |_k, v| v.nil? }
     end
 
     def mapped_and_uppercased_attribute(attribute)
