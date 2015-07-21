@@ -1,6 +1,5 @@
 module QualtricsAPI
-  class PanelMember
-    include Virtus.value_object
+  class PanelMember < BaseModel
 
     attribute :id, String
     attribute :first_name, String
@@ -10,13 +9,6 @@ module QualtricsAPI
     attribute :unsubscribed, Integer
     attribute :external_data_reference, String
     attribute :embeded_data, Hash
-
-    def initialize(options = {})
-      attributes_mappings.each do |key, qualtrics_key|
-        instance_variable_set "@#{key}", options[qualtrics_key]
-      end
-      super
-    end
 
     def to_json(_options = {})
       serialized_attributes.to_json

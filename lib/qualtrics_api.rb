@@ -14,6 +14,8 @@ require "qualtrics_api/client"
 require "qualtrics_api/extensions/serializable_model"
 require "qualtrics_api/extensions/serializable_collection"
 
+require "qualtrics_api/base_model"
+
 require "qualtrics_api/survey"
 require "qualtrics_api/survey_collection"
 require "qualtrics_api/response_export"
