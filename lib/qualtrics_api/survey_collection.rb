@@ -32,7 +32,7 @@ module QualtricsAPI
     def [](survey_id)
       find(survey_id)
     end
-    
+
     def find(survey_id)
       @all.detect do |survey|
         survey.id == survey_id

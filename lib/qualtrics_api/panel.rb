@@ -1,6 +1,7 @@
 module QualtricsAPI
   class Panel
     include Virtus.value_object
+    include QualtricsAPI::Extensions::SerializableModel
 
     attribute :id, String
     attribute :library_id, String
