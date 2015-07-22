@@ -3,7 +3,6 @@ module QualtricsAPI
     extend Forwardable
     include Enumerable
     include Virtus.value_object
-    include QualtricsAPI::Extensions::SerializableCollection
 
     attribute :all, Array, :default => []
 
