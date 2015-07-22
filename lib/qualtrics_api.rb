@@ -12,7 +12,6 @@ require "qualtrics_api/configurable"
 require "qualtrics_api/client"
 
 require "qualtrics_api/extensions/serializable_model"
-require "qualtrics_api/extensions/serializable_collection"
 
 require "qualtrics_api/base_model"
 
