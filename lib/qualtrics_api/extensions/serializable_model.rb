@@ -1,8 +1,8 @@
 module QualtricsAPI
   module Extensions
     module SerializableModel
-      def self.included(klass)
-        klass.send :alias_method, :as_json, :attributes
+      def as_json(_options = {})
+        attributes
       end
 
       def to_json(options = {})
