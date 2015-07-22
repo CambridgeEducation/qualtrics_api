@@ -1,6 +1,5 @@
 module QualtricsAPI
-  class Survey
-    include Virtus.value_object
+  class Survey < BaseModel
 
     attribute :id, String
     attribute :name, String
@@ -8,13 +7,6 @@ module QualtricsAPI
     attribute :last_modified, String
     attribute :created_at, String
     attribute :status, String
-
-    def initialize(options = {})
-      attributes_mappings.each do |key, qualtrics_key|
-        instance_variable_set "@#{key}", options[qualtrics_key]
-      end
-      super
-    end
 
     def export_responses(export_options = {})
       QualtricsAPI::Services::ResponseExportService.new(export_options.merge(survey_id: id))
