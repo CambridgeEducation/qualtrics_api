@@ -4,6 +4,7 @@ module QualtricsAPI
 
     def configure
       yield self
+      self
     end
   end
 end
