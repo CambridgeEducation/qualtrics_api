@@ -1,6 +1,5 @@
 module QualtricsAPI
   class PanelMember < BaseModel
-
     attribute :id, String
     attribute :first_name, String
     attribute :last_name, String
@@ -11,14 +10,16 @@ module QualtricsAPI
     attribute :embeded_data, Hash
 
     def to_json(_options = {})
-      serialized_attributes.to_json
+      attributes.to_json
+    end
+
+    alias_method :super_attributes, :attributes
+
+    def attributes
+      Hash[super_attributes.map { |k, v| [mapped_and_uppercased_attribute(k), v] }].delete_if { |_k, v| v.nil? }
     end
 
     private
-
-    def serialized_attributes
-      Hash[attributes.map { |k, v| [mapped_and_uppercased_attribute(k), v] }].delete_if { |_k, v| v.nil? }
-    end
 
     def mapped_and_uppercased_attribute(attribute)
       (attributes_mappings[attribute] || attribute).to_s.tap do |a|
