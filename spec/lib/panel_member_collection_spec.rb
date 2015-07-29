@@ -6,8 +6,8 @@ describe QualtricsAPI::PanelMemberCollection do
   end
 
   describe "#find, #[]" do
-    let(:panel_member_1) { QualtricsAPI::PanelMember.new("panelMemberId" => "p1") }
-    let(:panel_member_2) { QualtricsAPI::PanelMember.new("panelMemberId" => "p2") }
+    let(:panel_member_1) { QualtricsAPI::PanelMember.new("recipientID" => "p1") }
+    let(:panel_member_2) { QualtricsAPI::PanelMember.new("recipientID" => "p2") }
 
     it "finds the panel member by id" do
       subject.instance_variable_set :@all, [panel_member_1, panel_member_2]
@@ -65,7 +65,7 @@ describe QualtricsAPI::PanelMemberCollection do
           QualtricsAPI.panels.fetch['ML_bC2c5xBz1DxyOYB'].members.create(panel_members)
         end
       end
-      
+
       describe "when success" do
         let(:cassette) { "panel_member_collection_create_success" }
         let(:panel_members) { [QualtricsAPI::PanelMember.new(first_name: 'Marcin', last_name: 'Naglik', email: 'test@test.com')] }
@@ -73,7 +73,7 @@ describe QualtricsAPI::PanelMemberCollection do
         it "returns PanelImport" do
           expect(result).to be_a QualtricsAPI::PanelImport
         end
-      
+
         it "returns PanelImport with id" do
           expect(result.id).to eq('PGRS_bEJLYLkqMBs8Bwx')
         end
@@ -88,7 +88,7 @@ describe QualtricsAPI::PanelMemberCollection do
         let(:panel_members) { [QualtricsAPI::PanelMember.new] }
 
         it "returns results" do
-          expect { result }.to raise_error 
+          expect { result }.to raise_error
         end
       end
     end

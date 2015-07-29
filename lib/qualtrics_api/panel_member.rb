@@ -6,7 +6,7 @@ module QualtricsAPI
     attribute :email, String
     attribute :language, String
     attribute :unsubscribed, Integer
-    attribute :external_data_reference, String
+    attribute :external_reference, String
     attribute :embeded_data, Hash
 
     def to_json(_options = {})
@@ -29,10 +29,10 @@ module QualtricsAPI
 
     def attributes_mappings
       {
-        :id => "panelMemberId",
+        :id => "recipientID",
         :first_name => "firstName",
         :last_name => "lastName",
-        :external_data_reference => "externalDataReference",
+        :external_reference => "externalReference",
         :embeded_data => "embeddedData"
       }
     end
