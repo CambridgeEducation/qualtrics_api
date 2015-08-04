@@ -21,4 +21,19 @@ describe QualtricsAPI::ResponseExportCollection do
       expect(sut.id).to eq "eee 3"
     end
   end
+
+  describe 'equality' do
+    subject { described_class.new(all: [QualtricsAPI::ResponseExport.new(:id => "export1"), QualtricsAPI::ResponseExport.new(:id => "export2")]) }
+    context 'when same' do
+      it 'returns true' do
+        expect(subject).to eq(described_class.new(all: subject.all))
+      end
+    end
+  
+    context 'when different' do
+      it 'returns false' do
+        expect(subject).not_to eq(described_class.new)
+      end
+    end
+  end
 end
