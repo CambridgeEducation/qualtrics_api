@@ -16,23 +16,30 @@ module QualtricsAPI
     alias_method :super_attributes, :attributes
 
     def attributes
-      Hash[super_attributes.map { |k, v| [mapped_and_uppercased_attribute(k), v] }].delete_if { |_k, v| v.nil? }
+      Hash[super_attributes.map { |k, v| [attributes_for_save[k], v] }].delete_if { |_k, v| v.nil? }
     end
 
     private
 
-    def mapped_and_uppercased_attribute(attribute)
-      (attributes_mappings[attribute] || attribute).to_s.tap do |a|
-        a[0] = a[0].upcase
-      end
+    def attributes_for_save
+      {
+        :id => "RecipientID",
+        :first_name => "FirstName",
+        :last_name => "LastName",
+        :email => "Email",
+        :language => "Language",
+        :unsubscribed => 'Unsubscribed',
+        :external_reference => "ExternalReference",
+        :embeded_data => "EmbeddedData"
+      }
     end
 
     def attributes_mappings
       {
-        :id => "recipientID",
+        :id => "panelMemberId",
         :first_name => "firstName",
         :last_name => "lastName",
-        :external_reference => "externalReference",
+        :external_reference => "externalDataReference",
         :embeded_data => "embeddedData"
       }
     end
