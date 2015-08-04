@@ -6,8 +6,8 @@ describe QualtricsAPI::PanelMemberCollection do
   end
 
   describe "#find, #[]" do
-    let(:panel_member_1) { QualtricsAPI::PanelMember.new("recipientID" => "p1") }
-    let(:panel_member_2) { QualtricsAPI::PanelMember.new("recipientID" => "p2") }
+    let(:panel_member_1) { QualtricsAPI::PanelMember.new("panelMemberId" => "p1") }
+    let(:panel_member_2) { QualtricsAPI::PanelMember.new("panelMemberId" => "p2") }
 
     it "finds the panel member by id" do
       subject.instance_variable_set :@all, [panel_member_1, panel_member_2]
