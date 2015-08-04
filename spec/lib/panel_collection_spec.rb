@@ -57,4 +57,19 @@ describe QualtricsAPI::PanelCollection do
       end
     end
   end
+
+  describe 'equality' do
+    subject { described_class.new(all: [QualtricsAPI::Panel.new("panelId" => "p1"), QualtricsAPI::Panel.new("panelId" => "p2")]) }
+    context 'when same' do
+      it 'returns true' do
+        expect(subject).to eq(described_class.new(all: subject.all))
+      end
+    end
+  
+    context 'when different' do
+      it 'returns false' do
+        expect(subject).not_to eq(described_class.new)
+      end
+    end
+  end
 end

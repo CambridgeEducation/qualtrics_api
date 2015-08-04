@@ -5,7 +5,9 @@ module QualtricsAPI
     include Virtus.value_object
     include QualtricsAPI::Extensions::SerializableCollection
 
-    attribute :all, Array, :default => []
+    values do
+      attribute :all, Array, :default => []
+    end
 
     def_delegator :all, :each
     def_delegator :all, :size

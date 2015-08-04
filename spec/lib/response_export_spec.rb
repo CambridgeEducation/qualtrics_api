@@ -87,4 +87,18 @@ describe QualtricsAPI::ResponseExport do
       end
     end
   end
+
+  describe 'equality' do
+    context 'when same' do
+      it 'returns true' do
+        expect(subject).to eq(described_class.new(subject.attributes))
+      end
+    end
+  
+    context 'when different' do
+      it 'returns false' do
+        expect(subject).not_to eq(described_class.new)
+      end
+    end
+  end
 end

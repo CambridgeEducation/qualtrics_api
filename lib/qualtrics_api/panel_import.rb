@@ -2,8 +2,10 @@ module QualtricsAPI
   class PanelImport
     include Virtus.value_object
 
-    attribute :id, String
-    attribute :panel_id, String
+    values do
+      attribute :id, String
+      attribute :panel_id, String
+    end
 
     def update_status
       res = QualtricsAPI.connection.get("panels/#{panel_id}/members/panelImports/#{id}").body["result"]

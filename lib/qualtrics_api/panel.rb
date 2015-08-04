@@ -1,10 +1,11 @@
 module QualtricsAPI
   class Panel < BaseModel
-
-    attribute :id, String
-    attribute :library_id, String
-    attribute :name, String
-    attribute :category, String
+    values do
+      attribute :id, String
+      attribute :library_id, String
+      attribute :name, String
+      attribute :category, String
+    end
 
     def members(options = {})
       @members ||= QualtricsAPI::PanelMemberCollection.new(options.merge(id: id))

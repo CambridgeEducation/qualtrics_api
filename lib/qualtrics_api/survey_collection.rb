@@ -4,8 +4,10 @@ module QualtricsAPI
     include Enumerable
     include Virtus.value_object
 
-    attribute :scope_id, String
-    attribute :all, Array, :default => []
+    values do
+      attribute :scope_id, String
+      attribute :all, Array, :default => []
+    end
 
     attr_writer :scope_id
 

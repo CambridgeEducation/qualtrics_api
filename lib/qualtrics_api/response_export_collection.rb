@@ -4,7 +4,9 @@ module QualtricsAPI
     include Enumerable
     include Virtus.value_object
 
-    attribute :all, Array, :default => []
+    values do
+      attribute :all, Array, :default => []
+    end
 
     def_delegator :all, :each
     def_delegator :all, :size
