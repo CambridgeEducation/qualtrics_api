@@ -2,7 +2,9 @@ module QualtricsAPI
   class ResponseExport
     include Virtus.value_object
 
-    attribute :id, String
+    values do
+      attribute :id, String
+    end
 
     def update_status
       res = QualtricsAPI.connection.get('surveys/responseExports/' + id).body["result"]

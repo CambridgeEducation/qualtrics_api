@@ -1,12 +1,13 @@
 module QualtricsAPI
   class Survey < BaseModel
-
-    attribute :id, String
-    attribute :name, String
-    attribute :owner_id, String
-    attribute :last_modified, String
-    attribute :created_at, String
-    attribute :status, String
+    values do
+      attribute :id, String
+      attribute :name, String
+      attribute :owner_id, String
+      attribute :last_modified, String
+      attribute :created_at, String
+      attribute :status, String
+    end
 
     def export_responses(export_options = {})
       QualtricsAPI::Services::ResponseExportService.new(export_options.merge(survey_id: id))
