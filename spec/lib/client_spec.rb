@@ -26,4 +26,16 @@ describe QualtricsAPI::Client do
       expect(subject.surveys.object_id).to eq subject.surveys.object_id
     end
   end
+
+  describe "#initialize" do
+    subject { QualtricsAPI::Client }
+
+    it "fails if api_token not provided" do
+      expect { subject.new(nil) }.to raise_error('Please provide api token!')
+    end
+
+    it 'establishes connection when api_token' do
+      subject.new('sample_token')
+    end
+  end
 end

@@ -1,28 +1,28 @@
 module QualtricsAPI
   module Services
-    class ResponseExportService
-      include Virtus.value_object
-
-      attribute :survey_id, String
-      attribute :response_set_id, String
-      attribute :file_type, String, :default => 'CSV'
-      attribute :last_response_id, String
-      attribute :start_date, String
-      attribute :end_date, String
-      attribute :limit, String
-      attribute :included_question_ids, String
-      attribute :max_rows, String
-      attribute :use_labels, Boolean, :default => false
-      attribute :decimal_format, String, :default => '.'
-      attribute :seen_unanswered_recode, String
-      attribute :use_local_time, Boolean, :default => false
-      attribute :spss_string_length, String
-      attribute :id, String
+    class ResponseExportService < QualtricsAPI::BaseModel
+      values do
+        attribute :survey_id, String
+        attribute :response_set_id, String
+        attribute :file_type, String, :default => 'CSV'
+        attribute :last_response_id, String
+        attribute :start_date, String
+        attribute :end_date, String
+        attribute :limit, String
+        attribute :included_question_ids, String
+        attribute :max_rows, String
+        attribute :use_labels, Boolean, :default => false
+        attribute :decimal_format, String, :default => '.'
+        attribute :seen_unanswered_recode, String
+        attribute :use_local_time, Boolean, :default => false
+        attribute :spss_string_length, String
+        attribute :id, String
+      end
       
       attr_reader :result
 
       def start
-        response = QualtricsAPI.connection.get("surveys/#{survey_id}/responseExports", export_params)
+        response = QualtricsAPI.connection(self).get("surveys/#{survey_id}/responseExports", export_params)
         export_id = response.body["result"]["exportStatus"].split('/').last
         @result = ResponseExport.new(id: export_id)
       end

@@ -1,9 +1,5 @@
 module QualtricsAPI
-  class SurveyCollection
-    extend Forwardable
-    include Enumerable
-    include Virtus.value_object
-
+  class SurveyCollection < BaseCollection
     values do
       attribute :scope_id, String
       attribute :all, Array, :default => []
@@ -11,13 +7,10 @@ module QualtricsAPI
 
     attr_writer :scope_id
 
-    def_delegator :all, :each
-    def_delegator :all, :size
-
     def fetch(options = {})
       @all = []
       update_query_attributes(options)
-      parse_fetch_response(QualtricsAPI.connection.get('surveys', query_params))
+      parse_fetch_response(QualtricsAPI.connection(self).get('surveys', query_params))
       self
     end
 
@@ -57,7 +50,7 @@ module QualtricsAPI
 
     def parse_fetch_response(response)
       @all = response.body["result"].map do |result|
-        QualtricsAPI::Survey.new result
+        QualtricsAPI::Survey.new(result).propagate_connection(self)
       end
     end
   end
