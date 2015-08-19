@@ -1,6 +1,5 @@
 module QualtricsAPI
   class Client
-    include QualtricsAPI::Connectable
     attr_reader :connection
 
     def initialize(api_token)
@@ -9,15 +8,15 @@ module QualtricsAPI
 
     def surveys(options = {})
       @surveys = nil if @surveys && @surveys.scope_id != options[:scope_id]
-      @surveys ||= QualtricsAPI::SurveyCollection.new(options)
+      @surveys ||= QualtricsAPI::SurveyCollection.new(options).propagate_connection(self)
     end
 
     def response_exports(options = {})
-      @response_exports ||= QualtricsAPI::ResponseExportCollection.new(options)
+      @response_exports ||= QualtricsAPI::ResponseExportCollection.new(options).propagate_connection(self)
     end
 
     def panels(options = {})
-      @panels ||= QualtricsAPI::PanelCollection.new(options)
+      @panels ||= QualtricsAPI::PanelCollection.new(options).propagate_connection(self)
     end
 
     private

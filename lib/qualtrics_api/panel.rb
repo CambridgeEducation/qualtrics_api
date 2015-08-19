@@ -8,7 +8,7 @@ module QualtricsAPI
     end
 
     def members(options = {})
-      @members ||= QualtricsAPI::PanelMemberCollection.new(options.merge(id: id))
+      @members ||= QualtricsAPI::PanelMemberCollection.new(options.merge(id: id)).propagate_connection(self)
     end
 
     private

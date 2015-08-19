@@ -1,14 +1,12 @@
 module QualtricsAPI
-  class PanelImport
-    include Virtus.value_object
-
+  class PanelImport < BaseModel
     values do
       attribute :id, String
       attribute :panel_id, String
     end
 
     def update_status
-      res = QualtricsAPI.connection.get("panels/#{panel_id}/members/panelImports/#{id}").body["result"]
+      res = QualtricsAPI.connection(self).get("panels/#{panel_id}/members/panelImports/#{id}").body["result"]
       @import_progress = res["percentComplete"]
       @completed = true if @import_progress == 100.0
       self

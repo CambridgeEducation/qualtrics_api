@@ -11,18 +11,38 @@ describe QualtricsAPI do
     end
 
     it 'reuses connection if globally configured' do
-      QualtricsAPI.configure do |config|
-        config.api_token = 'some_id'
-      end
       expect(QualtricsAPI.connection).to eq(QualtricsAPI.connection)
     end
 
     it 'does not reuse connection with client' do
       client = QualtricsAPI::Client.new('some_id')
-      QualtricsAPI.configure do |config|
-        config.api_token = 'some_id'
-      end
       expect(client.connection).not_to eq(QualtricsAPI.connection)
+    end
+
+    context 'chains' do
+      it 'does propagate default connection' do
+        members = VCR.use_cassette('panel_member_collection_create_success') do
+          QualtricsAPI.panels.fetch['ML_bC2c5xBz1DxyOYB'].members
+        end
+        expect(members.connection).to eq(QualtricsAPI.connection)
+      end
+
+      context 'with client' do
+        let(:client) { QualtricsAPI::Client.new(TEST_API_TOKEN) }
+        let(:members) do
+          VCR.use_cassette('panel_member_collection_create_success') do
+            client.panels.fetch['ML_bC2c5xBz1DxyOYB'].members
+          end
+        end
+
+        it 'has client connection' do
+          expect(client.connection).not_to be_nil
+        end
+
+        it 'has propagated exception to members' do
+          expect(members.connection).to eq(client.connection)
+        end
+      end
     end
   end
 end

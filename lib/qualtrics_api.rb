@@ -16,6 +16,7 @@ require "qualtrics_api/extensions/serializable_model"
 require "qualtrics_api/extensions/serializable_collection"
 
 require "qualtrics_api/base_model"
+require "qualtrics_api/base_collection"
 
 require "qualtrics_api/survey"
 require "qualtrics_api/survey_collection"
@@ -39,9 +40,11 @@ module QualtricsAPI
     def_delegator :client, :panels
 
     def connection(parent = nil)
-      return parent.connection if parent
+      return parent.connection if parent && parent.connection
       client.connection
     end
+
+    private
 
     def client
       @client ||= QualtricsAPI::Client.new(QualtricsAPI.api_token)
