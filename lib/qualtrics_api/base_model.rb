@@ -15,6 +15,5 @@ module QualtricsAPI
     def attributes_mappings
       {}
     end
-
   end
 end
