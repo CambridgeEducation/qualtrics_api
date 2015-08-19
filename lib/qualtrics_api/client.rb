@@ -1,6 +1,6 @@
 module QualtricsAPI
   class Client
-    attr_reader :connection
+    include QualtricsAPI::Connectable
 
     def initialize(api_token)
       @connection = establish_connection(api_token || fail('Please provide api token!'))

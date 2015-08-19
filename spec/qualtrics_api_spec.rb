@@ -42,6 +42,23 @@ describe QualtricsAPI do
         it 'has propagated exception to members' do
           expect(members.connection).to eq(client.connection)
         end
+      
+        context 'with different client' do
+          let(:client_2) { QualtricsAPI::Client.new(TEST_API_TOKEN) }
+          let(:members_2) do
+            VCR.use_cassette('panel_member_collection_create_success') do
+              client_2.panels.fetch['ML_bC2c5xBz1DxyOYB'].members
+            end
+          end
+
+          it 'has propagated exception to members' do
+            expect(members_2.connection).to eq(client_2.connection)
+          end
+
+          it 'does not conflict with different client' do
+            expect(client_2.connection).not_to eq(client.connection)
+          end
+        end
       end
     end
   end
