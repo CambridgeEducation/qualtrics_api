@@ -31,6 +31,25 @@ require "qualtrics_api/services/response_export_service"
 module QualtricsAPI
   class << self
     include QualtricsAPI::Configurable
-    include QualtricsAPI::Client
+
+    def connection(parent = nil)
+      return parent.connection if parent
+      @client ||= QualtricsAPI::Client.new(QualtricsAPI.api_token)
+      @client.connection
+    end
+
+    # to be extracted to a module
+    def surveys(options = {})
+      @surveys = nil if @surveys && @surveys.scope_id != options[:scope_id]
+      @surveys ||= QualtricsAPI::SurveyCollection.new(options)
+    end
+
+    def response_exports(options = {})
+      @response_exports ||= QualtricsAPI::ResponseExportCollection.new(options)
+    end
+
+    def panels(options = {})
+      @panels ||= QualtricsAPI::PanelCollection.new(options)
+    end
   end
 end

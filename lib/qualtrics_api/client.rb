@@ -1,6 +1,11 @@
 module QualtricsAPI
-  module Client
-    include Virtus.value_object
+  class Client
+    attr_reader :connection
+
+    def initialize(api_token)
+      fail('Please provide api token!') unless api_token
+      @connection = establish_connection(api_token)
+    end
 
     def surveys(options = {})
       @surveys = nil if @surveys && @surveys.scope_id != options[:scope_id]
@@ -15,9 +20,10 @@ module QualtricsAPI
       @panels ||= QualtricsAPI::PanelCollection.new(options)
     end
 
-    def connection
-      api_token ||= QualtricsAPI.api_token || fail('Please configure api token!')
-      @conn ||= Faraday.new(url: QualtricsAPI::URL, params: { apiToken: api_token }) do |faraday|
+    private
+
+    def establish_connection(api_token)
+      Faraday.new(url: QualtricsAPI::URL, params: { apiToken: api_token }) do |faraday|
         faraday.request :url_encoded
         faraday.response :json, :content_type => /\bjson$/
 
