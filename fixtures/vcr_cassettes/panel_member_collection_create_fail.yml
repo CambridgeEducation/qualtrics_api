@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://co1.qualtrics.com/API/v1/panels/ABCD/members?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+    uri: https://co1.qualtrics.com/API/v1/panels?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
     body:
       encoding: US-ASCII
       string: ''
