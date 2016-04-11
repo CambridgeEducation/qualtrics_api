@@ -49,8 +49,8 @@ module QualtricsAPI
     end
 
     def parse_fetch_response(response)
-      @all = response.body["result"].map do |result|
-        QualtricsAPI::Survey.new(result).propagate_connection(self)
+      @all = response.body["result"]['elements'].map do |elements|
+        QualtricsAPI::Survey.new(elements).propagate_connection(self)
       end
     end
   end
