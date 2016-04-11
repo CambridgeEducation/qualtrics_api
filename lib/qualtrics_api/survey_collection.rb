@@ -1,23 +1,14 @@
 module QualtricsAPI
   class SurveyCollection < BaseCollection
     values do
-      attribute :scope_id, String
       attribute :all, Array, :default => []
     end
-
-    attr_writer :scope_id
 
     def fetch(options = {})
       @all = []
       update_query_attributes(options)
-      parse_fetch_response(QualtricsAPI.connection(self).get('surveys', query_params))
+      parse_fetch_response(QualtricsAPI.connection(self).get('surveys'))
       self
-    end
-
-    def query_attributes
-      {
-        :scope_id => @scope_id
-      }
     end
 
     def update_query_attributes(new_attributes = {})
@@ -40,12 +31,6 @@ module QualtricsAPI
       {
         :scope_id => "scopeId"
       }
-    end
-
-    def query_params
-      query_attributes.map do |k, v|
-        [attributes_mapping[k], v] unless v.nil? || v.to_s.empty?
-      end.compact.to_h
     end
 
     def parse_fetch_response(response)
