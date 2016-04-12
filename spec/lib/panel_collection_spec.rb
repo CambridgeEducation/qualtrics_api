@@ -30,7 +30,7 @@ describe QualtricsAPI::PanelCollection do
         end
 
         let!(:result) do
-          VCR.use_cassette("panel_collection_fetch_success", record: :once) do
+          VCR.use_cassette("panel_collection_fetch_success") do
             subject.fetch
           end
         end
