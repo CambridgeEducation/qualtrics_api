@@ -8,20 +8,20 @@ module QualtricsAPI
 
     values do
       attribute :page, Array, :default => []
-      attribute :first_page, Boolean, :default => true
+      attribute :fetched, Boolean, :default => false
       attribute :next_endpoint, String
     end
 
     def_delegator :page, :each
 
     def fetch
-      endpoint = first_page ? list_endpoint : next_endpoint
+      endpoint = fetched ? next_endpoint : list_endpoint
       parse_fetch_response(QualtricsAPI.connection(self).get(endpoint)) if endpoint
       self
     end
 
     def last_page?
-      !first_page && !next_endpoint
+      fetched && !next_endpoint
     end
 
     private
@@ -31,7 +31,7 @@ module QualtricsAPI
         build_result(element).propagate_connection(self)
       end
       @next_endpoint = response.body["result"]["nextPage"]
-      @first_page = false
+      @fetched = true
     end
   end
 end

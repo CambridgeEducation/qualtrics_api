@@ -50,11 +50,45 @@ describe QualtricsAPI::SurveyCollection do
       describe "when failed" do
         it "raises error and does not reset surveys" do
           subject.instance_variable_set :@page, [QualtricsAPI::Survey.new({})]
-          expect {
+          expect do
             VCR.use_cassette("survey_collection_fetch_fail") do
-              subject.fetch rescue nil
+              begin
+                subject.fetch
+              rescue
+                nil
+              end
             end
-          }.not_to change { subject.page }
+          end.not_to change { subject.page }
+        end
+      end
+    end
+  
+    describe 'pagination' do
+      describe '#first_page'    
+      it 'fetches pages from list endpoint' do
+        VCR.use_cassette("survey_collection_fetch_sucess") do
+          subject.fetch
+          expect(subject.fetched).to be_truthy
+          expect(subject.page.size).to eq(1)
+          expect(subject.last_page?).to be_falsey
+        end
+      end
+
+      it 'fetches pages from next page' do
+        VCR.use_cassette("survey_collection_fetch_sucess") do
+          subject.fetch.fetch
+          expect(subject.fetched).to be_truthy
+          expect(subject.page.size).to eq(0)
+          expect(subject.last_page?).to be_truthy
+        end
+      end
+    
+      it 'does nothing when on last page' do
+        VCR.use_cassette("survey_collection_fetch_sucess") do
+          subject.fetch.fetch.fetch
+          expect(subject.fetched).to be_truthy
+          expect(subject.page.size).to eq(0)
+          expect(subject.last_page?).to be_truthy
         end
       end
     end
