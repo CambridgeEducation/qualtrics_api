@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe QualtricsAPI::ResponseExportCollection do
-  it "has no @page when initialized" do
-    expect(subject.page).to eq []
-  end
-
   describe "#find, #[]" do
     let(:export_1) { QualtricsAPI::ResponseExport.new(:id => "export1") }
     let(:export_2) { QualtricsAPI::ResponseExport.new(:id => "export2") }
@@ -19,21 +15,6 @@ describe QualtricsAPI::ResponseExportCollection do
       sut = subject["eee 3"]
       expect(sut).to be_a QualtricsAPI::ResponseExport
       expect(sut.id).to eq "eee 3"
-    end
-  end
-
-  describe 'equality' do
-    subject { described_class.new(page: [QualtricsAPI::ResponseExport.new(:id => "export1"), QualtricsAPI::ResponseExport.new(:id => "export2")]) }
-    context 'when same' do
-      it 'returns true' do
-        expect(subject).to eq(described_class.new(page: subject.page))
-      end
-    end
-  
-    context 'when different' do
-      it 'returns false' do
-        expect(subject).not_to eq(described_class.new)
-      end
     end
   end
 end
