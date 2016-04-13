@@ -4,15 +4,10 @@ module QualtricsAPI
       attribute :all, Array, :default => []
     end
 
-    def fetch(options = {})
+    def fetch
       @all = []
-      update_query_attributes(options)
       parse_fetch_response(QualtricsAPI.connection(self).get('surveys'))
       self
-    end
-
-    def update_query_attributes(new_attributes = {})
-      @scope_id = new_attributes[:scope_id] if new_attributes.key?(:scope_id)
     end
 
     def [](survey_id)
@@ -26,12 +21,6 @@ module QualtricsAPI
     end
 
     private
-
-    def attributes_mapping
-      {
-        :scope_id => "scopeId"
-      }
-    end
 
     def parse_fetch_response(response)
       @all = response.body["result"]['elements'].map do |elements|

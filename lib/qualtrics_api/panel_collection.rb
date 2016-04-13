@@ -4,7 +4,7 @@ module QualtricsAPI
       attribute :all, Array, :default => []
     end
 
-    def fetch(_options = {})
+    def fetch()
       @all = []
       parse_fetch_response(QualtricsAPI.connection(self).get('mailinglists'))
       self
