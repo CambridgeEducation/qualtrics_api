@@ -24,7 +24,7 @@ describe QualtricsAPI::PanelCollection do
       context 'when does not exists' do
         let(:panel_id) { 'ML_00c5BS2WNUCWQI0' } 
       
-        it 'populates the result' do
+        it 'raises bad request error' do
           expect { result }.to raise_error(QualtricsAPI::BadRequestError)
         end
       end
