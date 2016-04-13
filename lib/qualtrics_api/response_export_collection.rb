@@ -1,7 +1,7 @@
 module QualtricsAPI
   class ResponseExportCollection < BaseCollection
     values do
-      attribute :all, Array, :default => []
+      attribute :page, Array, :default => []
     end
 
     def [](export_id)
@@ -9,7 +9,7 @@ module QualtricsAPI
     end
     
     def find(export_id)
-      @all.detect do |response_export|
+      @page.detect do |response_export|
         response_export.id == export_id
       end || QualtricsAPI::ResponseExport.new(:id => export_id).propagate_connection(self)
     end

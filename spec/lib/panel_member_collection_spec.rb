@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe QualtricsAPI::PanelMemberCollection do
-  it "has no @all when initialized" do
-    expect(subject.all).to eq []
+  it "has no @page when initialized" do
+    expect(subject.page).to eq []
   end
 
   describe "#find, #[]" do
@@ -10,7 +10,7 @@ describe QualtricsAPI::PanelMemberCollection do
     let(:panel_member_2) { QualtricsAPI::PanelMember.new("panelMemberId" => "p2") }
 
     it "finds the panel member by id" do
-      subject.instance_variable_set :@all, [panel_member_1, panel_member_2]
+      subject.instance_variable_set :@page, [panel_member_1, panel_member_2]
       expect(subject.find("p1")).to eq panel_member_1
       expect(subject["p2"]).to eq panel_member_2
     end
@@ -28,7 +28,7 @@ describe QualtricsAPI::PanelMemberCollection do
     describe "#fetch" do
       describe "when success" do
         before do
-          expect(subject.size).to eq 0
+          expect(subject.page.size).to eq 0
         end
 
         let!(:result) do
@@ -38,7 +38,7 @@ describe QualtricsAPI::PanelMemberCollection do
         end
 
         it "populates the collection" do
-          expect(subject.size).to eq 1
+          expect(subject.page.size).to eq 1
           expect(subject.first).to be_a QualtricsAPI::PanelMember
         end
 
@@ -49,12 +49,12 @@ describe QualtricsAPI::PanelMemberCollection do
 
       describe "when failed" do
         it "resets panels" do
-          subject.instance_variable_set :@all, [QualtricsAPI::PanelMember.new({})]
+          subject.instance_variable_set :@page, [QualtricsAPI::PanelMember.new({})]
           expect do
             VCR.use_cassette("panel_member_collection_fetch_fail") do
               expect { subject.fetch }.to raise_error
             end
-          end.to change { subject.all }.to([])
+          end.to change { subject.page }.to([])
         end
       end
     end
@@ -95,10 +95,10 @@ describe QualtricsAPI::PanelMemberCollection do
   end
 
   describe 'equality' do
-    subject { described_class.new(all: [QualtricsAPI::PanelMember.new("recipientID" => "p1"), QualtricsAPI::PanelMember.new("recipientID" => "p1")]) }
+    subject { described_class.new(page: [QualtricsAPI::PanelMember.new("recipientID" => "p1"), QualtricsAPI::PanelMember.new("recipientID" => "p1")]) }
     context 'when same' do
       it 'returns true' do
-        expect(subject).to eq(described_class.new(all: subject.all))
+        expect(subject).to eq(described_class.new(page: subject.page))
       end
     end
   

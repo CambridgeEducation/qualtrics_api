@@ -6,7 +6,6 @@ module QualtricsAPI
     include QualtricsAPI::Extensions::SerializableCollection
     include QualtricsAPI::Connectable
 
-    def_delegator :all, :each
-    def_delegator :all, :size
+    def_delegator :page, :each
   end
 end

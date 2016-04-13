@@ -2,11 +2,11 @@ module QualtricsAPI
   class PanelMemberCollection < BaseCollection
     values do
       attribute :id, String
-      attribute :all, Array, :default => []
+      attribute :page, Array, :default => []
     end
   
     def fetch(_options = {})
-      @all = []
+      @page = []
       parse_fetch_response(QualtricsAPI.connection(self).get("mailinglists/#{id}/contacts"))
       self
     end
@@ -27,7 +27,7 @@ module QualtricsAPI
     end
     
     def find(member_id)
-      @all.detect do |panel_member|
+      @page.detect do |panel_member|
         panel_member.id == member_id
       end || QualtricsAPI::PanelMember.new(:id => member_id).propagate_connection(self)
     end
@@ -35,7 +35,7 @@ module QualtricsAPI
     private
 
     def parse_fetch_response(response)
-      @all = response.body["result"]["elements"].map do |element|
+      @page = response.body["result"]["elements"].map do |element|
         QualtricsAPI::PanelMember.new(element).propagate_connection(self)
       end
     end

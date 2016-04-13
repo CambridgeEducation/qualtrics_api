@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe QualtricsAPI::PanelCollection do
-  it "has no @all when initialized" do
-    expect(subject.all).to eq []
+  it "has no @page when initialized" do
+    expect(subject.page).to eq []
   end
 
   describe "#find, #[]" do
@@ -26,7 +26,7 @@ describe QualtricsAPI::PanelCollection do
     describe "#fetch" do
       describe "when success" do
         before do
-          expect(subject.size).to eq 0
+          expect(subject.page.size).to eq 0
         end
 
         let!(:result) do
@@ -36,7 +36,7 @@ describe QualtricsAPI::PanelCollection do
         end
 
         it "populates the collection" do
-          expect(subject.size).to eq 1
+          expect(subject.page.size).to eq 1
           expect(subject.first).to be_a QualtricsAPI::Panel
         end
 
@@ -47,22 +47,22 @@ describe QualtricsAPI::PanelCollection do
 
       describe "when failed" do
         it "resets panels" do
-          subject.instance_variable_set :@all, [QualtricsAPI::Panel.new({})]
+          subject.instance_variable_set :@page, [QualtricsAPI::Panel.new({})]
           expect {
             VCR.use_cassette("panel_collection_fetch_fail") do
               subject.fetch rescue nil
             end
-          }.to change { subject.all }.to([])
+          }.to change { subject.page }.to([])
         end
       end
     end
   end
 
   describe 'equality' do
-    subject { described_class.new(all: [QualtricsAPI::Panel.new("panelId" => "p1"), QualtricsAPI::Panel.new("panelId" => "p2")]) }
+    subject { described_class.new(page: [QualtricsAPI::Panel.new("panelId" => "p1"), QualtricsAPI::Panel.new("panelId" => "p2")]) }
     context 'when same' do
       it 'returns true' do
-        expect(subject).to eq(described_class.new(all: subject.all))
+        expect(subject).to eq(described_class.new(page: subject.page))
       end
     end
   
