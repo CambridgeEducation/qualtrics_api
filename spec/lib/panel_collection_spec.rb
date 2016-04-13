@@ -5,24 +5,30 @@ describe QualtricsAPI::PanelCollection do
     expect(subject.page).to eq []
   end
 
-  describe "#find, #[]" do
-    let(:panel_1) { QualtricsAPI::Panel.new "panelId" => "p1" }
-    let(:panel_2) { QualtricsAPI::Panel.new "panelId" => "p2" }
-
-    it "finds the panel by id" do
-      subject.instance_variable_set :@all, [panel_1, panel_2]
-      expect(subject.find("p1")).to eq panel_1
-      expect(subject["p2"]).to eq panel_2
-    end
-
-    it "returns a new panel with the id" do
-      new_panel = subject["p3"]
-      expect(new_panel).to be_a QualtricsAPI::Panel
-      expect(new_panel.id).to eq "p3"
-    end
-  end
-
   describe "integration" do
+    describe "#find" do
+      let(:result) do
+        VCR.use_cassette("panel_find") do
+          subject.find(panel_id)
+        end
+      end
+
+      context 'when exists' do
+        let(:panel_id) { 'ML_00c5BS2WNUCWQIt' } 
+      
+        it 'populates the result' do
+          expect(result.attributes).to eq(:id => "ML_00c5BS2WNUCWQIt", :library_id => "UR_5dURLpfp5tm43EV", :name => "Panel name", :category => "Unassigned")
+        end
+      end
+    
+      context 'when does not exists' do
+        let(:panel_id) { 'ML_00c5BS2WNUCWQI0' } 
+      
+        it 'populates the result' do
+          expect { result }.to raise_error(QualtricsAPI::BadRequestError)
+        end
+      end
+    end
     describe "#fetch" do
       describe "when success" do
         before do
@@ -48,11 +54,15 @@ describe QualtricsAPI::PanelCollection do
       describe "when failed" do
         it "raises error and does not reset panels" do
           subject.instance_variable_set :@page, [QualtricsAPI::Panel.new({})]
-          expect {
+          expect do
             VCR.use_cassette("panel_collection_fetch_fail") do
-              subject.fetch rescue nil
+              begin
+                subject.fetch
+              rescue
+                nil
+              end
             end
-          }.not_to change { subject.page }
+          end.not_to change { subject.page }
         end
       end
     end

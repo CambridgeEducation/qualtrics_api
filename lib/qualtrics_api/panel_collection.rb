@@ -4,12 +4,6 @@ module QualtricsAPI
       find(panel_id)
     end
 
-    def find(panel_id)
-      @page.detect do |panel|
-        panel.id == panel_id
-      end || QualtricsAPI::Panel.new("panelId" => panel_id).propagate_connection(self)
-    end
-
     private
   
     def build_result(element)
@@ -18,6 +12,10 @@ module QualtricsAPI
 
     def list_endpoint
       'mailinglists'
+    end
+
+    def endpoint(id)
+      "mailinglists/#{id}"
     end
   end
 end
