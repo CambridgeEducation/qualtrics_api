@@ -7,5 +7,11 @@ module QualtricsAPI
     include QualtricsAPI::Connectable
 
     def_delegator :page, :each
+
+    def fetch
+      @page = []
+      parse_fetch_response(QualtricsAPI.connection(self).get(list_endpoint))
+      self
+    end
   end
 end

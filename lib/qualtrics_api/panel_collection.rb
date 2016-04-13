@@ -4,12 +4,6 @@ module QualtricsAPI
       attribute :page, Array, :default => []
     end
 
-    def fetch()
-      @page = []
-      parse_fetch_response(QualtricsAPI.connection(self).get('mailinglists'))
-      self
-    end
-
     def [](panel_id)
       find(panel_id)
     end
@@ -26,6 +20,10 @@ module QualtricsAPI
       @page = response.body["result"]["elements"].map do |elements|
         QualtricsAPI::Panel.new(elements).propagate_connection(self)
       end
+    end
+  
+    def list_endpoint
+      'mailinglists'
     end
   end
 end

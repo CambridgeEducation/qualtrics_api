@@ -5,12 +5,6 @@ module QualtricsAPI
       attribute :page, Array, :default => []
     end
   
-    def fetch(_options = {})
-      @page = []
-      parse_fetch_response(QualtricsAPI.connection(self).get("mailinglists/#{id}/contacts"))
-      self
-    end
-
     def create(panel_members)
       payload = {
         contacts: Faraday::UploadIO.new(StringIO.new(panel_members.to_json), 'application/json', 'contacts.json')
@@ -38,6 +32,10 @@ module QualtricsAPI
       @page = response.body["result"]["elements"].map do |element|
         QualtricsAPI::PanelMember.new(element).propagate_connection(self)
       end
+    end
+  
+    def list_endpoint
+      "mailinglists/#{id}/contacts"
     end
   end
 end
