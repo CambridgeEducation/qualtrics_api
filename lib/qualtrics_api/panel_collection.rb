@@ -15,13 +15,11 @@ module QualtricsAPI
     end
 
     private
-
-    def parse_fetch_response(response)
-      @page = response.body["result"]["elements"].map do |elements|
-        QualtricsAPI::Panel.new(elements).propagate_connection(self)
-      end
-    end
   
+    def build_result(element)
+      QualtricsAPI::Panel.new(element)
+    end
+
     def list_endpoint
       'mailinglists'
     end

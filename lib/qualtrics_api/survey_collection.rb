@@ -16,10 +16,8 @@ module QualtricsAPI
 
     private
 
-    def parse_fetch_response(response)
-      @page = response.body["result"]['elements'].map do |elements|
-        QualtricsAPI::Survey.new(elements).propagate_connection(self)
-      end
+    def build_result(element)
+      QualtricsAPI::Survey.new(element)
     end
 
     def list_endpoint

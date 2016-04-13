@@ -13,5 +13,13 @@ module QualtricsAPI
       parse_fetch_response(QualtricsAPI.connection(self).get(list_endpoint))
       self
     end
+
+    private
+
+    def parse_fetch_response(response)
+      @page = response.body["result"]["elements"].map do |element|
+        build_result(element).propagate_connection(self)
+      end
+    end
   end
 end
