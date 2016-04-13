@@ -42,13 +42,6 @@ QualtricsAPI.surveys.fetch
 # => #<QualtricsAPI::SurveyCollection:0x007fcb72cce350 ....>
 ```
 
-You can also add a scopeId:
-
-```ruby
-QualtricsAPI.surveys.fetch(scope_id: "someOwnerIdMaybe")
-# => #<QualtricsAPI::SurveyCollection:0x007fcb72adaf21 ....>
-```
-
 After you have received results, you can search for a survey by id:
 
 ```ruby
