@@ -12,10 +12,13 @@ module QualtricsAPI
     end
 
     def create(panel_members)
+      payload = {
+        contacts: Faraday::UploadIO.new(StringIO.new(panel_members.to_json), 'application/json', 'contacts.json')
+      }
       res = QualtricsAPI.connection(self)
-            .post("mailinglists/#{id}/contactimports", QualtricsAPI.connection(self).params.merge(panelMembers: panel_members.to_json))
-            .body["result"]
-      import_id = res['importStatus'].split('/').last
+                        .post("mailinglists/#{id}/contactimports", payload)
+                        .body["result"]
+      import_id = res['id']
       QualtricsAPI::PanelImport.new(id: import_id, panel_id: id).propagate_connection(self)
     end
 

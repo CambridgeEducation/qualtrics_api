@@ -61,8 +61,8 @@ describe QualtricsAPI::PanelMemberCollection do
 
     describe "#create" do
       let(:result) do
-        VCR.use_cassette(cassette) do
-          QualtricsAPI.panels.fetch['ML_bC2c5xBz1DxyOYB'].members.create(panel_members)
+        VCR.use_cassette(cassette, record: :once) do
+          QualtricsAPI.panels.fetch['ML_0APx3C4rmHER6w5'].members.create(panel_members)
         end
       end
 
@@ -75,11 +75,11 @@ describe QualtricsAPI::PanelMemberCollection do
         end
 
         it "returns PanelImport with id" do
-          expect(result.id).to eq('PGRS_bEJLYLkqMBs8Bwx')
+          expect(result.id).to eq('PGRS_4GvIMg79RFEPW4d')
         end
 
         it "returns PanelImport with panel id" do
-          expect(result.panel_id).to eq('ML_bC2c5xBz1DxyOYB')
+          expect(result.panel_id).to eq('ML_0APx3C4rmHER6w5')
         end
       end
 

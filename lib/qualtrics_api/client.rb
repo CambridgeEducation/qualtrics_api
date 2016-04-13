@@ -22,6 +22,7 @@ module QualtricsAPI
 
     def establish_connection(api_token)
       Faraday.new(url: QualtricsAPI::URL, headers: { 'X-API-TOKEN' => api_token }) do |faraday|
+        faraday.request :multipart
         faraday.request :json
         faraday.response :json, :content_type => /\bjson$/
 

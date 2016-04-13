@@ -2,65 +2,72 @@
 http_interactions:
 - request:
     method: get
-    uri: https://co1.qualtrics.com/API/v1/panels?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+    uri: https://co1.qualtrics.com/API/v3/mailinglists
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      X-API-TOKEN:
+      - 6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
       User-Agent:
-      - Faraday v0.8.9
+      - Faraday v0.9.2
   response:
     status:
       code: 200
       message: 
     headers:
-      server:
-      - Apache-Coyote/1.1
       content-type:
-      - application/json
-      date:
-      - Tue, 30 Jun 2015 11:05:46 GMT
+      - application/json; charset=utf-8
+      request-time:
+      - '765'
       content-length:
-      - '1104'
+      - '1334'
+      date:
+      - Tue, 12 Apr 2016 21:35:39 GMT
       connection:
       - close
     body:
       encoding: UTF-8
-      string: '{"result":[{"libraryId":"UR_a3IUfBgXyuCHefP","panelId":"ML_bC2c5xBz1DxyOYB","name":"Test
-        Panel","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_3DWuh7BTCbBDMrz","name":"1032
-        test","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_801qFFVH8bOdbdH","name":"Master2015","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_8CTTM1NuWINZUO1","name":"29.X-2","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_8FZn6SlO02EfpwV","name":"29.X","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_aYrBXdYJZ5SnYqx","name":"ML_b3GT2LOMImo2Rnf","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_bJj6bKQErauewzH","name":"GRPSteacherSpring2013fixed_seperate","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_bseUhQDwAJolD1j","name":"Master
-        Panel","category":"Unassigned"},{"libraryId":"GR_2aaKA1aGidXQtOA","panelId":"ML_eRKRb6a6Waiukap","name":"OhioSpring2015","category":"Unassigned"}],"meta":{"status":"Success","qualtricsErrorCode":null,"errorMessage":null}}'
+      string: '{"result":{"elements":[],"nextPage":"https://co1.qualtrics.com/API/v3/mailinglists?offset=10"},"meta":{"httpStatus":"200
+        - OK"}}'
     http_version: 
-  recorded_at: Tue, 30 Jun 2015 11:05:47 GMT
+  recorded_at: Tue, 12 Apr 2016 21:35:39 GMT
 - request:
     method: post
-    uri: https://co1.qualtrics.com/API/v1/panels/ML_bC2c5xBz1DxyOYB/members?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+    uri: https://co1.qualtrics.com/API/v3/mailinglists/ML_0APx3C4rmHER6w5/contactimports
     body:
-      encoding: US-ASCII
-      string: apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ&panelMembers=%5B%7B%22FirstName%22%3A%22Marcin%22%2C%22LastName%22%3A%22Naglik%22%2C%22Email%22%3A%22test%40test.com%22%7D%5D
+      encoding: UTF-8
+      string: "-------------RubyMultipartPost\r\nContent-Disposition: form-data; name=\"contacts\";
+        filename=\"contacts.json\"\r\nContent-Length: 68\r\nContent-Type: application/json\r\nContent-Transfer-Encoding:
+        binary\r\n\r\n[{\"firstName\":\"Marcin\",\"lastName\":\"Naglik\",\"email\":\"test@test.com\"}]\r\n-------------RubyMultipartPost--\r\n\r\n"
     headers:
+      X-API-TOKEN:
+      - 6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
       User-Agent:
-      - Faraday v0.8.9
+      - Faraday v0.9.2
       Content-Type:
-      - application/x-www-form-urlencoded
+      - multipart/form-data; boundary=-----------RubyMultipartPost
+      Content-Length:
+      - '302'
   response:
     status:
       code: 200
       message: 
     headers:
-      server:
-      - Apache-Coyote/1.1
       content-type:
-      - application/json
-      date:
-      - Tue, 30 Jun 2015 11:05:47 GMT
+      - application/json; charset=utf-8
+      request-time:
+      - '160'
       content-length:
-      - '203'
+      - '73'
+      date:
+      - Tue, 12 Apr 2016 21:35:40 GMT
       connection:
       - close
     body:
       encoding: UTF-8
-      string: '{"result":{"importStatus":"http://co1.qualtrics.com/API/v1/panels/ML_bC2c5xBz1DxyOYB/members/panelImports/PGRS_bEJLYLkqMBs8Bwx"},"meta":{"status":"Success","qualtricsErrorCode":null,"errorMessage":null}}'
+      string: '{"result":{"id":"PGRS_4GvIMg79RFEPW4d"},"meta":{"httpStatus":"200 -
+        OK"}}'
     http_version: 
-  recorded_at: Tue, 30 Jun 2015 11:05:47 GMT
+  recorded_at: Tue, 12 Apr 2016 21:35:40 GMT
 recorded_with: VCR 2.9.3
