@@ -157,7 +157,7 @@ panel = QualtricsAPI.panels["panelIdHere"]
 To add panel members to a panel:
 
 ```ruby
-panel = QualtricsAPI.panels.fetch["panelIdHere"]
+panel = QualtricsAPI.panels.find("panelIdHere")
 members = [QualtricsAPI::PanelMember.new(first_name: 'John', last_name: 'Doe', email: 'test@test.com')]
 panel.members.create(members)
 => #<QualtricsAPI::PanelImport:0x007fb7db984668 ...>

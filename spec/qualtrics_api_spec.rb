@@ -22,7 +22,7 @@ describe QualtricsAPI do
     context 'chains' do
       it 'does propagate default connection' do
         members = VCR.use_cassette('panel_member_collection_create_success') do
-          QualtricsAPI.panels.fetch['ML_bC2c5xBz1DxyOYB'].members
+          QualtricsAPI.panels.find('ML_bC2c5xBz1DxyOYB').members
         end
         expect(members.connection).to eq(QualtricsAPI.connection)
       end
@@ -31,7 +31,7 @@ describe QualtricsAPI do
         let(:client) { QualtricsAPI::Client.new(TEST_API_TOKEN) }
         let(:members) do
           VCR.use_cassette('panel_member_collection_create_success') do
-            client.panels.fetch['ML_bC2c5xBz1DxyOYB'].members
+            client.panels.find('ML_bC2c5xBz1DxyOYB').members
           end
         end
 
@@ -47,7 +47,7 @@ describe QualtricsAPI do
           let(:client_2) { QualtricsAPI::Client.new(TEST_API_TOKEN) }
           let(:members_2) do
             VCR.use_cassette('panel_member_collection_create_success') do
-              client_2.panels.fetch['ML_bC2c5xBz1DxyOYB'].members
+              client_2.panels.find('ML_bC2c5xBz1DxyOYB').members
             end
           end
 

@@ -5,25 +5,32 @@ describe QualtricsAPI::PanelMemberCollection do
     expect(subject.page).to eq []
   end
 
-  describe "#find, #[]" do
-    let(:panel_member_1) { QualtricsAPI::PanelMember.new("panelMemberId" => "p1") }
-    let(:panel_member_2) { QualtricsAPI::PanelMember.new("panelMemberId" => "p2") }
-
-    it "finds the panel member by id" do
-      subject.instance_variable_set :@page, [panel_member_1, panel_member_2]
-      expect(subject.find("p1")).to eq panel_member_1
-      expect(subject["p2"]).to eq panel_member_2
-    end
-
-    it "returns a new panel with the id" do
-      new_panel_member = subject["p3"]
-      expect(new_panel_member).to be_a QualtricsAPI::PanelMember
-      expect(new_panel_member.id).to eq "p3"
-    end
-  end
-
   describe "integration" do
     subject { described_class.new(id: 'ABCD') }
+
+    describe "#find" do
+      let(:result) do
+        VCR.use_cassette("survey_find") do
+          subject.find(survey_id)
+        end
+      end
+
+      context 'when exists' do
+        let(:survey_id) { 'SV_0fEV92PdRg8a2e9' } 
+      
+        it 'raises error' do
+          expect { result }.to raise_error(QualtricsAPI::NotSupported, 'Find not supported for panel member')
+        end
+      end
+    
+      context 'when does not exists' do
+        let(:survey_id) { 'SV_0fEV92PdRg8a2e0' } 
+      
+        it 'raises error' do
+          expect { result }.to raise_error(QualtricsAPI::NotSupported, 'Find not supported for panel member')
+        end
+      end
+    end
 
     describe "#fetch" do
       describe "when success" do
@@ -62,7 +69,7 @@ describe QualtricsAPI::PanelMemberCollection do
     describe "#create" do
       let(:result) do
         VCR.use_cassette(cassette, record: :once) do
-          QualtricsAPI.panels.fetch['ML_0APx3C4rmHER6w5'].members.create(panel_members)
+          QualtricsAPI.panels.find('ML_0APx3C4rmHER6w5').members.create(panel_members)
         end
       end
 
