@@ -48,13 +48,13 @@ describe QualtricsAPI::SurveyCollection do
       end
 
       describe "when failed" do
-        it "resets surveys" do
+        it "raises error and does not reset surveys" do
           subject.instance_variable_set :@page, [QualtricsAPI::Survey.new({})]
           expect {
             VCR.use_cassette("survey_collection_fetch_fail") do
               subject.fetch rescue nil
             end
-          }.to change { subject.page }.to([])
+          }.not_to change { subject.page }
         end
       end
     end

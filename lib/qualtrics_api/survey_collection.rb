@@ -1,9 +1,5 @@
 module QualtricsAPI
   class SurveyCollection < BaseCollection
-    values do
-      attribute :page, Array, :default => []
-    end
-
     def [](survey_id)
       find(survey_id)
     end

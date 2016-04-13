@@ -46,13 +46,13 @@ describe QualtricsAPI::PanelCollection do
       end
 
       describe "when failed" do
-        it "resets panels" do
+        it "raises error and does not reset panels" do
           subject.instance_variable_set :@page, [QualtricsAPI::Panel.new({})]
           expect {
             VCR.use_cassette("panel_collection_fetch_fail") do
               subject.fetch rescue nil
             end
-          }.to change { subject.page }.to([])
+          }.not_to change { subject.page }
         end
       end
     end

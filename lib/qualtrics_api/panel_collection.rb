@@ -1,9 +1,5 @@
 module QualtricsAPI
   class PanelCollection < BaseCollection
-    values do
-      attribute :page, Array, :default => []
-    end
-
     def [](panel_id)
       find(panel_id)
     end

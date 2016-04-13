@@ -2,7 +2,6 @@ module QualtricsAPI
   class PanelMemberCollection < BaseCollection
     values do
       attribute :id, String
-      attribute :page, Array, :default => []
     end
   
     def create(panel_members)
