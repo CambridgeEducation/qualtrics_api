@@ -20,6 +20,12 @@ module QualtricsAPI
       self
     end
 
+    def find(id)
+      response = QualtricsAPI.connection(self).get(endpoint(id))
+      return nil unless response.status == 200
+      build_result(response.body['result']).propagate_connection(self)
+    end
+
     def last_page?
       fetched && !next_endpoint
     end

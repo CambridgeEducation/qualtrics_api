@@ -5,26 +5,33 @@ describe QualtricsAPI::SurveyCollection do
     expect(subject.page).to eq []
   end
 
-  describe "#find, #[]" do
-    let(:survey_1) { QualtricsAPI::Survey.new "id" => "s1" }
-    let(:survey_2) { QualtricsAPI::Survey.new "id" => "s2" }
-
-    it "finds the survey by id" do
-      subject.instance_variable_set :@page, [survey_1, survey_2]
-      expect(subject.find("s1")).to eq survey_1
-      expect(subject["s2"]).to eq survey_2
-    end
-
-    it "returns a new survey with the id" do
-      sut = subject["s3"]
-      expect(sut).to be_a QualtricsAPI::Survey
-      expect(sut.id).to eq "s3"
-    end
-  end
-
   describe "integration" do
     subject { described_class.new }
 
+    describe "#find" do
+      let(:result) do
+        VCR.use_cassette("survey_find") do
+          subject.find(survey_id)
+        end
+      end
+
+      context 'when exists' do
+        let(:survey_id) { 'SV_0fEV92PdRg8a2e9' } 
+      
+        it 'populates the result' do
+          expect(result.attributes).to eq(:id => "SV_0fEV92PdRg8a2e9", :name => "test", :owner_id => "owner_id", :last_modified => nil, :is_active => true)
+        end
+      end
+    
+      context 'when does not exists' do
+        let(:survey_id) { 'SV_0fEV92PdRg8a2e0' } 
+      
+        it 'populates the result' do
+          expect { result }.to raise_error(QualtricsAPI::NotFoundError)
+        end
+      end
+    end
+    
     describe "#fetch" do
       describe "when success" do
         before do

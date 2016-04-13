@@ -4,12 +4,6 @@ module QualtricsAPI
       find(survey_id)
     end
 
-    def find(survey_id)
-      @page.detect do |survey|
-        survey.id == survey_id
-      end || QualtricsAPI::Survey.new("id" => survey_id)
-    end
-
     private
 
     def build_result(element)
@@ -18,6 +12,10 @@ module QualtricsAPI
 
     def list_endpoint
       'surveys'
+    end
+
+    def endpoint(id)
+      "surveys/#{id}"
     end
   end
 end
