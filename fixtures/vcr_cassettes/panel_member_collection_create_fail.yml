@@ -2,13 +2,15 @@
 http_interactions:
 - request:
     method: get
-    uri: https://co1.qualtrics.com/API/v1/panels?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+    uri: https://co1.qualtrics.com/API/v3/mailinglists
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      X-API-TOKEN:
+      - 6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
       User-Agent:
-      - Faraday v0.8.9
+      - Faraday v0.9.2
   response:
     status:
       code: 400

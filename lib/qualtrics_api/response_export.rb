@@ -5,9 +5,9 @@ module QualtricsAPI
     end
 
     def update_status
-      res = QualtricsAPI.connection(self).get('surveys/responseExports/' + id).body["result"]
+      res = QualtricsAPI.connection(self).get('responseexports/' + id).body["result"]
       @export_progress = res["percentComplete"]
-      @file_url = res["fileUrl"]
+      @file_url = res["file"]
       @completed = true if @export_progress == 100.0
       self
     end

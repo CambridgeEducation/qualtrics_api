@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe QualtricsAPI::PanelImport do
-  subject { described_class.new(id: 'PGRS_bEJLYLkqMBs8Bwx', panel_id: 'ML_bC2c5xBz1DxyOYB') }
+  subject { described_class.new(id: 'PGRS_4GvIMg79RFEPW4d', panel_id: 'ML_0APx3C4rmHER6w5') }
 
   describe "integration" do
     describe "#update_status" do
       let(:result) do
-        VCR.use_cassette('panel_import_update_success') do
+        VCR.use_cassette('panel_import_update_success', record: :once) do
           subject.update_status
         end
       end

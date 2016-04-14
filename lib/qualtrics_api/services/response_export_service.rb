@@ -2,46 +2,42 @@ module QualtricsAPI
   module Services
     class ResponseExportService < QualtricsAPI::BaseModel
       values do
+        attribute :format, String, :default => 'csv'
         attribute :survey_id, String
-        attribute :response_set_id, String
-        attribute :file_type, String, :default => 'CSV'
         attribute :last_response_id, String
         attribute :start_date, String
         attribute :end_date, String
         attribute :limit, String
         attribute :included_question_ids, String
-        attribute :max_rows, String
         attribute :use_labels, Boolean, :default => false
-        attribute :decimal_format, String, :default => '.'
+        attribute :decimal_separator, String, :default => '.'
         attribute :seen_unanswered_recode, String
         attribute :use_local_time, Boolean, :default => false
-        attribute :spss_string_length, String
+
         attribute :id, String
       end
       
       attr_reader :result
 
       def start
-        response = QualtricsAPI.connection(self).get("surveys/#{survey_id}/responseExports", export_params)
-        export_id = response.body["result"]["exportStatus"].split('/').last
+        response = QualtricsAPI.connection(self).post("responseexports", export_params)
+        export_id = response.body["result"]["id"]
         @result = ResponseExport.new(id: export_id)
       end
 
       def export_configurations
         {
-          response_set_id: response_set_id,
-          file_type: file_type,
+          format: format,
+          survey_id: survey_id,
           last_response_id: last_response_id,
           start_date: start_date,
           end_date: end_date,
           limit: limit,
           included_question_ids: included_question_ids,
-          max_rows: max_rows,
           use_labels: use_labels,
-          decimal_format: decimal_format,
+          decimal_separator: decimal_separator,
           seen_unanswered_recode: seen_unanswered_recode,
-          use_local_time: use_local_time,
-          spss_string_length: spss_string_length
+          use_local_time: use_local_time
         }
       end
 
@@ -49,19 +45,17 @@ module QualtricsAPI
 
       def param_mappings
         {
-          response_set_id: "responseSetId",
-          file_type: "fileType",
+          format: "format",
+          survey_id: "surveyId",
           last_response_id: "lastResponseId",
           start_date: "startDate",
           end_date: "endDate",
           limit: "limit",
           included_question_ids: "includedQuestionIds",
-          max_rows: "maxRows",
           use_labels: "useLabels",
-          decimal_format: "decimalFormat",
+          decimal_separator: "decimalSeparator",
           seen_unanswered_recode: "seenUnansweredRecode",
-          use_local_time: "useLocalTime",
-          spss_string_length: "spssStringLength"
+          use_local_time: "useLocalTime"
         }
       end
 

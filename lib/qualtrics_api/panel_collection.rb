@@ -4,9 +4,9 @@ module QualtricsAPI
       attribute :all, Array, :default => []
     end
 
-    def fetch(_options = {})
+    def fetch()
       @all = []
-      parse_fetch_response(QualtricsAPI.connection(self).get('panels'))
+      parse_fetch_response(QualtricsAPI.connection(self).get('mailinglists'))
       self
     end
 
@@ -23,8 +23,8 @@ module QualtricsAPI
     private
 
     def parse_fetch_response(response)
-      @all = response.body["result"].map do |result|
-        QualtricsAPI::Panel.new(result).propagate_connection(self)
+      @all = response.body["result"]["elements"].map do |elements|
+        QualtricsAPI::Panel.new(elements).propagate_connection(self)
       end
     end
   end

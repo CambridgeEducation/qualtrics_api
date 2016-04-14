@@ -25,14 +25,14 @@ module QualtricsAPI
 
     def attributes_for_save
       {
-        :id => "RecipientID",
-        :first_name => "FirstName",
-        :last_name => "LastName",
-        :email => "Email",
-        :language => "Language",
-        :unsubscribed => 'Unsubscribed',
-        :external_reference => "ExternalReference",
-        :embeded_data => "EmbeddedData"
+        :id => "recipientID",
+        :first_name => "firstName",
+        :last_name => "lastName",
+        :email => "email",
+        :language => "language",
+        :unsubscribed => 'unsubscribed',
+        :external_reference => "externalReference",
+        :embeded_data => "embeddedData"
       }
     end
 

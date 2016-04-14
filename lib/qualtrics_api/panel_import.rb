@@ -6,7 +6,7 @@ module QualtricsAPI
     end
 
     def update_status
-      res = QualtricsAPI.connection(self).get("panels/#{panel_id}/members/panelImports/#{id}").body["result"]
+      res = QualtricsAPI.connection(self).get("mailinglists/#{panel_id}/contactimports/#{id}").body["result"]
       @import_progress = res["percentComplete"]
       @completed = true if @import_progress == 100.0
       self

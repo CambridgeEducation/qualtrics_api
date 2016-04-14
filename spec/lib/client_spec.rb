@@ -18,10 +18,6 @@ describe QualtricsAPI::Client do
       expect(subject.surveys).to be_a QualtricsAPI::SurveyCollection
     end
 
-    it "assigns scope_id if passed" do
-      expect(subject.surveys(:scope_id => "someId").scope_id).to eq "someId"
-    end
-
     it "caches the surveys" do
       expect(subject.surveys.object_id).to eq subject.surveys.object_id
     end

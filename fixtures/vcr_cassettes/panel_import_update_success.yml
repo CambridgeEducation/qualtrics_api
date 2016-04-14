@@ -2,31 +2,33 @@
 http_interactions:
 - request:
     method: get
-    uri: https://co1.qualtrics.com/API/v1/panels/ML_bC2c5xBz1DxyOYB/members/panelImports/PGRS_bEJLYLkqMBs8Bwx?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+    uri: https://co1.qualtrics.com/API/v3/mailinglists/ML_0APx3C4rmHER6w5/contactimports/PGRS_4GvIMg79RFEPW4d
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      X-API-TOKEN:
+      - 6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
       User-Agent:
-      - Faraday v0.8.9
+      - Faraday v0.9.2
   response:
     status:
       code: 200
       message: 
     headers:
-      server:
-      - Apache-Coyote/1.1
       content-type:
-      - application/json
-      date:
-      - Tue, 30 Jun 2015 18:36:33 GMT
+      - application/json; charset=utf-8
+      request-time:
+      - '97'
       content-length:
-      - '85'
+      - '69'
+      date:
+      - Wed, 13 Apr 2016 09:18:25 GMT
       connection:
       - close
     body:
       encoding: UTF-8
-      string: '{"result":{"status":"COMPLETED","percentComplete":100.0},"meta":{"status":"Success"}}'
+      string: '{"result":{"percentComplete":100.0},"meta":{"httpStatus":"200 - OK"}}'
     http_version: 
-  recorded_at: Tue, 30 Jun 2015 18:36:34 GMT
+  recorded_at: Wed, 13 Apr 2016 09:18:25 GMT
 recorded_with: VCR 2.9.3

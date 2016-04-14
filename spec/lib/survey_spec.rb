@@ -30,12 +30,8 @@ describe QualtricsAPI::Survey do
     expect(subject.last_modified).to eq qualtrics_response["lastModified"]
   end
 
-  it "has created_at" do
-    expect(subject.created_at).to eq qualtrics_response["SurveyCreationDate"]
-  end
-
-  it "has status" do
-    expect(subject.status).to eq qualtrics_response["status"]
+  it "has is_active" do
+    expect(subject.is_active).to eq qualtrics_response["is_active"]
   end
 
   describe "export_responses" do

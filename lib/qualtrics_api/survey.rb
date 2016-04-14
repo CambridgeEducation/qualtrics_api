@@ -5,8 +5,7 @@ module QualtricsAPI
       attribute :name, String
       attribute :owner_id, String
       attribute :last_modified, String
-      attribute :created_at, String
-      attribute :status, String
+      attribute :is_active, Boolean
     end
 
     def export_responses(export_options = {})
@@ -21,8 +20,7 @@ module QualtricsAPI
         :name => "name",
         :owner_id => "ownerId",
         :last_modified => "lastModified",
-        :status => "status",
-        :created_at => "SurveyCreationDate"
+        :is_active => "isActive"
       }
     end
   end

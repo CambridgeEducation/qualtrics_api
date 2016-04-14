@@ -75,7 +75,7 @@ describe QualtricsAPI::ResponseExport do
   describe "#update_status" do
     it "updates the status of the export then returns itself" do
       VCR.use_cassette("response_export_update_success") do
-        subject = described_class.new id: "ES_cwLvnQHobKfV9t3"
+        subject = described_class.new id: "ES_abcd"
 
         result = subject.update_status
 
