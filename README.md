@@ -5,7 +5,7 @@
 # QualtricsAPI
 
 Ruby wrapper for Qualtrics REST ControlPanel API version 3.0.
-[API Documents/Play Ground](https://co1.qualtrics.com/APIDocs/)
+[API Documents/Play Ground](https://api.qualtrics.com/)
 
 ## Installation
 
