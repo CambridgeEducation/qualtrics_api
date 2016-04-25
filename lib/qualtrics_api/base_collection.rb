@@ -21,8 +21,9 @@ module QualtricsAPI
 
     def next
       raise NotFoundError if last?
-      parse_fetch_response(QualtricsAPI.connection(self).get(next_endpoint))
-      self # do not return self but rather populate separate object
+      self.class.new.tap do |r|
+        r.parse_fetch_response(QualtricsAPI.connection(self).get(next_endpoint))
+      end
     end
 
     def find(id)
@@ -35,7 +36,7 @@ module QualtricsAPI
       fetched && !next_endpoint
     end
 
-    private
+    protected
 
     def parse_fetch_response(response)
       @page = response.body["result"]["elements"].map do |element|
