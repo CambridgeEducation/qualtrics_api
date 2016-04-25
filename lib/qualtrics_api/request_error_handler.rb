@@ -26,8 +26,10 @@ module QualtricsAPI
     end
   end
 
+  class NotYetFetchedError < StandardError; end
   class NotFoundError < StandardError; end
   class BadRequestError < StandardError; end
   class UnauthorizedError < StandardError; end
   class InternalServerError < StandardError; end
+  class NotSupported < StandardError; end
 end
