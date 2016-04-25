@@ -71,28 +71,33 @@ describe QualtricsAPI::SurveyCollection do
     end
   
     describe 'pagination' do
-      describe '#first_page'    
       it 'fetches pages from list endpoint' do
         VCR.use_cassette("survey_collection_fetch_sucess") do
           subject.fetch
           expect(subject.fetched).to be_truthy
           expect(subject.page.size).to eq(1)
-          expect(subject.last?).to be_falsey
+          expect(subject.next_page?).to be_truthy
+        end
+      end
+
+      it 'raises error when next_page without fetch' do
+        VCR.use_cassette("survey_collection_fetch_sucess") do
+          expect { expect(subject.next_page) }.to raise_error(QualtricsAPI::NotYetFetchedError)
         end
       end
 
       it 'fetches pages from next page' do
         VCR.use_cassette("survey_collection_fetch_sucess") do
-          result = subject.fetch.next
+          result = subject.fetch.next_page
           expect(result.fetched).to be_truthy
           expect(result.page.size).to eq(0)
-          expect(result.last?).to be_truthy
+          expect(result.next_page?).to be_falsey
         end
       end
     
       it 'raises error when on last page' do
         VCR.use_cassette("survey_collection_fetch_sucess") do
-          expect { subject.fetch.next.next }.to raise_error(QualtricsAPI::NotFoundError)
+          expect { subject.fetch.next_page.next_page }.to raise_error(QualtricsAPI::NotFoundError)
         end
       end
     end

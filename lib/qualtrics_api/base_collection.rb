@@ -19,8 +19,8 @@ module QualtricsAPI
       self
     end
 
-    def next
-      raise NotFoundError if last?
+    def next_page
+      raise NotFoundError unless next_page?
       self.class.new.tap do |r|
         r.parse_fetch_response(QualtricsAPI.connection(self).get(next_endpoint))
       end
@@ -32,8 +32,9 @@ module QualtricsAPI
       build_result(response.body['result']).propagate_connection(self)
     end
 
-    def last?
-      fetched && !next_endpoint
+    def next_page?
+      raise NotYetFetchedError unless fetched
+      !next_endpoint.nil?
     end
 
     protected
