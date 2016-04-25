@@ -41,10 +41,10 @@ To paginate all your surveys:
 surveys = QualtricsAPI.surveys.fetch
 # => #<QualtricsAPI::SurveyCollection:0x007fcb72cce350 ....>
 
-surveys.fetch # to fetch next page if not on the last page
+surveys = surveys.next # to fetch next page if not on the last page
 # => #<QualtricsAPI::SurveyCollection:0x007fcb72cce350 ....>
 
-surveys.last_page?
+surveys.last?
 # => true
 ```
 
@@ -143,7 +143,7 @@ To paginate all the panels:
 panels = QualtricsAPI.panels.fetch
 # => #<QualtricsAPI::PanelCollection:0x007f8769aae2c0 ....>
 
-panels.fetch # get next page
+panels = panels.next # get next page if not panels.last?
 # => #<QualtricsAPI::PanelCollection:0x007f8769aae2c0 ....>
 ```
 
