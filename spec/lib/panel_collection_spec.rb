@@ -1,32 +1,38 @@
 require 'spec_helper'
 
 describe QualtricsAPI::PanelCollection do
-  it "has no @all when initialized" do
-    expect(subject.all).to eq []
-  end
-
-  describe "#find, #[]" do
-    let(:panel_1) { QualtricsAPI::Panel.new "panelId" => "p1" }
-    let(:panel_2) { QualtricsAPI::Panel.new "panelId" => "p2" }
-
-    it "finds the panel by id" do
-      subject.instance_variable_set :@all, [panel_1, panel_2]
-      expect(subject.find("p1")).to eq panel_1
-      expect(subject["p2"]).to eq panel_2
-    end
-
-    it "returns a new panel with the id" do
-      new_panel = subject["p3"]
-      expect(new_panel).to be_a QualtricsAPI::Panel
-      expect(new_panel.id).to eq "p3"
-    end
+  it "has no @page when initialized" do
+    expect(subject.page).to eq []
   end
 
   describe "integration" do
+    describe "#find" do
+      let(:result) do
+        VCR.use_cassette("panel_find") do
+          subject.find(panel_id)
+        end
+      end
+
+      context 'when exists' do
+        let(:panel_id) { 'ML_00c5BS2WNUCWQIt' } 
+      
+        it 'populates the result' do
+          expect(result.attributes).to eq(:id => "ML_00c5BS2WNUCWQIt", :library_id => "UR_5dURLpfp5tm43EV", :name => "Panel name", :category => "Unassigned")
+        end
+      end
+    
+      context 'when does not exists' do
+        let(:panel_id) { 'ML_00c5BS2WNUCWQI0' } 
+      
+        it 'raises bad request error' do
+          expect { result }.to raise_error(QualtricsAPI::BadRequestError)
+        end
+      end
+    end
     describe "#fetch" do
       describe "when success" do
         before do
-          expect(subject.size).to eq 0
+          expect(subject.page.size).to eq 0
         end
 
         let!(:result) do
@@ -36,7 +42,7 @@ describe QualtricsAPI::PanelCollection do
         end
 
         it "populates the collection" do
-          expect(subject.size).to eq 1
+          expect(subject.page.size).to eq 1
           expect(subject.first).to be_a QualtricsAPI::Panel
         end
 
@@ -46,23 +52,27 @@ describe QualtricsAPI::PanelCollection do
       end
 
       describe "when failed" do
-        it "resets panels" do
-          subject.instance_variable_set :@all, [QualtricsAPI::Panel.new({})]
-          expect {
+        it "raises error and does not reset panels" do
+          subject.instance_variable_set :@page, [QualtricsAPI::Panel.new({})]
+          expect do
             VCR.use_cassette("panel_collection_fetch_fail") do
-              subject.fetch rescue nil
+              begin
+                subject.fetch
+              rescue
+                nil
+              end
             end
-          }.to change { subject.all }.to([])
+          end.not_to change { subject.page }
         end
       end
     end
   end
 
   describe 'equality' do
-    subject { described_class.new(all: [QualtricsAPI::Panel.new("panelId" => "p1"), QualtricsAPI::Panel.new("panelId" => "p2")]) }
+    subject { described_class.new(page: [QualtricsAPI::Panel.new("panelId" => "p1"), QualtricsAPI::Panel.new("panelId" => "p2")]) }
     context 'when same' do
       it 'returns true' do
-        expect(subject).to eq(described_class.new(all: subject.all))
+        expect(subject).to eq(described_class.new(page: subject.page))
       end
     end
   

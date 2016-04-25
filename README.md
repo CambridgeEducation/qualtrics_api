@@ -35,14 +35,20 @@ end
 
 ### Surveys
 
-To get all your surveys:
+To paginate all your surveys:
 
 ```ruby
-QualtricsAPI.surveys.fetch
+surveys = QualtricsAPI.surveys.fetch
 # => #<QualtricsAPI::SurveyCollection:0x007fcb72cce350 ....>
+
+surveys.fetch # to fetch next page if not on the last page
+# => #<QualtricsAPI::SurveyCollection:0x007fcb72cce350 ....>
+
+surveys.last_page?
+# => true
 ```
 
-After you have received results, you can search for a survey by id:
+You can search for a survey by id:
 
 ```ruby
 survey = QualtricsAPI.surveys.find("surveyIdHere")
@@ -131,14 +137,17 @@ export.status
 
 ### Panels
 
-To get all the panels:
+To paginate all the panels:
 
 ```ruby
-QualtricsAPI.panels.fetch
+panels = QualtricsAPI.panels.fetch
+# => #<QualtricsAPI::PanelCollection:0x007f8769aae2c0 ....>
+
+panels.fetch # get next page
 # => #<QualtricsAPI::PanelCollection:0x007f8769aae2c0 ....>
 ```
 
-After you have received results, you can search for a panel by id:
+You can search for a panel by id:
 
 ```ruby
 panel = QualtricsAPI.panels.find("panelIdHere")
@@ -157,7 +166,7 @@ panel = QualtricsAPI.panels["panelIdHere"]
 To add panel members to a panel:
 
 ```ruby
-panel = QualtricsAPI.panels.fetch["panelIdHere"]
+panel = QualtricsAPI.panels.find("panelIdHere")
 members = [QualtricsAPI::PanelMember.new(first_name: 'John', last_name: 'Doe', email: 'test@test.com')]
 panel.members.create(members)
 => #<QualtricsAPI::PanelImport:0x007fb7db984668 ...>

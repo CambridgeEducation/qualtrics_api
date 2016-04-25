@@ -7,15 +7,15 @@ module QualtricsAPI
     end
 
     def surveys(options = {})
-      @surveys ||= QualtricsAPI::SurveyCollection.new(options).propagate_connection(self)
+      QualtricsAPI::SurveyCollection.new(options).propagate_connection(self)
     end
 
     def response_exports(options = {})
-      @response_exports ||= QualtricsAPI::ResponseExportCollection.new(options).propagate_connection(self)
+      QualtricsAPI::ResponseExportCollection.new(options).propagate_connection(self)
     end
 
     def panels(options = {})
-      @panels ||= QualtricsAPI::PanelCollection.new(options).propagate_connection(self)
+      QualtricsAPI::PanelCollection.new(options).propagate_connection(self)
     end
 
     private

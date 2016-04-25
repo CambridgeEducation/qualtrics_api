@@ -30,4 +30,5 @@ module QualtricsAPI
   class BadRequestError < StandardError; end
   class UnauthorizedError < StandardError; end
   class InternalServerError < StandardError; end
+  class NotSupported < StandardError; end
 end

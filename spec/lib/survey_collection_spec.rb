@@ -1,34 +1,41 @@
 require 'spec_helper'
 
 describe QualtricsAPI::SurveyCollection do
-  it "has no @all when initialized" do
-    expect(subject.all).to eq []
-  end
-
-  describe "#find, #[]" do
-    let(:survey_1) { QualtricsAPI::Survey.new "id" => "s1" }
-    let(:survey_2) { QualtricsAPI::Survey.new "id" => "s2" }
-
-    it "finds the survey by id" do
-      subject.instance_variable_set :@all, [survey_1, survey_2]
-      expect(subject.find("s1")).to eq survey_1
-      expect(subject["s2"]).to eq survey_2
-    end
-
-    it "returns a new survey with the id" do
-      sut = subject["s3"]
-      expect(sut).to be_a QualtricsAPI::Survey
-      expect(sut.id).to eq "s3"
-    end
+  it "has no @page when initialized" do
+    expect(subject.page).to eq []
   end
 
   describe "integration" do
     subject { described_class.new }
 
+    describe "#find" do
+      let(:result) do
+        VCR.use_cassette("survey_find") do
+          subject.find(survey_id)
+        end
+      end
+
+      context 'when exists' do
+        let(:survey_id) { 'SV_0fEV92PdRg8a2e9' } 
+      
+        it 'populates the result' do
+          expect(result.attributes).to eq(:id => "SV_0fEV92PdRg8a2e9", :name => "test", :owner_id => "owner_id", :last_modified => nil, :is_active => true)
+        end
+      end
+    
+      context 'when does not exists' do
+        let(:survey_id) { 'SV_0fEV92PdRg8a2e0' } 
+      
+        it 'populates the result' do
+          expect { result }.to raise_error(QualtricsAPI::NotFoundError)
+        end
+      end
+    end
+    
     describe "#fetch" do
       describe "when success" do
         before do
-          expect(subject.size).to eq 0
+          expect(subject.page.size).to eq 0
         end
 
         let!(:result) do
@@ -38,7 +45,7 @@ describe QualtricsAPI::SurveyCollection do
         end
 
         it "populates the collection" do
-          expect(subject.size).to eq 1
+          expect(subject.page.size).to eq 1
           expect(subject.first).to be_a QualtricsAPI::Survey
         end
 
@@ -48,23 +55,54 @@ describe QualtricsAPI::SurveyCollection do
       end
 
       describe "when failed" do
-        it "resets surveys" do
-          subject.instance_variable_set :@all, [QualtricsAPI::Survey.new({})]
-          expect {
+        it "raises error and does not reset surveys" do
+          subject.instance_variable_set :@page, [QualtricsAPI::Survey.new({})]
+          expect do
             VCR.use_cassette("survey_collection_fetch_fail") do
-              subject.fetch rescue nil
+              begin
+                subject.fetch
+              rescue
+                nil
+              end
             end
-          }.to change { subject.all }.to([])
+          end.not_to change { subject.page }
+        end
+      end
+    end
+  
+    describe 'pagination' do
+      describe '#first_page'    
+      it 'fetches pages from list endpoint' do
+        VCR.use_cassette("survey_collection_fetch_sucess") do
+          subject.fetch
+          expect(subject.fetched).to be_truthy
+          expect(subject.page.size).to eq(1)
+          expect(subject.last?).to be_falsey
+        end
+      end
+
+      it 'fetches pages from next page' do
+        VCR.use_cassette("survey_collection_fetch_sucess") do
+          result = subject.fetch.next
+          expect(result.fetched).to be_truthy
+          expect(result.page.size).to eq(0)
+          expect(result.last?).to be_truthy
+        end
+      end
+    
+      it 'raises error when on last page' do
+        VCR.use_cassette("survey_collection_fetch_sucess") do
+          expect { subject.fetch.next.next }.to raise_error(QualtricsAPI::NotFoundError)
         end
       end
     end
   end
 
   describe 'equality' do
-    subject { described_class.new(all: [QualtricsAPI::Survey.new("id" => "s1"), QualtricsAPI::Survey.new("id" => "s2")]) }
+    subject { described_class.new(page: [QualtricsAPI::Survey.new("id" => "s1"), QualtricsAPI::Survey.new("id" => "s2")]) }
     context 'when same' do
       it 'returns true' do
-        expect(subject).to eq(described_class.new(all: subject.all))
+        expect(subject).to eq(described_class.new(page: subject.page))
       end
     end
   
