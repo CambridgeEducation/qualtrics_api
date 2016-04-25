@@ -1,5 +1,4 @@
 require 'qualtrics_api'
-require 'pry'
 require 'vcr'
 
 TEST_API_TOKEN = "6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ".freeze
