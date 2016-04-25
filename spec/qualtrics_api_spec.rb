@@ -42,7 +42,7 @@ describe QualtricsAPI do
         it 'has propagated exception to members' do
           expect(members.connection).to eq(client.connection)
         end
-      
+
         context 'with different client' do
           let(:client_2) { QualtricsAPI::Client.new(TEST_API_TOKEN) }
           let(:members_2) do

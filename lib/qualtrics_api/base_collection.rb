@@ -15,9 +15,14 @@ module QualtricsAPI
     def_delegator :page, :each
 
     def fetch
-      endpoint = fetched ? next_endpoint : list_endpoint
-      parse_fetch_response(QualtricsAPI.connection(self).get(endpoint)) if endpoint
+      parse_fetch_response(QualtricsAPI.connection(self).get(list_endpoint))
       self
+    end
+
+    def next
+      raise NotFoundError if last?
+      parse_fetch_response(QualtricsAPI.connection(self).get(next_endpoint))
+      self # do not return self but rather populate separate object
     end
 
     def find(id)
@@ -26,7 +31,7 @@ module QualtricsAPI
       build_result(response.body['result']).propagate_connection(self)
     end
 
-    def last_page?
+    def last?
       fetched && !next_endpoint
     end
 

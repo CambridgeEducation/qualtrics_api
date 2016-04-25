@@ -77,25 +77,22 @@ describe QualtricsAPI::SurveyCollection do
           subject.fetch
           expect(subject.fetched).to be_truthy
           expect(subject.page.size).to eq(1)
-          expect(subject.last_page?).to be_falsey
+          expect(subject.last?).to be_falsey
         end
       end
 
       it 'fetches pages from next page' do
         VCR.use_cassette("survey_collection_fetch_sucess") do
-          subject.fetch.fetch
-          expect(subject.fetched).to be_truthy
-          expect(subject.page.size).to eq(0)
-          expect(subject.last_page?).to be_truthy
+          result = subject.fetch.next
+          expect(result.fetched).to be_truthy
+          expect(result.page.size).to eq(0)
+          expect(result.last?).to be_truthy
         end
       end
     
-      it 'does nothing when on last page' do
+      it 'raises error when on last page' do
         VCR.use_cassette("survey_collection_fetch_sucess") do
-          subject.fetch.fetch.fetch
-          expect(subject.fetched).to be_truthy
-          expect(subject.page.size).to eq(0)
-          expect(subject.last_page?).to be_truthy
+          expect { subject.fetch.next.next }.to raise_error(QualtricsAPI::NotFoundError)
         end
       end
     end
