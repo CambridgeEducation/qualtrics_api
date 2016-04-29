@@ -55,20 +55,21 @@ describe QualtricsAPI::SurveyCollection do
   
     describe 'pagination' do
       it 'fetches pages from list endpoint' do
+        page1 = page2 = nil
         VCR.use_cassette("survey_collection_fetch_sucess") do
           page_no = 0
           subject.each_page do |page|
             if page_no == 0
-              expect(subject.instance_variable_get(:@fetched)).to be_truthy
-              expect(subject.instance_variable_get(:@next_endpoint)).to be_truthy
+              page1 = page
             elsif page_no == 1
-              expect(subject.instance_variable_get(:@fetched)).to be_truthy
-              expect(subject.instance_variable_get(:@next_endpoint)).to be_falsey
+              page2 = page
             else
               raise 'should not iterate here'
             end
             page_no += 1
           end
+          expect(page1).not_to be_nil
+          expect(page2).not_to be_nil
         end
       end
     end

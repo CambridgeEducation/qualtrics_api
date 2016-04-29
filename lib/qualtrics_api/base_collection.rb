@@ -15,10 +15,12 @@ module QualtricsAPI
     end
 
     def each_page
-      @fetched = false
+      endpoint = list_endpoint
       loop do
-        yield parse_fetch_response(QualtricsAPI.connection(self).get(page_endpoint))
-        break unless page_endpoint
+        response = QualtricsAPI.connection(self).get(endpoint)
+        endpoint = response.body["result"]["nextPage"]
+        yield parse_page(response)
+        break unless endpoint
       end
     end
 
@@ -30,16 +32,10 @@ module QualtricsAPI
 
     protected
 
-    def page_endpoint
-      @fetched ? @next_endpoint : list_endpoint
+    def page_endpoint(fetched)
+      fetched ? @next_endpoint : list_endpoint
     end
 
-    def parse_fetch_response(response)
-      @next_endpoint = response.body["result"]["nextPage"]
-      @fetched = true
-      parse_page(response)
-    end
-  
     def parse_page(response)
       response.body["result"]["elements"].map do |element|
         build_result(element).propagate_connection(self)
