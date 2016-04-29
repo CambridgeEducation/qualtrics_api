@@ -23,6 +23,7 @@ module QualtricsAPI
       raise NotFoundError unless next_page?
       self.class.new.tap do |r|
         r.parse_fetch_response(QualtricsAPI.connection(self).get(next_endpoint))
+        r.propagate_connection(self)
       end
     end
 
