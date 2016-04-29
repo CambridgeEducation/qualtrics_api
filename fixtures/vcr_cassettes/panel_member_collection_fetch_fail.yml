@@ -2,32 +2,35 @@
 http_interactions:
 - request:
     method: get
-    uri: https://co1.qualtrics.com/API/v1/panels/ABCD/members?apiToken=6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+    uri: https://co1.qualtrics.com/API/v3/mailinglists/ABCD/contacts
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      X-API-TOKEN:
+      - 6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
       User-Agent:
-      - Faraday v0.8.9
+      - Faraday v0.9.2
   response:
     status:
-      code: 200
-      message:
+      code: 400
+      message: 
     headers:
-      server:
-      - Apache-Coyote/1.1
       content-type:
-      - application/json
+      - application/json; charset=utf-8
+      request-time:
+      - '178'
       content-length:
-      - '223'
+      - '2362'
       date:
-      - Sun, 28 Jun 2015 21:05:57 GMT
+      - Tue, 12 Apr 2016 11:39:15 GMT
       connection:
       - close
     body:
       encoding: UTF-8
-       string: '{"meta":{"status":"Error","errorMessage":"You do not have permission
-        to access this resource.","internalErrorCode":"GS_5","errorId":"3d6a9018-3b87-4265-b662-572ad96bbe6c"},"result":null}'
-    http_version:
-  recorded_at: Sun, 28 Jun 2015 21:05:57 GMT
+      string: '{"result":{"elements":[{"id":"ABCE","firstName":"Joe","lastName":"Doe","email":"demo@example.com","externalDataReference":"0001","embeddedData":{"subject_name":"John
+        Doe"},"language":null,"unsubscribed":false,"responseHistory":[],"emailHistory":[]}],"nextPage":null},"meta":{"httpStatus":"200
+        - OK"}}'
+    http_version: 
+  recorded_at: Tue, 12 Apr 2016 11:39:17 GMT
 recorded_with: VCR 2.9.3

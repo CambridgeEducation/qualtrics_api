@@ -6,24 +6,21 @@ module QualtricsAPI
     include QualtricsAPI::Extensions::SerializableCollection
     include QualtricsAPI::Connectable
 
-    values do
-      attribute :page, Array, :default => []
-      attribute :fetched, Boolean, :default => false
-      attribute :next_endpoint, String
+    def each
+      each_page do |page|
+        page.each do |element|
+          yield element
+        end
+      end
     end
 
-    def_delegator :page, :each
-
-    def fetch
-      parse_fetch_response(QualtricsAPI.connection(self).get(list_endpoint))
-      self
-    end
-
-    def next_page
-      raise NotFoundError unless next_page?
-      self.class.new.tap do |r|
-        r.parse_fetch_response(QualtricsAPI.connection(self).get(next_endpoint))
-        r.propagate_connection(self)
+    def each_page
+      endpoint = list_endpoint
+      loop do
+        response = QualtricsAPI.connection(self).get(endpoint)
+        endpoint = response.body["result"]["nextPage"]
+        yield parse_page(response)
+        break unless endpoint
       end
     end
 
@@ -33,19 +30,16 @@ module QualtricsAPI
       build_result(response.body['result']).propagate_connection(self)
     end
 
-    def next_page?
-      raise NotYetFetchedError unless fetched
-      !next_endpoint.nil?
-    end
-
     protected
 
-    def parse_fetch_response(response)
-      @page = response.body["result"]["elements"].map do |element|
+    def page_endpoint(fetched)
+      fetched ? @next_endpoint : list_endpoint
+    end
+
+    def parse_page(response)
+      response.body["result"]["elements"].map do |element|
         build_result(element).propagate_connection(self)
       end
-      @next_endpoint = response.body["result"]["nextPage"]
-      @fetched = true
     end
   end
 end

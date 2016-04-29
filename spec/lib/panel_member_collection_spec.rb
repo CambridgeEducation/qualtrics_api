@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe QualtricsAPI::PanelMemberCollection do
-  it "has no @page when initialized" do
-    expect(subject.page).to eq []
-  end
-
   describe "integration" do
     subject { described_class.new(id: 'ABCD') }
 
@@ -34,34 +30,25 @@ describe QualtricsAPI::PanelMemberCollection do
 
     describe "#fetch" do
       describe "when success" do
-        before do
-          expect(subject.page.size).to eq 0
-        end
-
         let!(:result) do
           VCR.use_cassette("panel_member_collection_fetch_success") do
-            subject.fetch
+            subject.each_page do |page|
+              return page
+            end
           end
         end
 
         it "populates the collection" do
-          expect(subject.page.size).to eq 1
-          expect(subject.first).to be_a QualtricsAPI::PanelMember
-        end
-
-        it "returns itself" do
-          expect(result).to eq subject
+          expect(result.size).to eq 1
+          expect(result.first).to be_a QualtricsAPI::PanelMember
         end
       end
 
       describe "when failed" do
-        it "raise error and does not change panels" do
-          subject.instance_variable_set :@page, [QualtricsAPI::PanelMember.new({})]
-          expect do
-            VCR.use_cassette("panel_member_collection_fetch_fail") do
-              expect { subject.fetch }.to raise_error
-            end
-          end.not_to change { subject.page }
+        it "raise error" do
+          VCR.use_cassette("panel_member_collection_fetch_fail") do
+            expect { subject.each_page }.to raise_error(QualtricsAPI::BadRequestError)
+          end
         end
       end
     end
@@ -95,23 +82,8 @@ describe QualtricsAPI::PanelMemberCollection do
         let(:panel_members) { [QualtricsAPI::PanelMember.new] }
 
         it "returns results" do
-          expect { result }.to raise_error
+          expect { result }.to raise_error(QualtricsAPI::BadRequestError)
         end
-      end
-    end
-  end
-
-  describe 'equality' do
-    subject { described_class.new(page: [QualtricsAPI::PanelMember.new("recipientID" => "p1"), QualtricsAPI::PanelMember.new("recipientID" => "p1")]) }
-    context 'when same' do
-      it 'returns true' do
-        expect(subject).to eq(described_class.new(page: subject.page))
-      end
-    end
-  
-    context 'when different' do
-      it 'returns false' do
-        expect(subject).not_to eq(described_class.new)
       end
     end
   end

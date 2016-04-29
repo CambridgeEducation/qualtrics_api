@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe QualtricsAPI::SurveyCollection do
-  it "has no @page when initialized" do
-    expect(subject.page).to eq []
-  end
-
   describe "integration" do
     subject { described_class.new }
 
@@ -34,86 +30,47 @@ describe QualtricsAPI::SurveyCollection do
     
     describe "#fetch" do
       describe "when success" do
-        before do
-          expect(subject.page.size).to eq 0
-        end
-
         let!(:result) do
           VCR.use_cassette("survey_collection_fetch_sucess") do
-            subject.fetch
+            subject.each_page do |page|
+              return page
+            end
           end
         end
 
         it "populates the collection" do
-          expect(subject.page.size).to eq 1
-          expect(subject.first).to be_a QualtricsAPI::Survey
-        end
-
-        it "returns itself" do
-          expect(result).to eq subject
+          expect(result.size).to eq 1
+          expect(result.first).to be_a QualtricsAPI::Survey
         end
       end
 
       describe "when failed" do
-        it "raises error and does not reset surveys" do
-          subject.instance_variable_set :@page, [QualtricsAPI::Survey.new({})]
-          expect do
-            VCR.use_cassette("survey_collection_fetch_fail") do
-              begin
-                subject.fetch
-              rescue
-                nil
-              end
-            end
-          end.not_to change { subject.page }
+        it "raises error" do
+          VCR.use_cassette("survey_collection_fetch_fail") do
+            expect { subject.each_page }.to raise_error(QualtricsAPI::NotFoundError)
+          end
         end
       end
     end
   
     describe 'pagination' do
       it 'fetches pages from list endpoint' do
+        page1 = page2 = nil
         VCR.use_cassette("survey_collection_fetch_sucess") do
-          subject.fetch
-          expect(subject.fetched).to be_truthy
-          expect(subject.page.size).to eq(1)
-          expect(subject.next_page?).to be_truthy
+          page_no = 0
+          subject.each_page do |page|
+            if page_no == 0
+              page1 = page
+            elsif page_no == 1
+              page2 = page
+            else
+              raise 'should not iterate here'
+            end
+            page_no += 1
+          end
+          expect(page1).not_to be_nil
+          expect(page2).not_to be_nil
         end
-      end
-
-      it 'raises error when next_page without fetch' do
-        VCR.use_cassette("survey_collection_fetch_sucess") do
-          expect { expect(subject.next_page) }.to raise_error(QualtricsAPI::NotYetFetchedError)
-        end
-      end
-
-      it 'fetches pages from next page' do
-        VCR.use_cassette("survey_collection_fetch_sucess") do
-          result = subject.fetch.next_page
-          expect(result.fetched).to be_truthy
-          expect(result.page.size).to eq(0)
-          expect(result.next_page?).to be_falsey
-        end
-      end
-    
-      it 'raises error when on last page' do
-        VCR.use_cassette("survey_collection_fetch_sucess") do
-          expect { subject.fetch.next_page.next_page }.to raise_error(QualtricsAPI::NotFoundError)
-        end
-      end
-    end
-  end
-
-  describe 'equality' do
-    subject { described_class.new(page: [QualtricsAPI::Survey.new("id" => "s1"), QualtricsAPI::Survey.new("id" => "s2")]) }
-    context 'when same' do
-      it 'returns true' do
-        expect(subject).to eq(described_class.new(page: subject.page))
-      end
-    end
-  
-    context 'when different' do
-      it 'returns false' do
-        expect(subject).not_to eq(described_class.new)
       end
     end
   end

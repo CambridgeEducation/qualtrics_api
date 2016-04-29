@@ -35,17 +35,21 @@ end
 
 ### Surveys
 
-To paginate all your surveys:
+To enumerate all your surveys:
 
 ```ruby
-surveys = QualtricsAPI.surveys.fetch
-# => #<QualtricsAPI::SurveyCollection:0x007fcb72cce350 ....>
+QualtricsAPI.surveys.each do |survey|
+  # => #<QualtricsAPI::Survey:0x007fcb72cce350 ....>
+end
+```
 
-surveys = surveys.next_page # to fetch next page if not on the last page
-# => #<QualtricsAPI::SurveyCollection:0x007fcb72cce350 ....>
-
-surveys.next_page?
-# => true
+To enumerate individual pages:
+```ruby
+QualtricsAPI.surveys.each_page do |page|
+  page.each do |survey|
+    # => #<QualtricsAPI::Survey:0x007fcb72cce350 ....>
+  end
+end
 ```
 
 You can search for a survey by id:
@@ -137,14 +141,22 @@ export.status
 
 ### Panels
 
-To paginate all the panels:
+To enumerate all the panels:
 
 ```ruby
-panels = QualtricsAPI.panels.fetch
-# => #<QualtricsAPI::PanelCollection:0x007f8769aae2c0 ....>
+QualtricsAPI.panels.each do |panel|
+  # => #<QualtricsAPI::Panel:0x007f8769aae2c0 ....>
+end
+```
 
-panels = panels.next_page # get next page if panels.next_page?
-# => #<QualtricsAPI::PanelCollection:0x007f8769aae2c0 ....>
+To enumerate individual pages:
+
+```ruby
+QualtricsAPI.panels.each_page do |page|
+  page.each do |survey|
+    # => #<QualtricsAPI::Panel:0x007f8769aae2c0 ....>
+  end
+end
 ```
 
 You can search for a panel by id:
