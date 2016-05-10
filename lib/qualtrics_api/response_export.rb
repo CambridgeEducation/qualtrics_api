@@ -30,5 +30,9 @@ module QualtricsAPI
       update_status unless completed?
       @file_url
     end
+
+    def open(&block)
+      Kernel.open(@file_url, QualtricsAPI.connection(self).headers, &block)
+    end
   end
 end

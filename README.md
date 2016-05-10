@@ -114,7 +114,12 @@ export.completed?
 Once it's finished, you can get the response file URL:
 ```ruby
 export.file_url
-# => "https://some.amazon.s3.com/file/path?withTimeStamps=AndOtherStuff"
+# => "https://co1.qualtrics.com/API/v3/responseexports/ES_id/file"
+```
+
+and download the file:
+```ruby
+export.open # creates an IO object connected to the given stream
 ```
 
 #### Checking status on a previous response export
