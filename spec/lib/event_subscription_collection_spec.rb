@@ -32,6 +32,20 @@ describe QualtricsAPI::EventSubscriptionCollection do
         expect(result.publication_url).to eq 'https://some.random.url'
       end
     end
+
+    describe "#create_completed_response_subscription" do
+      it "creates a subscription to the completedResponse event of the survey id specified" do
+        VCR.use_cassette("event_subscription_create_response_sub") do
+          survey_id = 'SV_SOME_SURVEY_ID'
+          url = 'https://some.url.fake'
+          result = subject.create_completed_response_subscription(url, survey_id)
+          expect(result).to be_a QualtricsAPI::EventSubscription
+          expect(result.id).to_not be_nil
+          expect(result.publication_url).to eq url
+          expect(result.topics).to eq "surveyengine.completedResponse.#{survey_id}"
+        end
+      end
+    end
   end
 
   describe "#delete" do
