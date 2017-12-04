@@ -17,11 +17,13 @@ module QualtricsAPI
 
     def error_message(response)
       meta = response["meta"]
+      err = response["error"] || {}
       ["[",
-       meta["status"], " - ",
-       meta["qualtricsErrorCode"] || meta["internalErrorCode"],
+      meta["status"] || meta["httpStatus"],
+      " - ",
+      err["qualtricsErrorCode"] || err["internalErrorCode"] || err["errorCode"],
        "] ",
-       meta["errorMessage"]
+       err["errorMessage"]
       ].join
     end
   end
