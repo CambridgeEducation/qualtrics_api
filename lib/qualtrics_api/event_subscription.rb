@@ -9,7 +9,17 @@ module QualtricsAPI
       attribute :successful_calls, Integer, default: 0
     end
 
+    def delete
+      QualtricsAPI.connection(self)
+        .delete(endpoint)
+        .body["result"]
+    end
+
     private
+
+    def endpoint
+      "eventsubscriptions/#{id}"
+    end
 
     def attributes_mappings
       {

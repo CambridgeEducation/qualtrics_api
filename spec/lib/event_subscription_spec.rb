@@ -37,4 +37,17 @@ describe QualtricsAPI::EventSubscription do
   it "shows number of successful calls" do
     expect(subject.successful_calls).to eq 3
   end
+
+  describe "#delete" do
+    it "deletes the subscription" do
+      VCR.use_cassette("event_subscription_delete") do
+        sub_id = 'SUB_2i7QDi3PXEK4eqx'
+        subscription = QualtricsAPI.event_subscriptions.find(sub_id)
+        subscription.delete
+        expect {
+          QualtricsAPI.event_subscriptions.find(sub_id)
+        }.to raise_error(QualtricsAPI::NotFoundError)
+      end
+    end
+  end
 end
