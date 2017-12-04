@@ -46,6 +46,20 @@ describe QualtricsAPI::EventSubscriptionCollection do
         end
       end
     end
+
+    describe "#create_completed_response_subscription" do
+      it "creates a subscription to the partialResponse event of the survey id specified" do
+        VCR.use_cassette("event_subscription_create_partial_response_sub") do
+          survey_id = 'SV_ANOTHER_SURVEY'
+          url = 'https://request.url.fake'
+          result = subject.create_partial_response_subscription(url, survey_id)
+          expect(result).to be_a QualtricsAPI::EventSubscription
+          expect(result.id).to_not be_nil
+          expect(result.publication_url).to eq url
+          expect(result.topics).to eq "surveyengine.partialResponse.#{survey_id}"
+        end
+      end
+    end
   end
 
   describe "#delete" do

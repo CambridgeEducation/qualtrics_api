@@ -17,6 +17,10 @@ module QualtricsAPI
       create(url, "surveyengine.completedResponse.#{survey_id}", opts)
     end
 
+    def create_partial_response_subscription(url, survey_id, opts = { encrypt: false })
+      create(url, "surveyengine.partialResponse.#{survey_id}", opts)
+    end
+
     def delete(id)
       QualtricsAPI.connection(self)
         .delete(endpoint(id))
