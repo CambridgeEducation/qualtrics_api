@@ -32,7 +32,7 @@ module QualtricsAPI
 
     def error_message(response)
       meta = response["meta"]
-      err = response["error"] || {}
+      err = meta["error"] || {}
       ["[",
       meta["status"] || meta["httpStatus"],
       " - ",

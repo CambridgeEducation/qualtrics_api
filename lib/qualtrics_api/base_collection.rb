@@ -14,6 +14,20 @@ module QualtricsAPI
       end
     end
 
+    def map
+      res = []
+      each_page do |page|
+        page.each do |element|
+          res.push(yield element)
+        end
+      end
+      res
+    end
+
+    def all
+      map {|element| element}
+    end
+
     def each_page
       endpoint = list_endpoint
       loop do

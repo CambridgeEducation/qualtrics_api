@@ -4,6 +4,17 @@ module QualtricsAPI
       find(survey_id)
     end
 
+    def create(publication_url, topics, opts = { encrypt: false })
+      payload = {
+        publicationUrl: publication_url,
+        topics: topics
+      }.merge(opts)
+      res = QualtricsAPI.connection(self)
+              .post(list_endpoint, payload)
+              .body["result"]
+      find(res["id"])
+    end
+
     private
 
     def build_result(element)
