@@ -16,7 +16,11 @@ module QualtricsAPI
     def delete(id)
       QualtricsAPI.connection(self)
         .delete(endpoint(id))
-      true
+    end
+
+    def delete_all
+      QualtricsAPI.connection(self)
+        .delete(list_endpoint)
     end
 
     private

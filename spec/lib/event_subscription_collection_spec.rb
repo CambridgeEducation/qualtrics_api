@@ -48,4 +48,14 @@ describe QualtricsAPI::EventSubscriptionCollection do
     end
   end
 
+  describe "#delete_all" do
+    it "deletes all subscriptions" do
+      VCR.use_cassette("event_subscription_delete_all") do
+        expect(subject.all.size).to eq 3
+        subject.delete_all
+        expect(subject.all.size).to eq 0
+      end
+    end
+  end
+
 end
