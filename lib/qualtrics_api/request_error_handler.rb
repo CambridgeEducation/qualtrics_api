@@ -10,7 +10,7 @@ module QualtricsAPI
     private
 
     def raise_http_errors(code, body)
-      case env[:status]
+      case code
       when 404
         raise NotFoundError, "Not Found"
       when 400
