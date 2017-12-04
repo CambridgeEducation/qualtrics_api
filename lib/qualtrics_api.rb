@@ -4,8 +4,6 @@ require "faraday"
 require "faraday_middleware"
 
 require "qualtrics_api/version"
-require "qualtrics_api/url"
-
 require "qualtrics_api/request_error_handler"
 
 require "qualtrics_api/configurable"
@@ -44,10 +42,14 @@ module QualtricsAPI
       client.connection
     end
 
+    def url(data_center_id = self.data_center_id)
+      "https://#{data_center_id}.qualtrics.com:443/API/v3/"
+    end
+
     private
 
     def client
-      @client ||= QualtricsAPI::Client.new(QualtricsAPI.api_token)
+      @client ||= QualtricsAPI::Client.new(QualtricsAPI.api_token, QualtricsAPI.data_center_id)
     end
   end
 end

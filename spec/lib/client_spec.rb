@@ -19,11 +19,18 @@ describe QualtricsAPI::Client do
     subject { QualtricsAPI::Client }
 
     it "fails if api_token not provided" do
-      expect { subject.new(nil) }.to raise_error('Please provide api token!')
+      expect { subject.new(nil, nil) }.to raise_error('Please provide api token!')
     end
 
-    it 'establishes connection when api_token' do
-      subject.new('sample_token')
+    it 'establishes connection when api_token is provided' do
+      client = subject.new('sample_token', 'co1')
+      expect(client.connection).not_to be_nil
+      expect(client.connection.headers["X-API-TOKEN"]).to eq('sample_token')
+    end
+
+    it 'establishes connection to the specified data center' do
+      client = subject.new('sample_token', 'somedcid')
+      expect(client.connection.url_prefix.to_s).to eq('https://somedcid.qualtrics.com/API/v3/')
     end
   end
 end

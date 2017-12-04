@@ -29,7 +29,11 @@ Or install it yourself as:
 
 ```ruby
 QualtricsAPI.configure do |config|
+  # mandatory
   config.api_token = "YOUR_QUALTRICS_API_KEY"
+
+  # optionally - you can provide a data center id
+  config.data_center_id = "co1" #defaults to co1
 end
 ```
 

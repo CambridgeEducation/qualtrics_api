@@ -5,8 +5,8 @@ describe QualtricsAPI do
     subject { QualtricsAPI }
 
     it 'two clients have different connection' do
-      client_1 = QualtricsAPI::Client.new('some_id')
-      client_2 = QualtricsAPI::Client.new('other_id')
+      client_1 = QualtricsAPI::Client.new('some_id', 'co1')
+      client_2 = QualtricsAPI::Client.new('other_id', 'co2')
       expect(client_1.connection).not_to eq(client_2.connection)
     end
 
@@ -15,7 +15,7 @@ describe QualtricsAPI do
     end
 
     it 'does not reuse connection with client' do
-      client = QualtricsAPI::Client.new('some_id')
+      client = QualtricsAPI::Client.new('some_id', 'co1')
       expect(client.connection).not_to eq(QualtricsAPI.connection)
     end
 
@@ -28,7 +28,7 @@ describe QualtricsAPI do
       end
 
       context 'with client' do
-        let(:client) { QualtricsAPI::Client.new(TEST_API_TOKEN) }
+        let(:client) { QualtricsAPI::Client.new(TEST_API_TOKEN, 'co1') }
         let(:members) do
           VCR.use_cassette('panel_member_collection_create_success') do
             client.panels.find('ML_bC2c5xBz1DxyOYB').members
@@ -44,7 +44,7 @@ describe QualtricsAPI do
         end
 
         context 'with different client' do
-          let(:client_2) { QualtricsAPI::Client.new(TEST_API_TOKEN) }
+          let(:client_2) { QualtricsAPI::Client.new(TEST_API_TOKEN, 'co1') }
           let(:members_2) do
             VCR.use_cassette('panel_member_collection_create_success') do
               client_2.panels.find('ML_bC2c5xBz1DxyOYB').members

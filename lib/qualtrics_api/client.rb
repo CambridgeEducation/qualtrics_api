@@ -2,8 +2,8 @@ module QualtricsAPI
   class Client
     include QualtricsAPI::Connectable
 
-    def initialize(api_token)
-      @connection = establish_connection(api_token || fail('Please provide api token!'))
+    def initialize(api_token, data_center_id)
+      @connection = establish_connection(api_token || fail('Please provide api token!'), data_center_id)
     end
 
     def surveys(options = {})
@@ -20,8 +20,8 @@ module QualtricsAPI
 
     private
 
-    def establish_connection(api_token)
-      Faraday.new(url: QualtricsAPI::URL, headers: { 'X-API-TOKEN' => api_token }) do |faraday|
+    def establish_connection(api_token, data_center_id)
+      Faraday.new(url: QualtricsAPI.url(data_center_id), headers: { 'X-API-TOKEN' => api_token }) do |faraday|
         faraday.request :multipart
         faraday.request :json
         faraday.response :json, :content_type => /\bjson$/
