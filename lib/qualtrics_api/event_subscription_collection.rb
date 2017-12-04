@@ -1,8 +1,6 @@
 module QualtricsAPI
   class EventSubscriptionCollection < BaseCollection
-    def [](survey_id)
-      find(survey_id)
-    end
+    alias_method :[], :find
 
     def create(publication_url, topics, opts = { encrypt: false })
       payload = {
@@ -13,6 +11,12 @@ module QualtricsAPI
               .post(list_endpoint, payload)
               .body["result"]
       find(res["id"])
+    end
+
+    def delete(id)
+      QualtricsAPI.connection(self)
+        .delete(endpoint(id))
+      true
     end
 
     private

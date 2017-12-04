@@ -34,4 +34,18 @@ describe QualtricsAPI::EventSubscriptionCollection do
     end
   end
 
+  describe "#delete" do
+    it "deletes the subscription specified" do
+      VCR.use_cassette("event_subscription_delete_one") do
+        sub_id = 'SUB_5pPHcNfCaiADoFf'
+        subject.delete(sub_id)
+        #QualtricsAPI.event_subscriptions.delete(sub_id)
+        expect {
+          subject.find(sub_id)
+          #QualtricsAPI.event_subscriptions.find(sub_id)
+        }.to raise_error(QualtricsAPI::NotFoundError)
+      end
+    end
+  end
+
 end

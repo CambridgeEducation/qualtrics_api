@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://co1.qualtrics.com/API/v3/eventsubscriptions/SUB_5pPHcNfCaiADoFf
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-API-TOKEN:
+      - 6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+      User-Agent:
+      - Faraday v0.9.2
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      request-time:
+      - '325'
+      content-type:
+      - application/json
+      content-length:
+      - '85'
+      x-edgeconnect-midmile-rtt:
+      - '13'
+      x-edgeconnect-origin-mex-latency:
+      - '399'
+      date:
+      - Mon, 04 Dec 2017 22:33:13 GMT
+      connection:
+      - close
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"httpStatus":"200 - OK","requestId":"fa58c44f-f1a4-41ba-9c7b-3db9547407d7"}}'
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 22:33:13 GMT
+- request:
+    method: get
+    uri: https://co1.qualtrics.com/API/v3/eventsubscriptions/SUB_5pPHcNfCaiADoFf
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-API-TOKEN:
+      - 6Wpo0Vsx1cN1kcHivCaGTz5IhOvchLrg1o4L0KOZ
+      User-Agent:
+      - Faraday v0.9.2
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      content-type:
+      - application/json
+      content-length:
+      - '136'
+      x-edgeconnect-midmile-rtt:
+      - '18'
+      x-edgeconnect-origin-mex-latency:
+      - '317'
+      date:
+      - Mon, 04 Dec 2017 22:33:13 GMT
+      connection:
+      - close
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"httpStatus":"404 - Not Found","error":{"errorMessage":"SUB_5pPHcNfCaiADoFf
+        not found","errorCode":"ESSG_2"},"requestId":null}}'
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 22:33:13 GMT
+recorded_with: VCR 2.9.3
