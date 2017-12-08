@@ -23,6 +23,19 @@ Or install it yourself as:
 
     $ gem install qualtrics_api
 
+## Dependencies
+
+Currently this gem is built & tested with Ruby 2.3.x.
+Confirmed working with Ruby 2.4.x.
+
+Requires Ruby >= 2.3
+
+```ruby
+"faraday", "~> 0.13.1"
+"faraday_middleware", "~> 0.12.2"
+"virtus", "~> 1.0"
+```
+
 ## Usage
 
 ### Initialize
