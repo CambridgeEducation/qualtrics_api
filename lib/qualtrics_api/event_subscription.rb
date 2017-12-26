@@ -10,9 +10,9 @@ module QualtricsAPI
     end
 
     def delete
-      QualtricsAPI.connection(self)
+      response = QualtricsAPI.connection(self)
         .delete(endpoint)
-        .body["result"]
+      return response.success?
     end
 
     private
