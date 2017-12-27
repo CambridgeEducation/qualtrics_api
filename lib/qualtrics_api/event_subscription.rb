@@ -12,7 +12,7 @@ module QualtricsAPI
     def delete
       QualtricsAPI.connection(self)
         .delete(endpoint)
-        .body["result"]
+      return true
     end
 
     private

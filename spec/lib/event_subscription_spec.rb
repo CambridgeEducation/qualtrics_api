@@ -43,7 +43,8 @@ describe QualtricsAPI::EventSubscription do
       VCR.use_cassette("event_subscription_delete") do
         sub_id = 'SUB_2i7QDi3PXEK4eqx'
         subscription = QualtricsAPI.event_subscriptions.find(sub_id)
-        subscription.delete
+        result = subscription.delete
+        expect(result).to be_truthy
         expect {
           QualtricsAPI.event_subscriptions.find(sub_id)
         }.to raise_error(QualtricsAPI::NotFoundError)
