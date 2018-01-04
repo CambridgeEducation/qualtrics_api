@@ -53,10 +53,10 @@ describe QualtricsAPI::PanelMemberCollection do
       end
     end
 
-    describe "#create" do
+    describe "#import_members" do
       let(:result) do
         VCR.use_cassette(cassette, record: :once) do
-          QualtricsAPI.panels.find('ML_0APx3C4rmHER6w5').members.create(panel_members)
+          QualtricsAPI.panels.find('ML_0APx3C4rmHER6w5').members.import_members(panel_members)
         end
       end
 

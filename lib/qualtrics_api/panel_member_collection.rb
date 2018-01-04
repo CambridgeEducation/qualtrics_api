@@ -4,7 +4,7 @@ module QualtricsAPI
       attribute :id, String
     end
   
-    def create(panel_members)
+    def import_members(panel_members)
       payload = {
         contacts: Faraday::UploadIO.new(StringIO.new(panel_members.to_json), 'application/json', 'contacts.json')
       }
