@@ -202,7 +202,7 @@ To import a batch of panel members:
 ```ruby
 panel = QualtricsAPI.panels.find("panelIdHere")
 members = [QualtricsAPI::PanelMember.new(first_name: 'John', last_name: 'Doe', email: 'test@test.com')]
-panel.members.import_members(members)
+panel.import_members(members)
 => #<QualtricsAPI::PanelImport:0x007fb7db984668 ...>
 ```
 

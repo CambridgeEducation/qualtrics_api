@@ -55,4 +55,13 @@ describe QualtricsAPI::Panel do
       end
     end
   end
+
+  describe '#import_members' do
+    it 'is delegated to the panel member collection' do
+      collection_double = double()
+      allow(subject).to receive(:members) { collection_double }
+      collection_double.should_receive(:import_members).with([])
+      subject.import_members([])
+    end
+  end
 end

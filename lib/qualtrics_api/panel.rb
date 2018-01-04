@@ -11,6 +11,10 @@ module QualtricsAPI
       @members ||= QualtricsAPI::PanelMemberCollection.new(options.merge(id: id)).propagate_connection(self)
     end
 
+    def import_members(mbs)
+      members.import_members(mbs)
+    end
+
     private
 
     def attributes_mappings
