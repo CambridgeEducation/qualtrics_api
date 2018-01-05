@@ -3,6 +3,13 @@ module QualtricsAPI
     values do
       attribute :id, String
     end
+
+    def create(panel_member)
+      payload = panel_member.to_create_json
+      QualtricsAPI.connection(self)
+                  .post("mailinglists/#{id}/contacts", payload)
+                  .body["result"]
+    end
   
     def import_members(panel_members)
       payload = {
