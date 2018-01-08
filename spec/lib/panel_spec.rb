@@ -64,4 +64,14 @@ describe QualtricsAPI::Panel do
       subject.import_members([])
     end
   end
+
+  describe '#create' do
+    let(:member) { QualtricsAPI::PanelMember.new }
+    it 'is delegated to the panel member collection' do
+      collection_double = double()
+      allow(subject).to receive(:members) { collection_double }
+      expect(collection_double).to receive(:create).with(member)
+      subject.create(member)
+    end
+  end
 end

@@ -15,6 +15,10 @@ module QualtricsAPI
       members.import_members(mbs)
     end
 
+    def create(member)
+      members.create(member)
+    end
+
     private
 
     def attributes_mappings
