@@ -6,9 +6,10 @@ module QualtricsAPI
 
     def create(panel_member)
       payload = panel_member.to_create_json
-      QualtricsAPI.connection(self)
+      res = QualtricsAPI.connection(self)
                   .post("mailinglists/#{id}/contacts", payload)
                   .body["result"]
+      return QualtricsAPI::PanelMember.new(panel_member.attributes.merge({ id: res['id'] }))
     end
   
     def import_members(panel_members)

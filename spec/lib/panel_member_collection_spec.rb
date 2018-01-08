@@ -86,5 +86,35 @@ describe QualtricsAPI::PanelMemberCollection do
         end
       end
     end
+
+    describe '#create' do
+      let(:result) do
+        VCR.use_cassette(cassette, record: :once) do
+          QualtricsAPI.panels.find('ML_ez0Gj1S4SX4TZjv').members.create(panel_member)
+        end
+      end
+
+      describe 'when success' do
+        let(:cassette) { 'panel_member_single_create_success' }
+        let(:panel_member) { QualtricsAPI::PanelMember.new(first_name: 'test', last_name: 'member', email: 'test@test.com') }
+
+        it 'returns PanelMember' do
+          expect(result).to be_a QualtricsAPI::PanelMember
+        end
+
+        it 'returns PanelMember with id' do
+          expect(result.id).to match(/^MLRP_/)
+        end
+      end
+
+      describe 'when failed' do
+        let(:cassette) { 'panel_member_single_create_failure' }
+        let(:panel_member) { QualtricsAPI::PanelMember.new(first_name: 'test', last_name: 'member', email: 'test@test.com') }
+
+        it 'raises exception' do
+          expect{result}.to raise_error{QualtricsAPI::NotFoundError}
+        end
+      end
+    end
   end
 end
