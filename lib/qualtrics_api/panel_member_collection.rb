@@ -3,8 +3,16 @@ module QualtricsAPI
     values do
       attribute :id, String
     end
+
+    def create(panel_member)
+      payload = panel_member.to_create_json
+      res = QualtricsAPI.connection(self)
+                  .post("mailinglists/#{id}/contacts", payload)
+                  .body["result"]
+      return QualtricsAPI::PanelMember.new(panel_member.attributes.merge({ id: res['id'] }))
+    end
   
-    def create(panel_members)
+    def import_members(panel_members)
       payload = {
         contacts: Faraday::UploadIO.new(StringIO.new(panel_members.to_json), 'application/json', 'contacts.json')
       }

@@ -15,10 +15,14 @@ module QualtricsAPI
       attributes.to_json
     end
 
+    def to_create_json
+      attributes(attributes_for_create).select{ |k,v| k }.to_json
+    end
+
     alias_method :super_attributes, :attributes
 
-    def attributes
-      Hash[super_attributes.map { |k, v| [attributes_for_save[k], v] }].delete_if { |_k, v| v.nil? }
+    def attributes(attrs = attributes_for_save)
+      Hash[super_attributes.map { |k, v| [attrs[k], v] }].delete_if { |_k, v| v.nil? }
     end
 
     private
@@ -34,6 +38,12 @@ module QualtricsAPI
         :external_reference => "externalReference",
         :embeded_data => "embeddedData"
       }
+    end
+
+    def attributes_for_create
+      attrs = attributes_for_save
+      attrs.delete(:id)
+      attrs.merge({ :external_reference => "externalDataRef" })
     end
 
     def attributes_mappings

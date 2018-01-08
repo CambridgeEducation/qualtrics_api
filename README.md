@@ -197,19 +197,20 @@ panel = QualtricsAPI.panels["panelIdHere"]
 
 #### Panel Members
 
-To add panel members to a panel:
+To import a batch of panel members:
 
 ```ruby
 panel = QualtricsAPI.panels.find("panelIdHere")
 members = [QualtricsAPI::PanelMember.new(first_name: 'John', last_name: 'Doe', email: 'test@test.com')]
-panel.members.create(members)
+panel.import_members(members)
 => #<QualtricsAPI::PanelImport:0x007fb7db984668 ...>
 ```
 
-and update athe status of panel import:
+A `PanelImport` record is returned, you can use it to check the status of panel import:
+
 ```ruby
 members = [QualtricsAPI::PanelMember.new(first_name: 'John', last_name: 'Doe', email: 'test@test.com')]
-panel_import = panel.members.create(members)
+panel_import = panel.members.import_members(members)
 => #<QualtricsAPI::PanelImport:0x007fb7db984668 ...>
 panel_import.status
 => "99.99999%"
@@ -217,6 +218,16 @@ panel_import.update_status
 panel_import.status
 => "100.0%"
 ```
+
+To add a single panel member to a panel:
+
+```ruby
+panel = QualtricsAPI.panels.find("panelIdHere")
+member = QualtricsAPI::PanelMember.new(first_name: 'John', last_name: 'Doe', email: 'test@test.com')
+panel.create(member)
+```
+
+A new `PanelMember` record is returned on success; this will give you the ID of the newly created member.
 
 ## Contributing
 
