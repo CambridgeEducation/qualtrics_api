@@ -219,6 +219,16 @@ panel_import.status
 => "100.0%"
 ```
 
+To add a single panel member to a panel:
+
+```ruby
+panel = QualtricsAPI.panels.find("panelIdHere")
+member = QualtricsAPI::PanelMember.new(first_name: 'John', last_name: 'Doe', email: 'test@test.com')
+panel.create(member)
+```
+
+A new `PanelMember` record is returned on success; this will give you the ID of the newly created member.
+
 ## Contributing
 
 1. Fork it ( https://github.com/pallymore/qualtrics_api/fork )
