@@ -27,6 +27,8 @@ require "qualtrics_api/panel_member_collection"
 require "qualtrics_api/panel_import"
 require "qualtrics_api/event_subscription"
 require "qualtrics_api/event_subscription_collection"
+require "qualtrics_api/question"
+require "qualtrics_api/question_collection"
 
 require "qualtrics_api/services/response_export_service"
 
