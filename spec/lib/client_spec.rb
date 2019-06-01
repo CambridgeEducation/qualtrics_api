@@ -15,6 +15,12 @@ describe QualtricsAPI::Client do
     end
   end
 
+  describe "#questions" do
+    it "returns a QuestionCollection" do
+      expect(subject.questions).to be_a QualtricsAPI::QuestionCollection
+    end
+  end
+
   describe "#initialize" do
     subject { QualtricsAPI::Client }
 

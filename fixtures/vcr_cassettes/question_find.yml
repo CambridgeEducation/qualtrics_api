@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://co1.qualtrics.com/API/v3/survey-definitions/SV_a2AcbPZz1DehlOd/questions/QID1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-API-TOKEN:
+      -
+      User-Agent:
+      - Faraday v0.13.1
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      request-time:
+      - '264'
+      content-type:
+      - application/json
+      vary:
+      - Accept-Encoding
+      date:
+      - Fri, 31 May 2019 05:50:32 GMT
+      content-length:
+      - '2420'
+      connection:
+      - close
+      set-cookie:
+      - TRACK_TLS1_0=FALSE; path=/
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"httpStatus":"200 - OK","requestId":"d23bcac9-ee77-4228-bab7-6dd06d1514fa","notice":"Request
+        proxied. For faster response times, use this host instead: az1.qualtrics.com"},"result":{"QuestionText":"In
+        order to highlight your organization''s quality and compliance practices and
+        standards, please complete the applicable modules below.&nbsp; The responses
+        to this survey will be used by prospective Clients to aid them in selecting
+        qualified Providers for their projects.&nbsp; You may stop at any time and
+        save your responses.&nbsp; You may return to specific questions and revise
+        responses as needed.&nbsp; Once completed, click on Submit.<div><br></div><div>Please
+        click on all applicable modules to begin the survey.</div>","DataExportTag":"Q1.1","QuestionType":"MC","Selector":"MAVR","SubSelector":"TX","Configuration":{"QuestionDescriptionOption":"UseText"},"QuestionDescription":"In
+        order to highlight your organization''s quality and compliance practices and
+        standards, please...","Choices":{"7":{"Display":"General Organization, Facility
+        or Laboratory Quality and Standards (Required for all Providers)"},"8":{"Display":"Animal
+        Welfare (all Providers who house or conduct in vivo/ex vivo research)"},"9":{"Display":"Nonclinical
+        Good Laboratory Practice (GLP) Compliance (FDA 21 CFR Part 58; EPA 40 CFR
+        Parts 160 or 792; non-US equivalent)"},"10":{"Display":"Clinical Support (Providers
+        who can supply and/or analyze human biological specimen)"},"11":{"Display":"Good
+        Manufacturing Practice (GMP) Compliance (FDA 21 CFR  Parts 210 & 211; ICH
+        Q7; non-US equivalent)"}},"ChoiceOrder":["7","8","9","10","11"],"Validation":{"Settings":{"ForceResponse":"OFF","ForceResponseType":"ON","Type":"None"}},"Language":[],"NextChoiceId":12,"NextAnswerId":1,"QuestionID":"QID1","DataVisibility":{"Private":false,"Hidden":false},"GradingData":[],"DefaultChoices":false,"QuestionText_Unsafe":"In
+        order to highlight your organization''s quality and compliance practices and
+        standards, please complete the applicable modules below.&nbsp; The responses
+        to this survey will be used by prospective Clients to aid them in selecting
+        qualified Providers for their projects.&nbsp; You may stop at any time and
+        save your responses.&nbsp; You may return to specific questions and revise
+        responses as needed.&nbsp; Once completed, click on Submit.<div><br></div><div>Please
+        click on all applicable modules to begin the survey.</div>"}}'
+    http_version: 
+  recorded_at: Fri, 31 May 2019 05:50:32 GMT
+recorded_with: VCR 3.0.3
