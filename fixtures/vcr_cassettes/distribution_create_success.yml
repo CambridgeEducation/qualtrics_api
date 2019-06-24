@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://co1.qualtrics.com/API/v3/distributions
+    body:
+      encoding: UTF-8
+      string: '{"action":"CreateDistribution","surveyId":"SV_eVtvUQALTlL8Uzr","mailingListId":"ML_3wO6vOd0yrRezyd","description":"Foobar","linkType":"Individual"}'
+    headers:
+      X-API-TOKEN:
+      -
+      User-Agent:
+      - Faraday v0.13.1
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      request-time:
+      - '457'
+      content-type:
+      - application/json
+      content-length:
+      - '219'
+      date:
+      - Mon, 24 Jun 2019 01:48:05 GMT
+      connection:
+      - close
+      set-cookie:
+      - TRACK_TLS1_0=FALSE; path=/
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"result":{"id":"EMD_9A7FZioL5pgWZJb"},"meta":{"httpStatus":"200 -
+        OK","requestId":"91e89c39-569b-4084-9822-88c4dc30ea9f","notice":"Request proxied.
+        For faster response times, use this host instead: az1.qualtrics.com"}}'
+    http_version: 
+  recorded_at: Mon, 24 Jun 2019 01:48:01 GMT
+recorded_with: VCR 3.0.3
