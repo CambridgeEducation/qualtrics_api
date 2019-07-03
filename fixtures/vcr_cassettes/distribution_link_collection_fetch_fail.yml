@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://co1.qualtrics.com/API/v3/distributions/EMD_9A7FZioL5pgxxxx/links?surveyId=SV_eVtvUQALTlL8Uzr
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-API-TOKEN:
+      -
+      User-Agent:
+      - Faraday v0.13.1
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      content-type:
+      - application/json
+      content-length:
+      - '259'
+      date:
+      - Wed, 03 Jul 2019 21:59:05 GMT
+      connection:
+      - close
+      set-cookie:
+      - TRACK_TLS1_0=FALSE; path=/
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"httpStatus":"404 - Not Found","error":{"errorMessage":"Distribution
+        not found.","errorCode":"GED_3"},"requestId":"08d8caf1-ad8c-4170-a5f6-0f393ce4bc8a","notice":"Request
+        proxied. For faster response times, use this host instead: az1.qualtrics.com"}}'
+    http_version: 
+  recorded_at: Wed, 03 Jul 2019 21:59:04 GMT
+recorded_with: VCR 3.0.3

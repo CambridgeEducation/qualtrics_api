@@ -1,17 +1,16 @@
 module QualtricsAPI
   class DistributionLinkCollection < BaseCollection
-    def each(survey_id, distribution_id)
-      each_page(survey_id, distribution_id) do |page|
-        page.each do |element|
-          yield element
-        end
-      end
+    def initialize(survey_id, distribution_id)
+      @survey_id = survey_id
+      @distribution_id = distribution_id
     end
 
-    def each_page(survey_id, distribution_id)
-      endpoint = list_endpoint(survey_id, distribution_id)
-      response = QualtricsAPI.connection(self).get(endpoint)
-      parse_page(response)
+    def [](distribution_link_id)
+      find(distribution_link_id)
+    end
+
+    def find(distribution_link_id)
+      raise NotImplementedError
     end
 
     private
@@ -20,8 +19,8 @@ module QualtricsAPI
       QualtricsAPI::DistributionLink.new(element)
     end
 
-    def list_endpoint(survey_id, distribution_id)
-      "distributions/#{distribution_id}/links?surveyId=#{survey_id}"
+    def list_endpoint
+      "distributions/#{@distribution_id}/links?surveyId=#{@survey_id}"
     end
   end
 end
