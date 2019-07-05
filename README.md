@@ -1,6 +1,13 @@
 [![Gem Version](https://badge.fury.io/rb/qualtrics_api.svg)](http://badge.fury.io/rb/qualtrics_api)
-[![Dependency Status](https://gemnasium.com/pallymore/qualtrics_api.svg)](https://gemnasium.com/pallymore/qualtrics_api)
 [![Build Status](https://travis-ci.org/CambridgeEducation/qualtrics_api.svg)](https://travis-ci.org/CambridgeEducation/qualtrics_api)
+
+### Maintenance Mode
+
+Hi - Cambridge Education have moved away from Qualtrics and started using a different survey platform since 2018.
+As a result of that - we've stopped developing API integrations with Qualtrics, this repo is officially in maintenance mode.
+However, please feel free to open pull requests / ask questions, I will try my best to review them. Thanks!
+
+- Yurui
 
 # QualtricsAPI
 
